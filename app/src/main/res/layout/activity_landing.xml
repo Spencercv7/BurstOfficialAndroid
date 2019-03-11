@@ -18,13 +18,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/get_started_button"/>
+        app:layout_constraintBottom_toTopOf="@id/get_started_button"
+        tools:ignore = "ContentDescription"/>
 
     <TextView
         android:id="@+id/find_passion_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find Your Passion"
+        android:text="@string/find_passion"
         android:textColor="#000"
         android:textSize="28sp"
         app:layout_constraintTop_toBottomOf="@id/landing_logo"
@@ -35,7 +36,7 @@
         android:id="@+id/keep_touch_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Keep in touch with the latest events and everything happening on campus"
+        android:text="@string/keep_touch"
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/find_passion_text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +49,7 @@
         android:id="@+id/get_started_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="GET STARTED"
+        android:text="@string/get_started_caps"
         android:textSize="16sp"
         app:backgroundTint="#f16262"
         app:layout_constraintVertical_bias="0.4"
@@ -63,7 +64,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#fff"
-        android:text="LOGIN"
+        android:text="@string/login_caps"
         android:textColor="#f16262"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
