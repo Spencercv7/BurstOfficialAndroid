@@ -6,4 +6,20 @@
     <string name="button_label_enabled">BACK</string>
     <string name="profile_str">PROFILE ></string>
     <string name="program_label">Program</string>
+
+    <!-- Strings for layout activity_school_an.xml -->
+    <string name="login">Login</string>
+    <string name="login_info">with your Burst account or Facebook</string>
+    <string name="email_phone">Email or phone</string>
+    <string name="password">Password</string>
+    <string name="facebook_login">Login with Facebook</string>
+    <string name="forgot_pass">Forgot password?</string>
+    <string name="login_caps">LOGIN</string>
+    <string name="back_caps">BACK</string>
+
+    <!-- Strings for layout activity_landing.xml -->
+    <string name="find_passion">Find Your Passion</string>
+    <string name="keep_touch">Keep in touch with the latest events and everything happening on campus</string>
+    <string name="get_started_caps">GET STARTED</string>
+
 </resources>
