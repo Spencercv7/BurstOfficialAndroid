@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Burst Android</string>
     <string name="text_str">Customize your feed to get events happening on your campus</string>
-    <string name="backgroundlogo">backgroundLogo</string>
-    <string name="defult_school_search">Not Your School?</string>
+    <string name="background_logo_desc">Background Burst Logo</string>
+    <string name="default_school_search">Not Your School?</string>
     <string name="button_label_enabled">BACK</string>
     <string name="profile_str">PROFILE ></string>
     <string name="program_label">Program</string>
@@ -21,5 +21,6 @@
     <string name="find_passion">Find Your Passion</string>
     <string name="keep_touch">Keep in touch with the latest events and everything happening on campus</string>
     <string name="get_started_caps">GET STARTED</string>
+    <string name="events_around_you">Events Around You</string>
 
 </resources>

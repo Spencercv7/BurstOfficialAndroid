@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="25dp"
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/landing_logo"
@@ -47,7 +47,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/get_started_button"
-        android:layout_width="150dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:text="@string/get_started_caps"
         android:textSize="16sp"
@@ -57,11 +57,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintTop_toBottomOf="@+id/keep_touch_text"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
-        android:layout_width="150dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#fff"
         android:text="@string/login_caps"
@@ -70,6 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_started_button" />
+        app:layout_constraintTop_toBottomOf="@+id/get_started_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
