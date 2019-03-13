@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/viewFlipper"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <include android:id="@+id/landing_layout"
+             layout="@layout/activity_landing"/>
+    <include android:id="@+id/login_layout"
+             layout="@layout/activity_login"/>
+    <include android:id="@+id/school_layout"
+             layout="@layout/activity_school_an"/>
+</ViewFlipper>
