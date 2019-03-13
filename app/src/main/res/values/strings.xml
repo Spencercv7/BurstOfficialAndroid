@@ -22,5 +22,11 @@
     <string name="keep_touch">Keep in touch with the latest events and everything happening on campus</string>
     <string name="get_started_caps">GET STARTED</string>
     <string name="events_around_you">Events Around You</string>
+    <string name="import_class_calendar_caps">IMPORT CLASS CALENDAR</string>
+    <string name="google_calendar_caps">CONNECT TO GOOGLE CALENDAR</string>
+    <string name="profile_caps">PROFILE</string>
+    <string name="skip_button_text"><![CDATA[SKIP >]]></string>
+    <string name="calendar_subtitle_text">Burst can manage your events and figure out when you are free to go</string>
+    <string name="calendar_title_text">Connect to Your Calendar</string>
 
 </resources>
