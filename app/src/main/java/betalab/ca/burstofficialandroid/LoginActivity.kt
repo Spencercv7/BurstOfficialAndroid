@@ -1,7 +1,6 @@
 package betalab.ca.burstofficialandroid
 
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         }
         instantiateListeners()
     }
-    fun instantiateListeners() {
+    private fun instantiateListeners() {
         //landing screen
         get_started_button.setOnClickListener { register() }
         login_button.setOnClickListener { launchLoginScreen() }
@@ -37,16 +36,16 @@ class LoginActivity : AppCompatActivity() {
         //activity_school_an screen
         button_back.setOnClickListener { back() }
     }
-    fun back() {
+    private fun back() {
         viewFlipper.displayedChild = landingNumber
     }
-    fun loginToApp() {
+    private fun loginToApp() {
         Toast.makeText(this, "Logging in", Toast.LENGTH_SHORT).show()
     }
-    fun register() {
+    private fun register() {
         viewFlipper.displayedChild = schoolNumber
     }
-    fun launchLoginScreen() {
+    private fun launchLoginScreen() {
         viewFlipper.displayedChild = loginNumber
     }
 
