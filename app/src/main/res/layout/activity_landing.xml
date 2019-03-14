@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp"
+    android:padding="20dp"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -13,65 +13,51 @@
         android:layout_height="wrap_content"
         android:scaleX="0.75"
         android:scaleY="0.75"
-        app:layout_constraintVertical_bias="0.4"
-        app:srcCompat="@drawable/ic_main_logo"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/get_started_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/get_started_button"
-        tools:ignore = "ContentDescription"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@drawable/ic_main_logo"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/find_passion_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/TitleText"
         android:text="@string/find_passion"
-        android:textColor="#000"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@id/landing_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/landing_logo" />
 
     <TextView
         android:id="@+id/keep_touch_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/SubTitleText"
         android:text="@string/keep_touch"
-        android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@id/find_passion_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="#000"
-        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/find_passion_text"
         tools:layout_editor_absoluteY="258dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/get_started_button"
+        style="@style/RedButton_WhiteText"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
         android:text="@string/get_started_caps"
-        android:textSize="16sp"
-        app:backgroundTint="#f16262"
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintTop_toBottomOf="@+id/keep_touch_text"
-        app:layout_constraintVertical_chainStyle="packed"
-        />
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
+        style="@style/WhiteButton_RedText"
         android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#fff"
         android:text="@string/login_caps"
-        android:textColor="#f16262"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/get_started_button"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/get_started_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
