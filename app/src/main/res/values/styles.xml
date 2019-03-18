@@ -62,8 +62,7 @@
     <style name="TextBox_Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">56dp</item>
-        <item name="android:textColor">black</item>
-        <item name="android:textColorHint">black</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
 

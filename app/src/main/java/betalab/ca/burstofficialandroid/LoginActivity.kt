@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_calendar.*
 import kotlinx.android.synthetic.main.activity_landing.*
 import kotlinx.android.synthetic.main.activity_login.*
-//import kotlinx.android.synthetic.main.activity_notifications.*
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.activity_school_an.*
+import kotlinx.android.synthetic.main.notif_an.*
+import kotlinx.android.synthetic.main.profile_picture_an.*
 
 class LoginActivity : AppCompatActivity() {
     private val landingNumber = 0
@@ -39,18 +41,17 @@ class LoginActivity : AppCompatActivity() {
         back_button_login.setOnClickListener { back() }
 
         //activity_school_an screen
-//        button_back.setOnClickListener { back() }
-//        button_profile.setOnClickListener { profile() } //temp will change later
-//
-//        profile_back.setOnClickListener { register() }
-//        profile_next_calendar.setOnClickListener { calendar() }
+        button_back.setOnClickListener { back() }
+        button_profile.setOnClickListener { profile() } //temp will change later
 
-        //activity_calendar screen
-        calendar_back.setOnClickListener { back() }
+        skip_button_notifications.setOnClickListener { interests() }
+        location_button_notifications.setOnClickListener { calendar() }
+
+        calendar_button_profile.setOnClickListener { calendar() }
+        location_button_profile.setOnClickListener { register() }
+
+        calendar_back.setOnClickListener { profile() }
         calendar_skip.setOnClickListener { notifications() }
-
-        //notification_skip.setOnClickListener { interests() }
-        //notifications_back.setOnClickListener { calendar() }
 
 
     }

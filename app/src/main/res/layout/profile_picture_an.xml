@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
+    <ImageView
+            android:contentDescription="@string/background_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:clickable="false"/>
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_edit_text"
+            android:id="@+id/name_register"
             style="@style/TextBox_Outlined"
             android:hint="@string/name_str"
             app:boxStrokeColor="#808080"
@@ -17,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-               android:id="@+id/activity_name"
+               android:id="@+id/name_register_edittext"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:imeOptions="actionGo"
@@ -29,17 +38,17 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_edit_text"
+            android:id="@+id/email_register"
             style="@style/TextBox_Outlined"
             android:layout_marginTop="16dp"
             android:hint="@string/email_str"
             app:boxStrokeColor="#808080"
-            app:layout_constraintTop_toBottomOf="@id/name_edit_text"
+            app:layout_constraintTop_toBottomOf="@id/name_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/activity_Email"
+                android:id="@+id/email_register_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionGo"
@@ -50,17 +59,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_edit_text"
+            android:id="@+id/password_register"
             style="@style/TextBox_Outlined"
             android:layout_marginTop="16dp"
             android:hint="@string/password_str"
             app:boxStrokeColor="#808080"
-            app:layout_constraintTop_toBottomOf="@id/email_edit_text"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleContentDescription="Toggle password visibility"
+            app:layout_constraintTop_toBottomOf="@id/email_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/activity_password"
+                android:id="@+id/password_register_edittet"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionGo"
@@ -70,30 +81,42 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.card.MaterialCardView
-            android:id="@+id/image_card"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:layout_constraintBottom_toTopOf="@id/name_edit_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="38dp"
-            app:layout_constraintCircleRadius="90dp">
-    </com.google.android.material.card.MaterialCardView>
+    <ImageView android:id="@+id/image_card"
+                android:layout_width="120dp"
+               android:layout_height="120dp"
+               app:layout_constraintBottom_toTopOf="@id/name_register"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:layout_marginBottom="38dp"
+                android:src="@drawable/spaceman"
+               android:contentDescription="@string/set_profile_picture"
+                />
+    <ImageView android:id="@+id/camera_image"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:layout_constraintTop_toTopOf="@id/image_card"
+               app:layout_constraintBottom_toBottomOf="@id/image_card"
+               app:layout_constraintStart_toStartOf="@id/image_card"
+               app:layout_constraintEnd_toEndOf="@id/image_card"
+               android:src="@drawable/ic_camera_alt_black_24dp"
+                android:tint="@android:color/darker_gray"
+               tools:ignore="ContentDescription"
+
+    />
 
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/location_button"
+            android:id="@+id/location_button_profile"
             style="@style/TextButton_GreyText"
+            android:text="@string/location_str"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/location_str"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/calendar_button"
-            style="@style/WhiteButton_RedText"
+            android:id="@+id/calendar_button_profile"
+            style="@style/TextButton_RedText"
+            android:text="@string/calendar_str_arrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/calender_str"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView style="@style/TitleText"
             android:text="@string/profile_pic_header"

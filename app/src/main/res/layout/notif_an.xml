@@ -4,8 +4,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="16dp">
-
+        android:padding="20dp">
+    <ImageView
+            android:contentDescription="@string/background_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/background_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:clickable="false"/>
     <com.google.android.material.button.MaterialButton
             android:id="@+id/enable_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,19 +39,18 @@
               app:layout_constraintBottom_toTopOf="@id/notif_subtitle"
               android:text="@string/notifications_str"
               android:layout_marginBottom="4dp"/>
-
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/location_button"
+            android:id="@+id/location_button_notifications"
             style="@style/TextButton_GreyText"
+            android:text="@string/calendar_str"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/calendar_str"/>
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/calendar_button"
-            style="@style/WhiteButton_RedText"
+            android:id="@+id/skip_button_notifications"
+            style="@style/TextButton_RedText"
+            android:text="@string/skip_str"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/skip_str"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginActivity"
-        tools:contextDescription="Burst Android.">
+        tools:contextDescription="Burst Android."
+        android:padding="20dp">
     <TextView
             android:text="@string/events_around_you"
             android:layout_width="wrap_content"
@@ -36,10 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/customize_text"
             android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.CardView" android:id="@+id/school_card"
@@ -58,8 +57,6 @@
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/school_card"
@@ -79,9 +76,7 @@
                     app:layout_constraintStart_toEndOf="@+id/search_image"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:hint="@string/default_school_search"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
+                    android:hint="@string/default_school_search">
                 <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/activity_school_an_school"
                         android:layout_width="match_parent"
@@ -112,40 +107,33 @@
             app:backgroundTint="@android:color/transparent"
             android:textColor="@android:color/black"
             android:layout_marginTop="25dp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textAlignment="viewStart" android:textAllCaps="false"
             android:textSize="18sp"/>
 
     <ImageView
-            android:layout_width="291dp"
-            android:layout_height="304.4dp" app:srcCompat="@drawable/group_97" android:id="@+id/backgroundLogo"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/background_logo_desc"/>
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_back"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="69dp"
-            android:layout_height="48dp"
-            android:text="@string/button_label_enabled"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:elevation="0dp"
-            app:backgroundTint="@android:color/transparent"
-            android:textColor="@android:color/tertiary_text_light"
-            />
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_profile"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:contentDescription="@string/background_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/background_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:clickable="false"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_back"
+            style="@style/TextButton_GreyText"
+            android:text="@string/button_label_enabled"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_profile"
+            style="@style/TextButton_RedText"
             android:text="@string/profile_str"
-            android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@android:color/transparent" app:backgroundTint="@android:color/transparent"
-            android:textColor="@android:color/tertiary_text_light" android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
