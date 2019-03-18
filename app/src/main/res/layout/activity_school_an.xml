@@ -7,7 +7,53 @@
         android:layout_height="match_parent"
         tools:context=".LoginActivity"
         tools:contextDescription="Burst Android.">
-
+    <TextView
+            android:text="@string/events_around_you"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
+            android:id="@+id/around_you_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"/>
+    <TextView
+            android:text="@string/text_str"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:id="@+id/customize_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/around_you_text"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"/>
+    <com.google.android.material.card.MaterialCardView
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/customize_text"
+            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.CardView" android:id="@+id/school_card"
+            app:cardBackgroundColor="@color/design_default_color_primary"
+            app:cardCornerRadius="5dp">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/mask_group_10"
+                android:id="@+id/card_pic"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:contentDescription="@string/app_name"/>
+    </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
             style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
@@ -16,7 +62,7 @@
             android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_program"
+            app:layout_constraintTop_toBottomOf="@id/school_card"
             app:cardBackgroundColor="#ffffff"
             app:cardCornerRadius="5dp" android:id="@+id/searchBar_card" app:cardElevation="16dp">
 
@@ -55,54 +101,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_program"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/program_label"
+            app:layout_constraintTop_toBottomOf="@id/searchBar_card"
+            android:background="@android:color/transparent"
+            app:backgroundTint="@android:color/transparent"
+            android:textColor="@android:color/black"
             android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@id/searchBar_card"
-            android:layout_width="match_parent"
-            style="@style/Widget.MaterialComponents.CardView" android:id="@+id/school_card"
-            app:cardBackgroundColor="@color/design_default_color_primary"
-            app:cardCornerRadius="5dp">
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/mask_group_10"
-                android:id="@+id/card_pic"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:contentDescription="@string/app_name"/>
-    </com.google.android.material.card.MaterialCardView>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/around_you_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/customize_text"
-            tools:text="@string/events_around_you" android:textSize="24sp" android:textAlignment="center"
-            android:textColor="@android:color/black"/>
-    <TextView
-            android:text="@string/text_str"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:id="@+id/customize_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/around_you_text"
-            app:layout_constraintBottom_toTopOf="@id/school_card"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"/>
+            android:textAlignment="viewStart" android:textAllCaps="false"
+            android:textSize="18sp"/>
+
     <ImageView
             android:layout_width="291dp"
             android:layout_height="304.4dp" app:srcCompat="@drawable/group_97" android:id="@+id/backgroundLogo"
@@ -123,30 +139,13 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/button_profile"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="104dp"
-            android:layout_height="48dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/profile_str"
             android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
             android:background="@android:color/transparent" app:backgroundTint="@android:color/transparent"
             android:textColor="@android:color/tertiary_text_light" android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"/>
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_program"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/program_label"
-            app:layout_constraintTop_toBottomOf="@id/searchBar_card"
-            android:background="@android:color/transparent"
-            app:backgroundTint="@android:color/transparent"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.505" android:textAlignment="viewStart" android:textAllCaps="false"
-            android:textSize="18sp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
