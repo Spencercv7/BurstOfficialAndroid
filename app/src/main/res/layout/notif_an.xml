@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="16dp">
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/enable_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="120dp"
+            style="@style/RedButton_WhiteText"
+            android:text="@string/enable_str"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:id="@+id/notif_subtitle"
+              style="@style/SubTitleText"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintBottom_toTopOf="@id/enable_button"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:text="@string/notif_discription"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              style="@style/TitleText"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintBottom_toTopOf="@id/notif_subtitle"
+              android:text="@string/notifications_str"
+              android:layout_marginBottom="4dp"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/location_button"
+            style="@style/TextButton_GreyText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/calendar_str"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/calendar_button"
+            style="@style/WhiteButton_RedText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/skip_str"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

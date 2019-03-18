@@ -28,6 +28,18 @@
     <string name="skip_button_text"><![CDATA[SKIP >]]></string>
     <string name="calendar_subtitle_text">Burst can manage your events and figure out when you are free to go</string>
     <string name="calendar_title_text">Connect to Your Calendar</string>
+    <string name="name_str">Name</string>
+    <string name="email_str">Email</string>
+    <string name="location_str">Location</string>
+    <string name="calender_str"><![CDATA[Calender >]]></string>
+    <string name="profile_pic_header">How can I call you?</string>
+    <string name="password_str">Password</string>
+    <string name="notif_discription">This way you will get our event reminders so you won\'t miss the good moments
+    </string>
+    <string name="notifications_str">Notifications</string>
+    <string name="calendar_str">Calendar</string>
+    <string name="skip_str"><![CDATA[Skip >]]></string>
+    <string name="enable_str">ENABLE</string>
     <string name="enable">ENABLE</string>
     <string name="notifications">Notifications</string>
     <string name="notification_sub_text">This way you will get our event reminders so you won\'t miss the good moments
