@@ -59,6 +59,12 @@
         <item name="android:textColor">#f16262</item>
         <item name="android:textSize">16sp</item>
     </style>
+    <style name="TextBox_Outlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:textColor">black</item>
+        <item name="android:textColorHint">black</item>
+    </style>
 
 
 </resources>
