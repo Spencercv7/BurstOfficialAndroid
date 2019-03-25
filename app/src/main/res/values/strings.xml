@@ -7,6 +7,7 @@
     <string name="profile_str">PROFILE ></string>
     <string name="program_label">Program</string>
 
+
     <!-- Strings for layout activity_school_an.xml -->
     <string name="login">Login</string>
     <string name="login_info">with your Burst account or Facebook</string>
@@ -34,7 +35,7 @@
     <string name="calender_str"><![CDATA[Calender >]]></string>
     <string name="profile_pic_header">What can I call you?</string>
     <string name="password_str">Password</string>
-    <string name="notif_discription">This way you will get our event reminders so you won\'t miss the good moments
+    <string name="notif_description">This way you will get our event reminders so you won\'t miss the good moments
     </string>
     <string name="notifications_str">Notifications</string>
     <string name="calendar_str">Calendar</string>
@@ -55,5 +56,27 @@
     <string name="background_logo">Background logo</string>
     <string name="calendar_str_arrow">CALENDAR ></string>
     <string name="set_profile_picture">Set profile picture</string>
+
+    <!-- Strings for explore fragment -->
+    <string name="discovery">Discovery</string>
+    <string name="events_clubs_people">Events, clubs, people</string>
+
+    <!-- Placeholder strings for explore fragment -->
+    <string name="place_holder_image">Place holder image</string>
+    <string name="queens_civil_eng_club">Queen\'s Civil Eng Club</string>
+    <string name="ellis_hall_324">Ellis Hall 324</string>
+    <string name="placeholder_date">February 2, 2019\n4:30PM - 6:30PM</string>
+    <string name="japanese_architecture_studies">Japanese Architecture Studies</string>
+    <string name="placeholder_desc">Selection of old, beautiful, wooden structures, elevated slightly off the ground,
+        with tiled or thatched roofs…</string>
+    <string name="queens_university">Queen\'s University</string>
+    <string name="hosting_an_event">Hosting an event?</string>
+    <string name="list_yours_caps">LIST YOURS</string>
+    <string name="all_events_caps">ALL EVENTS</string>
+    <string name="engineering">Engineering</string>
+    <string name="politics">Politics</string>
+    <string name="by_faculty">By Faculty</string>
+    <string name="by_interests">By Interests</string>
+
 
 </resources>
