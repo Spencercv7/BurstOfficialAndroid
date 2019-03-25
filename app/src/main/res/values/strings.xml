@@ -56,6 +56,18 @@
     <string name="background_logo">Background logo</string>
     <string name="calendar_str_arrow">CALENDAR ></string>
     <string name="set_profile_picture">Set profile picture</string>
+    <string name="title_activity_frag_ses">frag_ses</string>
+    <string name="this_week_str">This Week</string>
+    <string name="today_str">Today</string>
+    <string name="happening_str">What\'s Happening</string>
+    <string name="home_card_label"/>
+    <string name="home_card_desc"/>
+    <string name="home_card_date"/>
+    <string name="home_card_time"/>
+    <string name="home_card_location"/>
+    <string name="card_class_label"/>
+    <string name="card_class_description"/>
+    <string name="card_class_time"/>
 
     <!-- Strings for explore fragment -->
     <string name="discovery">Discovery</string>
