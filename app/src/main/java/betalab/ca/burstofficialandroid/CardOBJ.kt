@@ -1,4 +1,4 @@
-package betalab.ca.burstandroid
+package betalab.ca.burstofficialandroid
 
 import java.io.Serializable
 

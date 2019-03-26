@@ -1,10 +1,9 @@
-package betalab.ca.burstandroid
+package betalab.ca.burstofficialandroid
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.R
 
 class HomeEventCardAdapter(private val textToBind : Array<CardOBJ>) : RecyclerView.Adapter<HomeEventCardAdapter.ViewHolder>() {
 
@@ -16,7 +15,7 @@ class HomeEventCardAdapter(private val textToBind : Array<CardOBJ>) : RecyclerVi
         val cardLoc : TextView = view.findViewById(R.id.card_location)
 }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeEventCardAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_card_event, parent, false) as ViewGroup
         return ViewHolder(view)

@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class ExploreFragment : Fragment() {
-
+    companion object {
+        fun newInstance(): ExploreFragment{
+            return ExploreFragment()
+        }
+    }
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {

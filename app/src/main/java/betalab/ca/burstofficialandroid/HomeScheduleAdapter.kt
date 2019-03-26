@@ -1,10 +1,9 @@
-package betalab.ca.burstandroid
+package betalab.ca.burstofficialandroid
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.R
 
 class HomeScheduleAdapter(private val textToBind : Array<ScheduleCardOBJ>) : RecyclerView.Adapter<HomeScheduleAdapter.ViewHolder>() {
 
@@ -14,7 +13,7 @@ class HomeScheduleAdapter(private val textToBind : Array<ScheduleCardOBJ>) : Rec
         val scheduleTime : TextView = view.findViewById(R.id.schedule_time)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeScheduleAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_card_schedual, parent, false) as ViewGroup
         return ViewHolder(view)

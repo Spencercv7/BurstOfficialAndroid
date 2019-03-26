@@ -37,12 +37,10 @@
     <string name="password_str">Password</string>
     <string name="notif_description">This way you will get our event reminders so you won\'t miss the good moments
     </string>
-    <string name="notifications_str">Notifications</string>
     <string name="calendar_str">Calendar</string>
     <string name="skip_str"><![CDATA[Skip >]]></string>
     <string name="enable_str">ENABLE</string>
     <string name="enable">ENABLE</string>
-    <string name="notifications">Notifications</string>
     <string name="notification_sub_text">This way you will get our event reminders so you won\'t miss the good moments
     </string>
     <string name="what_are_you_interested_in">What are you interested in?</string>
@@ -89,6 +87,10 @@
     <string name="politics">Politics</string>
     <string name="by_faculty">By Faculty</string>
     <string name="by_interests">By Interests</string>
+    <string name="home">Home</string>
+    <string name="explore">Explore</string>
+    <string name="calendar">Calendar</string>
+    <string name="notifications">Notifications</string>
 
 
 </resources>

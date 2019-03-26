@@ -30,14 +30,14 @@
               app:layout_constraintBottom_toTopOf="@id/enable_button"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
-              android:text="@string/notif_discription"/>
+              android:text="@string/notif_description"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               style="@style/TitleText"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintBottom_toTopOf="@id/notif_subtitle"
-              android:text="@string/notifications_str"
+              android:text="@string/notifications"
               android:layout_marginBottom="4dp"/>
     <com.google.android.material.button.MaterialButton
             android:id="@+id/location_button_notifications"

@@ -1,4 +1,4 @@
-package betalab.ca.burstandroid
+package betalab.ca.burstofficialandroid
 
 data class ScheduleCardOBJ(
     var label: String? = null,

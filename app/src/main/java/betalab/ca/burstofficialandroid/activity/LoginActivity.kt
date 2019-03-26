@@ -1,9 +1,10 @@
-package betalab.ca.burstofficialandroid
+package betalab.ca.burstofficialandroid.activity
 
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import betalab.ca.burstofficialandroid.R
 import kotlinx.android.synthetic.main.activity_calendar.*
 import kotlinx.android.synthetic.main.activity_landing.*
 import kotlinx.android.synthetic.main.activity_login.*
