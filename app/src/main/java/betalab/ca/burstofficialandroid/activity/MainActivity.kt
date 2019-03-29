@@ -29,9 +29,13 @@ class MainActivity : FragmentActivity() {
                     R.id.group_item2 -> {
                         viewPager.currentItem = 1
                     }
-                    else -> {
-                        viewPager.currentItem = 0
+                    R.id.group_item3 -> {
+                        viewPager.currentItem = 2
                     }
+                    R.id.group_item4 -> {
+                        viewPager.currentItem = 3
+                    }
+
                 }
                 true
             }
