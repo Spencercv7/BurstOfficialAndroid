@@ -10,7 +10,7 @@ class LaunchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val intent = Intent(this, LoginActivity::class.java).apply {
             addFlags(FLAG_ACTIVITY_NEW_TASK)
         }
         startActivity(intent)

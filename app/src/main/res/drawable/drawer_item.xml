@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:drawable="@drawable/drawer_checked_rectangle"
+            android:state_checked= "true" />
+    <item android:drawable="@drawable/drawer_rectangle" />
+</selector>
