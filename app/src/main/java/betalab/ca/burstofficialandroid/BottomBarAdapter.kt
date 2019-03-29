@@ -9,11 +9,12 @@ class BottomBarAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
     override fun getItem(position: Int): Fragment {
         return when(position){
             0 -> HomeFragment.newInstance()
-            else -> ExploreFragment.newInstance()
+            1 -> ExploreFragment.newInstance()
+            else -> NotificationFragment.newInstance()
         }
     }
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 }

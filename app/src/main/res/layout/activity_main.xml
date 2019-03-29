@@ -31,7 +31,9 @@
         <ImageView android:id="@+id/main_profile_pic"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:src="@drawable/profile_pic_placeholder"
+                   android:src="@drawable/icon_profile_filled"
+                   android:scaleY="1.4"
+                   android:scaleX="1.4"
                    app:layout_constraintTop_toTopOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintBottom_toBottomOf="@id/main_toolbar"
@@ -81,7 +83,7 @@
             app:headerLayout="@layout/drawer_header"
             app:itemIconTint="@color/drawer_item_icon"
             app:itemTextColor="@color/drawer_item_text"
-            app:itemBackground="@drawable/drawer_item"
+            app:itemBackground="@drawable/drawer_item_state_colors"
             app:itemTextAppearance="@style/Drawer_Item_Text"
             app:menu="@menu/drawer_menu">
 

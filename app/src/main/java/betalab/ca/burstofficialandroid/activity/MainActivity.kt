@@ -47,8 +47,8 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
                         mainTitleText.visibility = View.GONE
                     }
                     else -> {
-                        viewPager.currentItem = 0
-                        mainTitleText.visibility = View.VISIBLE
+                        viewPager.currentItem = 2
+                        mainTitleText.visibility = View.GONE
                     }
                 }
                 true
