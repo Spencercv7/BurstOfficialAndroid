@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.Model.Notification
+import betalab.ca.burstofficialandroid.model.Notification
 
 class NotificationFragment : Fragment() {
 

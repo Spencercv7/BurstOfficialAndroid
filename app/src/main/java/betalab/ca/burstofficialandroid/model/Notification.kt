@@ -1,4 +1,4 @@
-package betalab.ca.burstofficialandroid.Model
+package betalab.ca.burstofficialandroid.model
 
 data class Notification(
     var description: String?,
