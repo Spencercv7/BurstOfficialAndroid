@@ -11,11 +11,12 @@ class BottomBarAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
             0 -> HomeFragment.newInstance()
             1 -> ExploreFragment.newInstance()
             2 -> FloatingButton.newInstance()
-            else -> ExploreFragment.newInstance()
+            3 -> ExploreFragment.newInstance()
+            else -> NotificationFragment.newInstance()
         }
     }
 
     override fun getCount(): Int {
-        return 4
+        return 5
     }
 }
