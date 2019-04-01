@@ -25,7 +25,6 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
 
             setUpNavigationDrawer()
             setFragment(1) //open main fragment
-            //setupViewPager()
 
             main_profile_pic.setOnClickListener {
                 setFragment(5) //open profile fragment
