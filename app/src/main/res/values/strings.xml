@@ -99,6 +99,8 @@
     <string name="campus_map">Campus Map</string>
     <string name="catalog">Catalog</string>
     <string name="resources">Resources</string>
+    <string name="profile">Profile</string>
+
 
     <!-- New Event Strings -->
     <string name="simple_date_format_str">MM, dd, yyyy</string>

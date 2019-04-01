@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.Model.Notification
+import betalab.ca.burstofficialandroid.model.Notification
 import kotlinx.android.synthetic.main.notifications_recycler_card.view.*
 
 class NotificationAdapter(private var myDataSet: MutableList<Notification>) : RecyclerView.Adapter<NotificationAdapter.MyViewHolder>() {
