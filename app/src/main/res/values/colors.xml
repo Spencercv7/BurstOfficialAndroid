@@ -5,7 +5,9 @@
     <color name="colorAccent">#000</color>
     <color name="coral">#f16262</color>
     <color name="white">#fff</color>
+    <color name="light_coral">#ffe0e0</color>
     <color name="black">#000</color>
     <color name="light_grey">#D3D3D3</color>
     <color name="black_30">#4D000000</color>
+    <color name="default_background">#FAFAFA</color>
 </resources>

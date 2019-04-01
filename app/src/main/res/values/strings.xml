@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Burst Android</string>
+    <string name="burst">Burst</string>
     <string name="text_str">Customize your feed to get events happening on your campus</string>
     <string name="background_logo_desc">Background Burst Logo</string>
     <string name="default_school_search">Not Your School?</string>
     <string name="button_label_enabled">BACK</string>
     <string name="profile_str">PROFILE ></string>
     <string name="program_label">Program</string>
+    
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 
 
     <!-- Strings for layout activity_school_an.xml -->
@@ -91,6 +96,9 @@
     <string name="explore">Explore</string>
     <string name="calendar">Calendar</string>
     <string name="notifications">Notifications</string>
+    <string name="campus_map">Campus Map</string>
+    <string name="catalog">Catalog</string>
+    <string name="resources">Resources</string>
 
 
 </resources>

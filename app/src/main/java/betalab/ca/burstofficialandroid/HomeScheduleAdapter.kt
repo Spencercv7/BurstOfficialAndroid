@@ -15,7 +15,7 @@ class HomeScheduleAdapter(private val textToBind : Array<ScheduleCardOBJ>) : Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.home_card_schedual, parent, false) as ViewGroup
+            .inflate(R.layout.home_card_schedule, parent, false) as ViewGroup
         return ViewHolder(view)
     }
 

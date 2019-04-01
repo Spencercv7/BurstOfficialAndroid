@@ -1,5 +1,6 @@
 package betalab.ca.burstofficialandroid.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -38,14 +39,17 @@ class LoginActivity : AppCompatActivity() {
         login_button.setOnClickListener { launchLoginScreen() }
 
         //Login screen
-        login_login_button.setOnClickListener { loginToApp() }
-        back_button_login.setOnClickListener { back() }
+        login_login_button.setOnClickListener { loginToApp() }  //open main activity
+        back_button_login.setOnClickListener { back() } //back to landing
 
         //activity_school_an screen
-        button_back.setOnClickListener { back() }
+        button_back.setOnClickListener { back() }   //back to landing
         button_profile.setOnClickListener { profile() } //temp will change later
 
-        skip_button_notifications.setOnClickListener { interests() }
+        skip_button_notifications.setOnClickListener { launchLoginScreen()
+        Toast.makeText(this, "Should go to interests but skips for now", Toast.LENGTH_LONG).show()}
+        //ABOVE should go to interests but for now skip after "creating account" and goes to login so you
+        //login with newly created account
         location_button_notifications.setOnClickListener { calendar() }
 
         calendar_button_profile.setOnClickListener { calendar() }
@@ -60,7 +64,10 @@ class LoginActivity : AppCompatActivity() {
         viewFlipper.displayedChild = landingNumber
     }
     private fun loginToApp() {
-        Toast.makeText(this, "Logging in", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        startActivity(intent)
     }
     private fun register() {
         viewFlipper.displayedChild = schoolNumber
