@@ -11,17 +11,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/fab_import"
-            android:rotation="90"
             android:visibility="visible"
             app:fabSize="normal"
-            style="@style/Custom_Fab"
+            android:theme="@style/custom_fab"
+            android:rotation="90"
             app:borderWidth="0dp"
             android:src="@drawable/ic_add_black_24dp"
     />
 
     <com.google.android.material.card.MaterialCardView
-            android:layout_width="160dp"
-            android:layout_height="170dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/revealed_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -32,30 +32,45 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/button_card_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp">
+                android:layout_width="160dp"
+                android:layout_height="match_parent">
 
             <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:id="@+id/newEvent_button"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    style="@style/fab_button"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/fab_button"
                     android:text="@string/event_str"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/import_cal_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
             />
 
             <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:id="@+id/import_cal_button"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    style="@style/fab_button"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/fab_button"
                     android:text="@string/import_str"
-                    app:layout_constraintTop_toBottomOf="@id/newEvent_button"
+                    app:layout_constraintBottom_toTopOf="@id/fab_in_menu"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+            />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/fab_in_menu"
+                    app:fabSize="normal"
+                    android:theme="@style/custom_fab"
+                    app:elevation="0dp"
+                    app:borderWidth="0dp"
+                    android:src="@drawable/ic_add_black_24dp"
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

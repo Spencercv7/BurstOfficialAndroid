@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         startActivity(intent)
+        finish()
     }
     private fun register() {
         viewFlipper.displayedChild = schoolNumber

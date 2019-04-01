@@ -18,48 +18,46 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.google.android.material.navigation.NavigationView
 
 
-
-
-
 class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener {
-        private var pagerAdapter: BottomBarAdapter? = null
-        private lateinit var drawer: DrawerLayout
-        private lateinit var navigationView: NavigationView
+    private var pagerAdapter: BottomBarAdapter? = null
+    private lateinit var drawer: DrawerLayout
+    private lateinit var navigationView: NavigationView
 
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(betalab.ca.burstofficialandroid.R.layout.activity_main)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(betalab.ca.burstofficialandroid.R.layout.activity_main)
 
-            setUpNavigationDrawer()
+        setUpNavigationDrawer()
 
-            setupViewPager()
+        setupViewPager()
 
-            val mainTitleText = findViewById<TextView>(R.id.main_title_text)
-            bottom_navigation.setOnNavigationItemSelectedListener {
-                when(it.itemId) {
-                    R.id.group_item1 -> {
-                        viewPager.currentItem = 0
-                        mainTitleText.visibility = View.VISIBLE //show text Burst only on home screen
-                    }
-                    R.id.group_item2 -> {
-                        viewPager.currentItem = 1
-                        mainTitleText.visibility = View.GONE
-                    }
-                    R.id.group_item3 -> {
-                        viewPager.currentItem = 2
-                    }
-                    R.id.group_item4 -> {
-                        viewPager.currentItem = 3
-                    else -> {
-                        viewPager.currentItem = 2
-                        mainTitleText.visibility = View.GONE
-                    }
-
+        val mainTitleText = findViewById<TextView>(R.id.main_title_text)
+        bottom_navigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.group_item1 -> {
+                    viewPager.currentItem = 0
+                    mainTitleText.visibility = View.VISIBLE //show text Burst only on home screen
                 }
-                true
+                R.id.group_item2 -> {
+                    viewPager.currentItem = 1
+                    mainTitleText.visibility = View.GONE
+                }
+                R.id.group_item3 -> {
+                    viewPager.currentItem = 2
+                }
+                R.id.group_item4 -> {
+                    viewPager.currentItem = 3
+                }
+                else -> {
+                    viewPager.currentItem = 2
+                    mainTitleText.visibility = View.GONE
+                }
+
             }
+            true
         }
+    }
 
 
     private fun setupViewPager() {
@@ -74,7 +72,13 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     private fun setUpNavigationDrawer() {
         drawer = findViewById(betalab.ca.burstofficialandroid.R.id.main_drawer_layout)
         val toolbar = findViewById<Toolbar>(betalab.ca.burstofficialandroid.R.id.main_toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, betalab.ca.burstofficialandroid.R.string.navigation_drawer_open, betalab.ca.burstofficialandroid.R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawer,
+            toolbar,
+            betalab.ca.burstofficialandroid.R.string.navigation_drawer_open,
+            betalab.ca.burstofficialandroid.R.string.navigation_drawer_close
+        )
         drawer.addDrawerListener(toggle) //create toggle icon that comes with animation
         toggle.syncState()
 
@@ -85,7 +89,7 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.drawer_campus_map_item -> //toasts in place for indication of item clicked
                 Toast.makeText(this, "Campus Map", Toast.LENGTH_LONG).show()
             R.id.drawer_catalog_item ->
@@ -98,14 +102,12 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     }
 
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){  //if back pressed and nav drawer open
+        if (drawer.isDrawerOpen(GravityCompat.START)) {  //if back pressed and nav drawer open
             drawer.closeDrawer(GravityCompat.START)
-        }
-        else{
+        } else {
             super.onBackPressed()
         }
     }
-
 
 
 }
