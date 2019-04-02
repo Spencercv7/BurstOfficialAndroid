@@ -4,18 +4,18 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <include android:id="@+id/landing_layout"
-             layout="@layout/activity_landing"/>
-    <include android:id="@+id/login_layout"
-             layout="@layout/activity_login"/>
-    <include android:id="@+id/school_layout"
-             layout="@layout/activity_school_an"/>
-    <include android:id="@+id/profile_layout"
-             layout="@layout/profile_picture_an"/>
-    <include android:id="@+id/calendar_layout"
-             layout="@layout/activity_calendar"/>
-    <include android:id="@+id/notification_layout"
-             layout="@layout/notif_an"/>
-    <include android:id="@+id/interests_layout"
-             layout="@layout/activity_interests"/>
+    <include
+            layout="@layout/onboarding_landing"/>
+    <include
+            layout="@layout/onboarding_login"/>
+    <include
+            layout="@layout/onboarding_school"/>
+    <include
+            layout="@layout/onboarding_profile"/>
+    <include
+            layout="@layout/onboarding_calendar"/>
+    <include
+            layout="@layout/onboarding_notifications"/>
+    <include
+            layout="@layout/onboarding_interests"/>
 </ViewFlipper>

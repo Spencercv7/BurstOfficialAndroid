@@ -6,10 +6,10 @@
     <item android:id="@+id/group_item2"
           android:title="@string/explore"
           android:icon="@drawable/ic_search_black_24dp" />
-    <item android:id="@+id/group_item3"
-          android:title="@string/calendar"
+    <item
+            android:title="@string/calendar"
           android:icon="@drawable/ic_calendar" />
-    <item android:id="@+id/group_item4"
-          android:title="@string/notifications"
+    <item
+            android:title="@string/notifications"
           android:icon="@drawable/ic_notification" />
 </menu>

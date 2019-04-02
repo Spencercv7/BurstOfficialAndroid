@@ -2,7 +2,6 @@
     <string name="app_name">Burst Android</string>
     <string name="burst">Burst</string>
     <string name="text_str">Customize your feed to get events happening on your campus</string>
-    <string name="background_logo_desc">Background Burst Logo</string>
     <string name="default_school_search">Not Your School?</string>
     <string name="button_label_enabled">BACK</string>
     <string name="profile_str">PROFILE ></string>
@@ -37,7 +36,6 @@
     <string name="name_str">Name</string>
     <string name="email_str">Email</string>
     <string name="location_str">Location</string>
-    <string name="calender_str"><![CDATA[Calender >]]></string>
     <string name="profile_pic_header">What can I call you?</string>
     <string name="password_str">Password</string>
     <string name="notif_description">This way you will get our event reminders so you won\'t miss the good moments
@@ -45,21 +43,13 @@
     <string name="calendar_str">Calendar</string>
     <string name="skip_str"><![CDATA[Skip >]]></string>
     <string name="enable_str">ENABLE</string>
-    <string name="enable">ENABLE</string>
-    <string name="notification_sub_text">This way you will get our event reminders so you won\'t miss the good moments
-    </string>
     <string name="what_are_you_interested_in">What are you interested in?</string>
     <string name="interests">INTERESTS</string>
     <string name="search_topics">Search topics</string>
     <string name="to_be_replaced">To be replaced</string>
-    <string name="name">Name</string>
-    <string name="location">LOCATION</string>
-    <string name="calendar_arrow"><![CDATA[CALENDAR >]]></string>
-    <string name="what_can_i_call_you">What can I call you?</string>
     <string name="background_logo">Background logo</string>
     <string name="calendar_str_arrow">CALENDAR ></string>
     <string name="set_profile_picture">Set profile picture</string>
-    <string name="title_activity_frag_ses">frag_ses</string>
     <string name="this_week_str">This Week</string>
     <string name="today_str">Today</string>
     <string name="happening_str">What\'s Happening</string>
@@ -118,7 +108,7 @@
     <string name="new_event_time"/>
     <string name="event_str">EVENT</string>
     <string name="import_str">IMPORT</string>
-
+    <string name="card_logo">Card Logo</string>
 
 
 </resources>

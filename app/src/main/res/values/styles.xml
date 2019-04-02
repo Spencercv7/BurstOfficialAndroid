@@ -15,6 +15,13 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    <!--Styles for new event screen -->
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <style name="RedButton_WhiteText">
         <item name="android:layout_width">wrap_content</item>
@@ -116,12 +123,6 @@
 
     <style name="SwitchCompatTheme">
         <item name="colorControlActivated">@color/coral</item>
-    </style>
-
-    <style parent="Widget.MaterialComponents.Button.OutlinedButton" name="IconOnlyButton">
-        <item name="iconPadding">0dp</item>
-        <item name="iconGravity">textStart</item>
-        <item name="android:color">@color/white</item>
     </style>
 
     <style name="custom_fab">
