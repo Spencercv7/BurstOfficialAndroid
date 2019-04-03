@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager
 
 
 /**
- * This is used in MainActivity to manage the fragment swapping
+ * This is used in MainFragment to manage the fragment swapping
  */
 class NoSwipePager(context: Context, attrs: AttributeSet) : ViewPager(context, attrs) {
     private var localEnabled = false

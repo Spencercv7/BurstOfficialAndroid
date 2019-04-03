@@ -1,0 +1,81 @@
+<!-- Card View containing placeholder information from Zeplin -->
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/explore_main_event1_card"
+        android:layout_marginTop="10dp"
+        android:elevation="10dp"
+        app:layout_constraintTop_toBottomOf="@id/explore_fragment_recycler_view">
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/explore_event_placeholder_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/explore_main_event1_placeholder"
+                tools:ignore="ContentDescription"/>
+
+        <TextView
+                android:layout_margin="26dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@id/explore_event_placeholder_image"
+                android:layout_alignTop="@id/explore_event_placeholder_image"
+                android:text="@string/queens_civil_eng_club"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/explore_event_card_info_text"
+                android:layout_marginEnd="16dp"
+                android:text="@string/ellis_hall_324"
+                android:layout_alignBottom="@id/explore_event_date"
+                android:layout_alignEnd="@id/explore_event_placeholder_image"/>
+
+
+        <TextView
+                android:id="@+id/explore_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_above="@id/explore_event_title"
+                android:layout_alignStart="@id/explore_event_placeholder_image"
+                style="@style/explore_event_card_info_text"
+                android:text="@string/placeholder_date"/>
+
+        <TextView
+                android:id="@+id/explore_event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/japanese_architecture_studies"
+                android:layout_above="@id/explore_event_desc"
+                android:layout_alignStart="@id/explore_event_placeholder_image"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:fontFamily="@font/roboto_medium"/>
+
+
+        <TextView
+                android:id="@+id/explore_event_desc"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_alignStart="@id/explore_event_placeholder_image"
+                android:layout_alignBottom="@id/explore_event_placeholder_image"
+                android:text="@string/placeholder_desc"
+                style="@style/explore_event_card_info_text"/>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

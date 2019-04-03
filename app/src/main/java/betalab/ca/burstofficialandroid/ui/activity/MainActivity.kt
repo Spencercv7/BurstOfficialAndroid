@@ -7,24 +7,22 @@ import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
 import betalab.ca.burstofficialandroid.*
-import betalab.ca.burstofficialandroid.ui.fragment.*
+import betalab.ca.burstofficialandroid.ui.adapter.NavigationAdapter
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
 class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener {
-        private lateinit var drawer: DrawerLayout
-        private lateinit var navigationView: NavigationView
+        private var viewPagerAdapter: NavigationAdapter? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
             setUpNavigationDrawer()
+            setUpViewPager()
             setFragment(1) //open main fragment
 
             main_profile_pic.setOnClickListener {
@@ -36,35 +34,36 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
             }
         }
 
+
+    private fun setUpViewPager(){
+        mainViewPager.setPagingEnabled(false)
+        mainViewPager.offscreenPageLimit = 5
+        viewPagerAdapter = NavigationAdapter(this.supportFragmentManager)//instantiate adapter
+        //set the adapter for the pager to be the one with all the items
+        mainViewPager?.adapter = viewPagerAdapter
+
+    }
+
+
     // 1 -> Main, 2 -> CampusMap, 3 -> Catalog, 4 -> Resources, 5 -> Profile
     private fun setFragment(fragmentInt: Int){
-        val ft = supportFragmentManager.beginTransaction()
         when (fragmentInt){  //set correct fragment in the container
-            1 -> { ft.replace(R.id.main_fragment_container, MainFragment())
-                   navigationView.menu.getItem(0).isChecked = true //highlight home button on drawer menu
+            1 -> { mainViewPager.currentItem = 0
+                   drawer_view.menu.getItem(0).isChecked = true //highlight home button on drawer menu
                    nav_title_text.text = ""}
-            2 -> { ft.replace(R.id.main_fragment_container,
-                CampusMapFragment()
-            )
+            2 -> { mainViewPager.currentItem = 1
                    nav_title_text.text = getString(R.string.campus_map)}
-            3 -> { ft.replace(R.id.main_fragment_container,
-                CatalogFragment()
-            )
+            3 -> { mainViewPager.currentItem = 2
                    nav_title_text.text = getString(R.string.catalog)}
-            4 -> { ft.replace(R.id.main_fragment_container,
-                ResourcesFragment()
-            )
+            4 -> { mainViewPager.currentItem = 3
                    nav_title_text.text = getString(R.string.resources)}
-            else -> { ft.replace(R.id.main_fragment_container,
-                ProfileFragment()
-            )
+            else -> { mainViewPager.currentItem = 4
                       nav_title_text.text = ""}
         }
-        ft.commit()
 
-        if (fragmentInt == 1) //Set app title visible or not
-            main_app_title_text.visibility = View.VISIBLE
-        else main_app_title_text.visibility = View.GONE
+        if (fragmentInt != 1) //Set app title visible or not
+            main_app_title_text.visibility = View.GONE
+        else main_app_title_text.visibility = View.VISIBLE
 
         //set visibility of profile pic in top right or X to close profile fragment
         if (fragmentInt == 5){
@@ -78,15 +77,13 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     }
 
     private fun setUpNavigationDrawer() {
-        drawer = findViewById(R.id.main_drawer_layout)
-        val toggle = ActionBarDrawerToggle(this, drawer, main_toolbar, betalab.ca.burstofficialandroid.R.string.navigation_drawer_open, betalab.ca.burstofficialandroid.R.string.navigation_drawer_close)
-        drawer.addDrawerListener(toggle) //create toggle icon that comes with animation
+        val toggle = ActionBarDrawerToggle(this, main_drawer_layout, main_toolbar, betalab.ca.burstofficialandroid.R.string.navigation_drawer_open, betalab.ca.burstofficialandroid.R.string.navigation_drawer_close)
+        main_drawer_layout.addDrawerListener(toggle) //create toggle icon that comes with animation
         toggle.syncState()
 
-        navigationView = findViewById(R.id.drawer_view)
-        navigationView.setNavigationItemSelectedListener(this)
-        val drawerCloseButton = navigationView.getHeaderView(0).findViewById<ImageView>(R.id.drawer_menu_close_button)
-        drawerCloseButton.setOnClickListener { drawer.closeDrawer(GravityCompat.START) } //button embedded in drawer that closes drawer
+        drawer_view.setNavigationItemSelectedListener(this)
+        val drawerCloseButton = drawer_view.getHeaderView(0).findViewById<ImageView>(R.id.drawer_menu_close_button)
+        drawerCloseButton.setOnClickListener { main_drawer_layout.closeDrawer(GravityCompat.START) } //button embedded in drawer that closes drawer
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -100,13 +97,13 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
             else ->
                 setFragment(4) //resources fragment
         }
-        drawer.closeDrawer(GravityCompat.START)  //close drawer once item selected
+        main_drawer_layout.closeDrawer(GravityCompat.START)  //close drawer once item selected
         return true  //keeps item selected after menu closes
     }
 
     //uncheck all drawer menu items
     private fun uncheckDrawerItems() {
-        val menu = navigationView.menu
+        val menu = drawer_view.menu
         for (i in 0 until menu.size()) {
             val item = menu.getItem(i)
             item.isChecked = false
@@ -116,8 +113,8 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
 
     override fun onBackPressed() {
         when {
-            drawer.isDrawerOpen(GravityCompat.START) -> //if back pressed and nav drawer open
-                drawer.closeDrawer(GravityCompat.START)
+            main_drawer_layout.isDrawerOpen(GravityCompat.START) -> //if back pressed and nav drawer open
+                main_drawer_layout.closeDrawer(GravityCompat.START)
             close_profile_pic.visibility == View.VISIBLE -> setFragment(1)  //if profile page open go to home
             else -> super.onBackPressed()
         }

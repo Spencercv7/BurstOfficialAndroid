@@ -5,6 +5,7 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="20dp">
+
     <ImageView
             android:contentDescription="@string/background_logo"
             android:layout_width="wrap_content"
@@ -13,6 +14,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:clickable="false"/>
+
     <com.google.android.material.button.MaterialButton
             android:id="@+id/enable_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +27,7 @@
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
               android:id="@+id/notif_subtitle"
-              style="@style/SubTitleText"
+              style="@style/OnboardingSubText"
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintBottom_toTopOf="@id/enable_button"
               app:layout_constraintStart_toStartOf="parent"
@@ -33,12 +35,13 @@
               android:text="@string/notif_description"/>
 
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-              style="@style/TitleText"
+              style="@style/OnboardingTitleText"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintStart_toStartOf="parent"
               app:layout_constraintBottom_toTopOf="@id/notif_subtitle"
               android:text="@string/notifications"
               android:layout_marginBottom="4dp"/>
+
     <com.google.android.material.button.MaterialButton
             android:id="@+id/location_button_notifications"
             style="@style/TextButton_GreyText"

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.adapter.BottomBarAdapter
+import betalab.ca.burstofficialandroid.ui.adapter.NavigationAdapter
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : Fragment() {
@@ -32,20 +33,19 @@ class MainFragment : Fragment() {
 
         setupViewPager()
 
-        val mainAppTitle = activity?.findViewById<TextView>(R.id.main_app_title_text)
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.group_item1 -> {
-                    viewPager.currentItem = 0
-                    mainAppTitle?.visibility = View.VISIBLE  //Burst app name visible on home
+                    mainFragViewPager.currentItem = 0
                 }
                 R.id.group_item2 -> {
-                    viewPager.currentItem = 1
-                    mainAppTitle?.visibility = View.GONE  //hide app name
+                    mainFragViewPager.currentItem = 1
+                }
+                R.id.group_item3 -> {
+                    mainFragViewPager.currentItem = 2
                 }
                 else -> {
-                    viewPager.currentItem = 2
-                    mainAppTitle?.visibility = View.GONE //hide app name
+                    mainFragViewPager.currentItem = 3
                 }
             }
             true
@@ -53,12 +53,12 @@ class MainFragment : Fragment() {
     }
 
     private fun setupViewPager() {
-        viewPager?.setPagingEnabled(false)
-        viewPager?.offscreenPageLimit = 5
+        mainFragViewPager?.setPagingEnabled(false)
+        mainFragViewPager?.offscreenPageLimit = 6
         pagerAdapter =
             BottomBarAdapter(activity!!.supportFragmentManager) //instantiate adapter
         //set the adapter for the pager to be the one with all the items
-        viewPager?.adapter = pagerAdapter
+        mainFragViewPager?.adapter = pagerAdapter
     }
 
 
