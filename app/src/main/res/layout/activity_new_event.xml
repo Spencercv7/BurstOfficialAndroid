@@ -3,18 +3,37 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.Toolbar
             app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/new_event_toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/coral"
-            app:title="@string/new_event_str"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@color/white"
-            >
+            android:background="@color/coral">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <ImageView android:layout_width="24dp" android:layout_height="24dp"
+                       android:layout_marginTop="20dp"
+                       android:id="@+id/new_event_back_x"
+                       android:src="@drawable/ic_close_white_24dp"
+                       tools:ignore ="ContentDescription"
+            />
+
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/new_event_str"
+                      style="@style/TitleText"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
+                      android:textColor="@color/white"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
     </androidx.appcompat.widget.Toolbar>
 
 
@@ -198,6 +217,7 @@
             </androidx.appcompat.widget.AppCompatCheckBox>
 
             <com.google.android.material.button.MaterialButton
+                    android:id="@+id/new_event_back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
