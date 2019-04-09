@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/login_text"
-        style="@style/TitleText"
+        style="@style/OnboardingTitleText"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/login_info_text"
-        style="@style/SubTitleText"
+        style="@style/OnboardingSubText"
         android:text="@string/login_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,44 +39,32 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_edit_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditTextField_Outlined"
         android:layout_marginTop="20dp"
         android:hint="@string/email_phone"
-        app:boxStrokeColor="#808080"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_info_text">
 
         <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"/>
+                style="@style/EditText_Input" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_edit_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/EditTextField_Outlined"
         android:layout_marginTop="20dp"
         android:hint="@string/password"
-        app:boxStrokeColor="#808080"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_visibility_24px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_edit_text">
 
         <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:imeOptions="actionGo"
-            android:inputType="textPassword"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            style="@style/EditText_Input"
+            android:imeOptions="actionGo"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,16 +76,16 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="@string/facebook_login"
-        android:textColor="#4267b2"
+        android:textColor="@color/blue"
         app:layout_constraintStart_toStartOf="@id/password_edit_text"
         app:layout_constraintTop_toBottomOf="@id/password_edit_text" />
 
     <TextView
-            android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/forgot_pass"
-        android:textColor="#f16262"
+        android:textColor="@color/coral"
         app:layout_constraintStart_toStartOf="@id/facebook_login_text"
         app:layout_constraintTop_toBottomOf="@id/facebook_login_text" />
 

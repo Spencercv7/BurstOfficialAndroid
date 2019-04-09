@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name="betalab.ca.burstofficialandroid.ui.activity.LoginActivity"/>
-        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.MainActivity"/>
+        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name="betalab.ca.burstofficialandroid.ui.activity.NewEventActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
     </application>
