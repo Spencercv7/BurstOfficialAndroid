@@ -33,7 +33,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/button_card_layout"
                 android:layout_width="160dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+        >
 
             <com.google.android.material.button.MaterialButton
                     android:layout_marginStart="20dp"

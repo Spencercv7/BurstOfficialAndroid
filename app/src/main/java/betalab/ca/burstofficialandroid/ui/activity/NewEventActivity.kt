@@ -3,14 +3,9 @@ package betalab.ca.burstofficialandroid.ui.activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import betalab.ca.burstofficialandroid.model.FinalEvent
 import betalab.ca.burstofficialandroid.R
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_new_event.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,46 +20,27 @@ class NewEventActivity : AppCompatActivity() {
     private var endTimeO: Calendar = Calendar.getInstance()
     private lateinit var dpdTimeStart: TimePickerDialog
     private lateinit var dpdTimeEnd: TimePickerDialog
-    private lateinit var saveButton: MaterialButton
-    private lateinit var allDayToggleButton: SwitchCompat
-    private lateinit var alertCheck: CheckBox
-    private lateinit var repCheck: CheckBox
     private lateinit var finalEvent : FinalEvent
-    private lateinit var nameTextEdit : TextInputLayout
     private lateinit var name : String
-    private lateinit var endsCard : MaterialCardView
     private var allDay: Boolean = false
     private var repeats: Boolean = false
     private var alert: Boolean = false
 
     override fun onStart() {
         super.onStart()
+
         setContentView(R.layout.activity_new_event)
         setSupportActionBar(findViewById(R.id.new_event_toolBar))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close_white_24dp)
+
         val simpleDate = SimpleDateFormat(getString(R.string.simple_date_format_str), Locale.getDefault()) // Formats for Date and Time
         val simpleTime = SimpleDateFormat(getString(R.string.time_format_str), Locale.getDefault())
-
-        val startDate: TextView = findViewById(R.id.start_date)
-        val endDate: TextView = findViewById(R.id.end_date)
-        val startTime: TextView = findViewById(R.id.start_time)
-        val endTime: TextView = findViewById(R.id.end_time)
 
         val startCal = Calendar.getInstance()
         val year = startCal.get(Calendar.YEAR)
         val month = startCal.get(Calendar.MONTH)
         val day = startCal.get(Calendar.DAY_OF_MONTH)
 
-        allDayToggleButton = findViewById(R.id.all_day_switch)
-        alertCheck = findViewById(R.id.new_event_alert_check)
-        repCheck = findViewById(R.id.new_event_repeats_check)
-        saveButton = this.findViewById(R.id.new_event_save_button)
-        nameTextEdit = findViewById(R.id.event_name_edit_text)
-        endsCard = findViewById(R.id.end_card)
-
-        startDate.setOnClickListener {
+        start_date.setOnClickListener {
             dpdStart = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
@@ -75,7 +51,7 @@ class NewEventActivity : AppCompatActivity() {
             dpdStart.show()
         }
 
-        endDate.setOnClickListener {
+        end_date.setOnClickListener {
             dpdEnd = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
@@ -86,7 +62,7 @@ class NewEventActivity : AppCompatActivity() {
             dpdEnd.show()
         }
 
-        startTime.setOnClickListener {
+        start_time.setOnClickListener {
             dpdTimeStart = TimePickerDialog(
                 this,
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -99,7 +75,7 @@ class NewEventActivity : AppCompatActivity() {
             dpdTimeStart.show()
         }
 
-        endTime.setOnClickListener {
+        end_time.setOnClickListener {
             dpdTimeEnd = TimePickerDialog(
                 this,
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -112,38 +88,45 @@ class NewEventActivity : AppCompatActivity() {
             dpdTimeEnd.show()
         }
 
-        saveButton.setOnClickListener {
+        new_event_save_button.setOnClickListener {
             saveButtonClick()
         }
 
-        allDayToggleButton.setOnClickListener {
-            if (allDayToggleButton.isChecked) {
+        all_day_switch.setOnClickListener {
+            if (all_day_switch.isChecked) {
                 allDay = true
                 start_time.setText(R.string.all_day_st)
                 end_time.text = getString(R.string.all_day_st)
-                endsCard.visibility = View.INVISIBLE
-            } else if (!allDayToggleButton.isChecked) {
+                end_card.visibility = View.INVISIBLE
+            } else if (!all_day_switch.isChecked) {
                 start_time.setText(R.string.enter_time_hint)
                 end_time.text = getString(R.string.enter_time_hint)
-                endsCard.visibility = View.VISIBLE
+                end_card.visibility = View.VISIBLE
             }
         }
 
-        repCheck.setOnClickListener {
-            if (repCheck.isChecked) {
+        new_event_repeats_check.setOnClickListener {
+            if (new_event_repeats_check.isChecked) {
                 repeats = true
-            } else if (!repCheck.isChecked) {
+            } else if (!new_event_repeats_check.isChecked) {
                 repeats = false
             }
         }
 
-        alertCheck.setOnClickListener {
-            if (alertCheck.isChecked) {
+        new_event_alert_check.setOnClickListener {
+            if (new_event_alert_check.isChecked) {
                 alert = true
-            } else if (!repCheck.isChecked) {
+            } else if (!new_event_repeats_check.isChecked) {
                 alert = false
             }
 
+        }
+        new_event_back_button.setOnClickListener {
+            finish()
+        }
+
+        new_event_back_x.setOnClickListener {
+            finish()
         }
     }
 
@@ -161,7 +144,7 @@ class NewEventActivity : AppCompatActivity() {
         startDateO.set(Calendar.MINUTE, startTimeO.get(Calendar.MINUTE))
         endDateO.set(Calendar.MINUTE, endTimeO.get(Calendar.MINUTE))
         endDateO.set(Calendar.HOUR_OF_DAY, endTimeO.get(Calendar.HOUR_OF_DAY))
-        name = nameTextEdit.editText!!.text.toString()
+        name = event_name_edit_text.editText!!.text.toString()
         finalEvent =
             FinalEvent(name, startDateO, endDateO, allDay, repeats, alert)
     }
