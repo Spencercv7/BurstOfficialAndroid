@@ -1,26 +1,30 @@
 <resources>
+
+    <!-- Multi-use strings -->
     <string name="app_name">Burst Android</string>
     <string name="burst">Burst</string>
-    <string name="text_str">Customize your feed to get events happening on your campus</string>
-    <string name="default_school_search">Not Your School?</string>
-    <string name="button_label_enabled">BACK</string>
-    <string name="profile_str">PROFILE ></string>
-    <string name="program_label">Program</string>
-    
+    <string name="back_caps">BACK</string>
+    <string name="profile_caps">PROFILE</string>
+    <string name="password_str">Password</string>
+    <string name="calendar_str">Calendar</string>
+
+    <!-- Drawer String -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-
+    <!-- onboarding_school strings -->
+    <string name="program_label">Program</string>
+    <string name="school_desc_str">Customize your feed to get events happening on your campus</string>
+    <string name="default_school_search">Not Your School?</string>
+    <string name="card_image_school_str">Queen\'s University</string>
 
     <!-- Strings for layout activity_school_an.xml -->
     <string name="login">Login</string>
     <string name="login_info">with your Burst account or Facebook</string>
     <string name="email_phone">Email or phone</string>
-    <string name="password">Password</string>
     <string name="facebook_login">Login with Facebook</string>
     <string name="forgot_pass">Forgot password?</string>
     <string name="login_caps">LOGIN</string>
-    <string name="back_caps">BACK</string>
 
     <!-- Strings for layout activity_landing.xml -->
     <string name="find_passion">Find Your Passion</string>
@@ -29,18 +33,14 @@
     <string name="events_around_you">Events Around You</string>
     <string name="import_class_calendar_caps">IMPORT CLASS CALENDAR</string>
     <string name="google_calendar_caps">CONNECT TO GOOGLE CALENDAR</string>
-    <string name="profile_caps">PROFILE</string>
     <string name="skip_button_text"><![CDATA[SKIP >]]></string>
     <string name="calendar_subtitle_text">Burst can manage your events and figure out when you are free to go</string>
     <string name="calendar_title_text">Connect to Your Calendar</string>
     <string name="name_str">Name</string>
     <string name="email_str">Email</string>
     <string name="location_str">Location</string>
-    <string name="profile_pic_header">What can I call you?</string>
-    <string name="password_str">Password</string>
-    <string name="notif_description">This way you will get our event reminders so you won\'t miss the good moments
-    </string>
-    <string name="calendar_str">Calendar</string>
+    <string name="profile_pic_header">What can I call you?</string>>
+    <string name="notif_description">This way you will get our event reminders so you won\'t miss the good moments</string>
     <string name="skip_str"><![CDATA[Skip >]]></string>
     <string name="enable_str">ENABLE</string>
     <string name="what_are_you_interested_in">What are you interested in?</string>
@@ -84,13 +84,11 @@
     <string name="by_interests">By Interests</string>
     <string name="home">Home</string>
     <string name="explore">Explore</string>
-    <string name="calendar">Calendar</string>
     <string name="notifications">Notifications</string>
     <string name="campus_map">Campus Map</string>
     <string name="catalog">Catalog</string>
     <string name="resources">Resources</string>
     <string name="profile">Profile</string>
-
 
     <!-- New Event Strings -->
     <string name="simple_date_format_str">MM, dd, yyyy</string>
@@ -109,6 +107,5 @@
     <string name="event_str">EVENT</string>
     <string name="import_str">IMPORT</string>
     <string name="card_logo">Card Logo</string>
-
 
 </resources>

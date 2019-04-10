@@ -96,12 +96,15 @@ class NewEventActivity : AppCompatActivity() {
             if (all_day_switch.isChecked) {
                 allDay = true
                 start_time.setText(R.string.all_day_st)
-                end_time.text = getString(R.string.all_day_st)
-                end_card.visibility = View.INVISIBLE
+                end_time.visibility = View.INVISIBLE
+                end_date.visibility = View.INVISIBLE
+                ends_label.visibility = View.INVISIBLE
             } else if (!all_day_switch.isChecked) {
                 start_time.setText(R.string.enter_time_hint)
                 end_time.text = getString(R.string.enter_time_hint)
-                end_card.visibility = View.VISIBLE
+                end_time.visibility = View.VISIBLE
+                end_date.visibility = View.VISIBLE
+                ends_label.visibility = View.VISIBLE
             }
         }
 
