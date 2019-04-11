@@ -15,12 +15,11 @@ class BottomBarAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAda
             0 -> HomeFragment.newInstance()
             1 -> ExploreFragment.newInstance()
             2 -> CalendarFragment.newInstance()
-            3 -> ExploreFragment.newInstance()
             else -> NotificationFragment.newInstance()
         }
     }
 
     override fun getCount(): Int {
-        return 5
+        return 4
     }
 }

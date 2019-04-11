@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.model.Notification
 import betalab.ca.burstofficialandroid.ui.adapter.NotificationAdapter
+import kotlinx.android.synthetic.main.fragment_notifications.*
 
 class NotificationFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var myDataSet: MutableList<Notification>
 
     companion object {
@@ -35,10 +35,9 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.notifications_fragment_recycler_view) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = NotificationAdapter(myDataSet)
-        recyclerView.hasFixedSize()
+        notifications_fragment_recycler_view.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        notifications_fragment_recycler_view.adapter = NotificationAdapter(myDataSet)
+        notifications_fragment_recycler_view.hasFixedSize()
     }
 
     // Function in which we draw data from the database

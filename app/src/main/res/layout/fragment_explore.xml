@@ -8,46 +8,40 @@
         android:layout_height="wrap_content"
         android:scrollbars="none">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!-- Title of the fragment page -->
-        <TextView
-                android:id="@+id/discovery_title_text"
-                android:text="@string/discovery"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                style="@style/Section_Title_Text"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <!-- Title of the fragment page -->
+            <TextView
+                    android:id="@+id/discovery_title_text"
+                    android:text="@string/discovery"
+                    android:layout_alignParentStart="true"
+                    style="@style/Section_Title_Text"/>
 
-        <!-- Location of discovery section -->
-        <TextView
-                android:text="@string/queens_university"
-                app:layout_constraintTop_toTopOf="@id/discovery_title_text"
-                app:layout_constraintBottom_toBottomOf="@id/discovery_title_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textSize="16sp"
-                style="@style/Section_Title_Text"/>
-
+            <!-- Location of discovery section -->
+            <TextView
+                    android:text="@string/queens_university"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="16sp"
+                    style="@style/Section_Title_Text"/>
+        </RelativeLayout>
 
         <!-- Search bar for the events -->
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/discovery_search_textfield"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/EditTextField_Outlined"
                 android:layout_marginTop="10dp"
                 android:hint="@string/events_clubs_people"
-                app:layout_constraintTop_toBottomOf="@id/discovery_title_text"
-                app:boxStrokeColor="#808080">
+                app:startIconDrawable="@drawable/ic_search_24px">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"/>
-
+                    style="@style/EditText_Input"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -56,8 +50,6 @@
                 android:id="@+id/explore_fragment_recycler_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/discovery_search_textfield"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="10dp"
                 android:scrollbars="none"
                 tools:listitem="@layout/item_explore_horizontal"
@@ -65,78 +57,8 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-        <!-- Card View containing placeholder information from Zeplin -->
-        <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/explore_main_event1_card"
-                android:layout_marginTop="10dp"
-                android:elevation="10dp"
-                app:layout_constraintTop_toBottomOf="@id/explore_fragment_recycler_view">
-
-            <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/explore_main_event1_placeholder"
-                    tools:ignore="ContentDescription"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp">
-
-                <TextView
-                        android:layout_margin="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:text="@string/queens_civil_eng_club"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textColor="#fff"
-                        android:textSize="16sp"/>
-
-
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/explore_event_card_info_text"
-                        android:text="@string/ellis_hall_324"
-                        app:layout_constraintBottom_toBottomOf="@id/explore_event_date"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-                <TextView
-                        android:id="@+id/explore_event_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toTopOf="@id/explore_event_title"
-                        app:layout_constraintStart_toStartOf="parent"
-                        style="@style/explore_event_card_info_text"
-                        android:text="@string/placeholder_date"/>
-
-                <TextView
-                        android:id="@+id/explore_event_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/japanese_architecture_studies"
-                        app:layout_constraintBottom_toTopOf="@id/explore_event_desc"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:textColor="#fff"
-                        android:textSize="30sp"
-                        android:fontFamily="@font/roboto_medium"/>
-
-
-                <TextView
-                        android:id="@+id/explore_event_desc"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="@string/placeholder_desc"
-                        style="@style/explore_event_card_info_text"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <!-- using placeholder layout for the main event being shown -->
+        <include layout="@layout/item_explore_main_event_placeholder"/>
 
         <!-- Should have same layout as above card however placeholder image used for now -->
         <com.google.android.material.card.MaterialCardView
@@ -157,372 +79,72 @@
         </com.google.android.material.card.MaterialCardView>
 
 
-        <!-- Title for first explore section -->
+        <!-- Title for By Faculty section -->
         <TextView
-                android:id="@+id/explore_section1_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/explore_faculty_title"
                 android:text="@string/by_faculty"
-                android:textColor="#000"
-                android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/explore_main_event2_card"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/roboto_bold" tools:layout_editor_absoluteX="20dp"/>
+                style="@style/ExploreSection_TitleText"/>
 
         <!-- 2x2 grid for first explore section -->
         <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/explore_section1_grid"
+                android:id="@+id/explore_faculty_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/explore_section1_title"
                 android:layout_marginTop="10dp"
                 grid:alignmentMode="alignBounds"
                 grid:columnCount="2"
                 grid:rowOrderPreserved="false"
                 grid:useDefaultMargins="true">
 
-            <!-- LOTS AND LOTS OF HARDCODED LAYOUTS, four of the same layouts copy and pasted
-                 Assuming this may be have to changed to become more dynamic -->
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center"
-                    app:strokeColor="@color/light_grey"
-                    app:strokeWidth="1dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:id="@+id/explore_faculty_image0"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_faculty_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:text="@string/engineering"
-                            android:textColor="@color/black"
-                            app:layout_constraintTop_toBottomOf="@id/explore_faculty_image0"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center"
-                    app:strokeColor="@color/light_grey"
-                    app:strokeWidth="1dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:id="@+id/explore_faculty_image1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_faculty_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:text="@string/engineering"
-                            android:textColor="@color/black"
-                            app:layout_constraintTop_toBottomOf="@id/explore_faculty_image1"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center"
-                    app:strokeColor="@color/light_grey"
-                    app:strokeWidth="1dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:id="@+id/explore_faculty_image2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_faculty_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:text="@string/engineering"
-                            android:textColor="@color/black"
-                            app:layout_constraintTop_toBottomOf="@id/explore_faculty_image2"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center"
-                    app:strokeColor="@color/light_grey"
-                    app:strokeWidth="1dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:id="@+id/explore_faculty_image3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_faculty_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:text="@string/engineering"
-                            android:textColor="@color/black"
-                            app:layout_constraintTop_toBottomOf="@id/explore_faculty_image3"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
+            <!-- fill grid with placeholder layouts -->
+            <include layout="@layout/item_explore_faculty_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_faculty_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_faculty_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_faculty_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
 
         </androidx.gridlayout.widget.GridLayout>
 
-
-        <!-- Title for second explore section -->
+        <!-- Title for By Interest section -->
         <TextView
-                android:id="@+id/explore_section2_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/explore_interest_title"
                 android:text="@string/by_interests"
-                android:textColor="#000"
-                android:textSize="24sp"
-                app:layout_constraintTop_toBottomOf="@id/explore_section1_grid"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/roboto_bold" tools:layout_editor_absoluteX="20dp"/>
+                style="@style/ExploreSection_TitleText"/>
 
         <!-- 2x3 grid for first explore section -->
         <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/explore_section2_grid"
+                android:id="@+id/explore_interest_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/explore_section2_title"
                 android:layout_marginTop="10dp"
                 grid:alignmentMode="alignBounds"
                 grid:columnCount="3"
                 grid:rowOrderPreserved="false"
                 grid:useDefaultMargins="true">
 
-
-            <!-- LOTS AND LOTS OF HARDCODED LAYOUTS, four of the same layouts copy and pasted
-                 Assuming this may be have to changed to become more dynamic -->
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_interest_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_margin="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/politics"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_interest_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_margin="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/politics"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_interest_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_margin="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/politics"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_interest_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_margin="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/politics"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    grid:layout_columnWeight="1"
-                    grid:layout_gravity="fill_horizontal"
-                    android:gravity="center" >
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/explore_interest_placeholder"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                    <TextView
-                            android:layout_margin="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:text="@string/politics"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            <include layout="@layout/item_explore_interest_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_interest_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_interest_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_interest_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <include layout="@layout/item_explore_interest_card"
+                     grid:layout_columnWeight="1"
+                     grid:layout_gravity="fill_horizontal"/>
+            <!-- Grey card with + in center -->
             <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -530,69 +152,40 @@
                     grid:layout_gravity="fill"
                     android:gravity="center"
                     android:backgroundTint="@color/light_grey">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/plus_math"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            tools:ignore="contentDescription"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/plus_math"
+                        android:layout_gravity="center"
+                        tools:ignore="contentDescription"/>
             </com.google.android.material.card.MaterialCardView>
-
-
-
-
         </androidx.gridlayout.widget.GridLayout>
 
+        <!-- Button for all events -->
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/explore_all_events_button"
+                android:text="@string/all_events_caps"
+                style="@style/OutlineButton_RedText"
+                android:layout_gravity="center_horizontal"/>
 
-        <!-- Layout holding all events button, host an event button and background image -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+        <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/explore_section2_grid"
-                android:layout_marginTop="20dp">
-
-            <!-- Button for all events -->
-            <com.google.android.material.button.MaterialButton
-                    android:id="@+id/explore_all_events_button"
-                    android:text="@string/all_events_caps"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/OutlineButton_RedText"/>
-
-
+                android:layout_margin="10dp">
             <ImageView
                     android:id="@+id/explore_host_event_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/explore_host_placeholder_image"
                     android:adjustViewBounds="true"
-                    app:layout_constraintTop_toBottomOf="@id/explore_all_events_button"
-                    android:layout_marginTop="20dp"
                     android:scaleType="centerCrop"
                     tools:ignore="contentDescription"/>
-
 
             <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/explore_host_event_background"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:orientation="vertical">
-
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -609,13 +202,7 @@
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:backgroundTint="#6C69AE"/>
-
             </LinearLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </RelativeLayout>
+    </LinearLayout>
 </ScrollView>
