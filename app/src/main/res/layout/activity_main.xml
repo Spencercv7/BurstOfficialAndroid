@@ -72,7 +72,7 @@
 
 
         <!-- Main content -->
-        <betalab.ca.burstofficialandroid.ui.util.NoSwipeScrollPager
+        <betalab.ca.burstofficialandroid.ui.util.NoSwipePager
                 android:id="@+id/mainViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

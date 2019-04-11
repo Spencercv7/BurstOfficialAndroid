@@ -48,16 +48,16 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     // 1 -> Main, 2 -> CampusMap, 3 -> Catalog, 4 -> Resources, 5 -> Profile
     private fun setFragment(fragmentInt: Int){
         when (fragmentInt){  //set correct fragment in the container
-            1 -> { mainViewPager.currentItem = 0
+            1 -> { mainViewPager.setCurrentItem(0, false)
                    drawer_view.menu.getItem(0).isChecked = true //highlight home button on drawer menu
                    nav_title_text.text = ""}
-            2 -> { mainViewPager.currentItem = 1
+            2 -> { mainViewPager.setCurrentItem(1, false)
                    nav_title_text.text = getString(R.string.campus_map)}
-            3 -> { mainViewPager.currentItem = 2
+            3 -> { mainViewPager.setCurrentItem(2, false)
                    nav_title_text.text = getString(R.string.catalog)}
-            4 -> { mainViewPager.currentItem = 3
+            4 -> { mainViewPager.setCurrentItem(3, false)
                    nav_title_text.text = getString(R.string.resources)}
-            else -> { mainViewPager.currentItem = 4
+            else -> { mainViewPager.setCurrentItem(4, false)
                       nav_title_text.text = ""}
         }
 
