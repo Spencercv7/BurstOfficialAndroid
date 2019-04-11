@@ -25,12 +25,12 @@
 
         <TextView
                 android:id="@+id/calendar_title_text"
-                style="@style/OnboardingTitleText"
+                style="@style/TitleText"
                 android:text="@string/calendar_title_text"/>
 
         <TextView
                 android:id="@+id/calendar_subtitle_text"
-                style="@style/OnboardingSubText"
+                style="@style/SubTitleText"
                 android:text="@string/calendar_subtitle_text"/>
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 
+@Suppress("unused")
 class ProportionalImageView : AppCompatImageView {
 
     constructor(context: Context) : super(context)

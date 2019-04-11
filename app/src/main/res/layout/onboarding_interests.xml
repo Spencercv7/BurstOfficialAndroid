@@ -11,7 +11,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="25dp"
             android:layout_gravity="center"
-            style="@style/OnboardingTitleText"
+            style="@style/TitleText"
             android:text="@string/interests"/>
 
     <TextView
@@ -20,7 +20,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_gravity="center"
-            style="@style/OnboardingSubText"
+            style="@style/SubTitleText"
             android:text="@string/what_are_you_interested_in"/>
 
 

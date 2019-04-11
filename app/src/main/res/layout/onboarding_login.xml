@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/login_text"
-        style="@style/OnboardingTitleText"
+        style="@style/TitleText"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
 
     <TextView
         android:id="@+id/login_info_text"
-        style="@style/OnboardingSubText"
+        style="@style/SubTitleText"
         android:text="@string/login_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
         android:id="@+id/password_edit_text"
         style="@style/EditTextField_Outlined"
         android:layout_marginTop="20dp"
-        android:hint="@string/password"
+        android:hint="@string/password_str"
         app:endIconMode="custom"
         app:endIconDrawable="@drawable/ic_visibility_24px"
         app:layout_constraintEnd_toEndOf="parent"

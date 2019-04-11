@@ -48,7 +48,7 @@
             android:id="@+id/profile_password_edit"
             style="@style/EditTextField_Outlined"
             android:layout_marginTop="12dp"
-            android:hint="@string/password"
+            android:hint="@string/password_str"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_visibility_24px"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView style="@style/OnboardingTitleText"
+    <TextView style="@style/TitleText"
               android:text="@string/profile_pic_header"
               android:layout_marginBottom="38dp"
               app:layout_constraintBottom_toTopOf="@id/image_card"
