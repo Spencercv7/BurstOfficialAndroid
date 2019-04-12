@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp">
-
     <ImageView
             android:contentDescription="@string/background_logo"
             android:layout_width="wrap_content"
@@ -15,56 +14,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:clickable="false"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_register"
-            style="@style/EditTextField_Outlined"
-            android:hint="@string/name_str"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-                style="@style/EditText_Input"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_register"
-            style="@style/EditTextField_Outlined"
-            android:layout_marginTop="12dp"
-            android:hint="@string/email_str"
-            app:layout_constraintTop_toBottomOf="@id/name_register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-                style="@style/EditText_Input"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/profile_password_edit"
-            style="@style/EditTextField_Outlined"
-            android:layout_marginTop="12dp"
-            android:hint="@string/password_str"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_visibility_24px"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_register">
-
-        <com.google.android.material.textfield.TextInputEditText
-                style="@style/EditText_Input"
-                android:imeOptions="actionGo"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <TextView style="@style/TitleText"
+              android:id="@+id/titleHeader"
+              android:text="@string/profile_pic_header"
+              android:layout_marginBottom="38dp"
+              app:layout_constraintTop_toTopOf="parent"
+              android:layout_marginTop="64dp"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView android:id="@+id/image_card"
                android:layout_width="120dp"
                android:layout_height="120dp"
-               app:layout_constraintBottom_toTopOf="@id/name_register"
+               app:layout_constraintTop_toBottomOf="@+id/titleHeader"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                android:layout_marginBottom="38dp"
@@ -80,6 +42,49 @@
             android:src="@drawable/ic_camera_alt_black_24dp"
             android:tint="@android:color/darker_gray"
             tools:ignore="ContentDescription"/>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_register"
+            style="@style/EditTextField_Outlined"
+            android:layout_marginTop="32dp"
+            android:hint="@string/name_str"
+            app:layout_constraintTop_toBottomOf="@id/image_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditText_Input" android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_register"
+            style="@style/EditTextField_Outlined"
+            android:layout_marginTop="8dp"
+            android:hint="@string/email_str"
+            app:layout_constraintTop_toBottomOf="@id/name_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditText_Input" android:inputType="textWebEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_register"
+            style="@style/EditTextField_Outlined"
+            android:hint="@string/password_str"
+            android:layout_marginTop="8dp"
+            app:passwordToggleEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email_register">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditText_Input"
+                android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/location_button_profile"
@@ -95,11 +100,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView style="@style/TitleText"
-              android:text="@string/profile_pic_header"
-              android:layout_marginBottom="38dp"
-              app:layout_constraintBottom_toTopOf="@id/image_card"
-              app:layout_constraintStart_toStartOf="parent"
-              app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
