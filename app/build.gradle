@@ -12,7 +12,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -20,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -33,4 +34,5 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.1.0-alpha06'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+
 }

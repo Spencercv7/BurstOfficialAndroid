@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.onboarding_school.*
 import kotlinx.android.synthetic.main.onboarding_notifications.*
 import kotlinx.android.synthetic.main.onboarding_profile.*
 import android.view.inputmethod.InputMethodManager
-
-
+import betalab.ca.burstofficialandroid.ui.util.ValidationUtils
 
 
 class LoginActivity : AppCompatActivity() {
@@ -74,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
 //            return@setOnEditorActionListener !isUsernameValid(name_register)
 //
 //        }
-        name_register.editText?.addTextChangedListener(object: TextWatcher {
+        name_register.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 name_register.error = null
             }
@@ -89,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
 //                return@setOnEditorActionListener !isEmailValid(email_register)
 //
 //        }
-        email_register.editText?.addTextChangedListener(object: TextWatcher {
+        email_register.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 email_register.error = null
             }
@@ -111,7 +110,7 @@ class LoginActivity : AppCompatActivity() {
 //            }
 //            return@setOnEditorActionListener true
         }
-        password_register.editText?.addTextChangedListener(object: TextWatcher {
+        password_register.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 password_register.error = null
             }
@@ -144,53 +143,11 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun isUsernameValid(view: TextInputLayout): Boolean {
-        return view.editText?.run {
-            view.error = when {
-                this.text.isEmpty() -> "Empty username"
-                this.text.length > 33 -> "Username must be below 32 characters"
-                !isUsernameAvailable(this.text.toString()) -> "Username already taken"
-                else -> null
-            }
-            view.error.isNullOrBlank()
-        } ?: false
-    }
-
-    private fun isEmailValid(view: TextInputLayout): Boolean {
-        return view.editText?.run {
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(this.text).matches())
-                view.error = "Invalid email address"
-            view.error.isNullOrBlank()
-
-        } ?: false
-    }
-
-    private fun isPasswordValid(view: TextInputLayout): Boolean {
-        return view.editText?.run {
-            view.error = when {
-                this.text.isEmpty() -> "Password empty"
-                this.text.length < 8 -> "Password must be at least 8 characters"
-                !hasLowerCase(this.text.toString()) -> "Password must contain one lowercase letter"
-                !hasUpperCase(this.text.toString()) -> "Password must contain one uppercase letter"
-                !hasNumber(this.text.toString()) -> "Password must contain one number"
-                resources.getStringArray(R.array.common_passwords).contains(this.text.toString()) ->
-                    "Username found in common passwords"
-                this.text.length > 127 -> "Username must be less than 128 characters"
-                else -> null
-            }
-            view.error.isNullOrBlank()
-        } ?: false
-    }
-
-    private fun isUsernameAvailable(@Suppress("UNUSED_PARAMETER") name: String): Boolean {
-        return true
-    }
-
-    private fun hasLowerCase(s: String): Boolean = s.filter { c -> c.isLowerCase() }.count() > 0
-    private fun hasUpperCase(s: String): Boolean = s.filter { c -> c.isUpperCase() }.count() > 0
-    private fun hasNumber(s: String): Boolean = s.contains(Regex("\\d"))
     private fun validateRegister(): Boolean {
-        return isUsernameValid(name_register) and isEmailValid(email_register) and isPasswordValid(password_register)
+        name_register.error = ValidationUtils.instance.isUsernameValid(name_register.editText?.text.toString())
+        email_register.error = ValidationUtils.instance.isEmailValid(email_register.editText?.text.toString())
+        password_register.error = ValidationUtils.instance.isPasswordValid(password_register.editText?.text.toString())
+        return name_register.error == null && email_register.error == null && password_register.error == null
     }
 }
 
