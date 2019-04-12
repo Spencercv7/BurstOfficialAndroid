@@ -1,6 +1,7 @@
 package betalab.ca.burstofficialandroid.ui.application
 
 import android.app.Application
+import android.content.res.Resources
 import android.os.StrictMode.VmPolicy
 import android.os.StrictMode
 import betalab.ca.burstofficialandroid.BuildConfig
@@ -8,7 +9,11 @@ import betalab.ca.burstofficialandroid.BuildConfig
 
 @Suppress("unused")
 class MainApplication: Application() {
+    companion object {
+        lateinit var resources: Resources
+    }
     override fun onCreate() {
+        MainApplication.resources = resources
         if (BuildConfig.DEBUG) {
             StrictMode.setThreadPolicy(
                 StrictMode.ThreadPolicy.Builder()
