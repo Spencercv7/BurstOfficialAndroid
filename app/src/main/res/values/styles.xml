@@ -8,6 +8,7 @@
         <item name="colorPrimaryDark">@color/dark_grey</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorControlActivated">@color/coral</item>
     </style>
     <style name="SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/activity_launch_splash</item>
@@ -36,6 +37,7 @@
 
     <!-- Onboarding button styles -->
     <style name="RedButton_WhiteText">
+        <item name="android:focusable">false</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
@@ -44,6 +46,7 @@
     </style>
 
     <style name="WhiteButton_RedText">
+        <item name="android:focusable">false</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/white</item>
@@ -52,6 +55,7 @@
     </style>
 
     <style name="TextButton_GreyText" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:focusable">false</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/dark_grey</item>
@@ -59,6 +63,7 @@
     </style>
 
     <style name="TextButton_RedText" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:focusable">false</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/coral</item>
@@ -120,7 +125,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:textColor">@color/coral</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- STYLES FOR SPENCERS WORK -->

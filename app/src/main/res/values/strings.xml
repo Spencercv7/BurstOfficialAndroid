@@ -91,7 +91,7 @@
     <string name="profile">Profile</string>
 
     <!-- New Event Strings -->
-    <string name="simple_date_format_str">MM, dd, yyyy</string>
+    <string name="simple_date_format_str">MMM, dd, yyyy</string>
     <string name="time_format_str">hh:mm a</string>
     <string name="enter_time_hint">Enter Time</string>
     <string name="enter_date_hint">Enter Date</string>
