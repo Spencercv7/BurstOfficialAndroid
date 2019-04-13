@@ -46,7 +46,6 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
                 style="@style/RedButton_WhiteText"
                 android:text="@string/import_class_calendar_caps"/>
 

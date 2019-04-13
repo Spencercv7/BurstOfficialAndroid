@@ -5,23 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
-import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import betalab.ca.burstofficialandroid.R
-import com.google.android.material.textfield.TextInputLayout
+import betalab.ca.burstofficialandroid.ui.util.ValidationUtils
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.onboarding_calendar.*
 import kotlinx.android.synthetic.main.onboarding_interests.*
 import kotlinx.android.synthetic.main.onboarding_landing.*
 import kotlinx.android.synthetic.main.onboarding_login.*
-import kotlinx.android.synthetic.main.activity_onboarding.*
-import kotlinx.android.synthetic.main.onboarding_school.*
 import kotlinx.android.synthetic.main.onboarding_notifications.*
 import kotlinx.android.synthetic.main.onboarding_profile.*
-import android.view.inputmethod.InputMethodManager
-import betalab.ca.burstofficialandroid.ui.util.ValidationUtils
+import kotlinx.android.synthetic.main.onboarding_school.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -144,9 +140,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateRegister(): Boolean {
-        name_register.error = ValidationUtils.instance.isUsernameValid(name_register.editText?.text.toString())
-        email_register.error = ValidationUtils.instance.isEmailValid(email_register.editText?.text.toString())
-        password_register.error = ValidationUtils.instance.isPasswordValid(password_register.editText?.text.toString())
+        name_register.error = ValidationUtils.isUsernameValid(name_register.editText?.text.toString())
+        email_register.error = ValidationUtils.isEmailValid(email_register.editText?.text.toString())
+        password_register.error = ValidationUtils.isPasswordValid(password_register.editText?.text.toString())
         return name_register.error == null && email_register.error == null && password_register.error == null
     }
 }

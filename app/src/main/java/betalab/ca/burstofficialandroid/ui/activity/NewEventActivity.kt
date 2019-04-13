@@ -2,8 +2,8 @@ package betalab.ca.burstofficialandroid.ui.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.Group
 import betalab.ca.burstofficialandroid.model.FinalEvent
 import betalab.ca.burstofficialandroid.R
 import kotlinx.android.synthetic.main.activity_new_event.*
@@ -12,118 +12,81 @@ import java.util.*
 
 class NewEventActivity : AppCompatActivity() {
 
-    private var startDateO: Calendar = Calendar.getInstance()
-    private var endDateO: Calendar = Calendar.getInstance()
-    private lateinit var dpdStart: DatePickerDialog
-    private lateinit var dpdEnd: DatePickerDialog
-    private var startTimeO: Calendar = Calendar.getInstance()
-    private var endTimeO: Calendar = Calendar.getInstance()
-    private lateinit var dpdTimeStart: TimePickerDialog
-    private lateinit var dpdTimeEnd: TimePickerDialog
-    private lateinit var finalEvent : FinalEvent
-    private lateinit var name : String
-    private var allDay: Boolean = false
-    private var repeats: Boolean = false
-    private var alert: Boolean = false
+    private var startDateO: Calendar = Calendar.getInstance().also {
+        it.add(Calendar.HOUR, 1)
+        it.set(Calendar.MINUTE, 0)
+    }
+    private var endDateO: Calendar = (startDateO.clone() as Calendar).also { it.add(Calendar.HOUR, 3) }
+    private val simpleDate by lazy { SimpleDateFormat(getString(R.string.simple_date_format_str), Locale.getDefault()) }
+    private val simpleTime by lazy { SimpleDateFormat(getString(R.string.time_format_str), Locale.getDefault()) }
+    private val dpdStart by lazy {
+        DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
+                startDateO = dateFromInput(mYear, mMonth, mDay)
+                start_date.text = simpleDate.format(startDateO.time)
+            }, startDateO.get(Calendar.YEAR), startDateO.get(Calendar.MONTH), startDateO.get(Calendar.MONTH)
+        )
+    }
+    private val dpdEnd by lazy {
+        DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
+                endDateO = dateFromInput(mYear, mMonth, mDay)
+                end_date.text = simpleDate.format(endDateO.time)
+            }, endDateO.get(Calendar.YEAR), endDateO.get(Calendar.MONTH), endDateO.get(Calendar.MONTH)
+        )
+    }
+    private val dpdTimeStart by lazy {
+        TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                startDateO.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                startDateO.set(Calendar.MINUTE, minute)
+                start_time.text = simpleTime.format(startDateO.time)
+            }, startDateO.get(Calendar.HOUR_OF_DAY), startDateO.get(Calendar.MINUTE), false
+        )
+    }
+    private val dpdTimeEnd by lazy {
+        TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                endDateO.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                endDateO.set(Calendar.MINUTE, minute)
+                end_time.text = simpleTime.format(endDateO.time)
+            }, endDateO.get(Calendar.HOUR_OF_DAY), endDateO.get(Calendar.MINUTE), false
+        )
+    }
 
     override fun onStart() {
         super.onStart()
-
         setContentView(R.layout.activity_new_event)
         setSupportActionBar(findViewById(R.id.new_event_toolBar))
-
-        val simpleDate = SimpleDateFormat(getString(R.string.simple_date_format_str), Locale.getDefault()) // Formats for Date and Time
-        val simpleTime = SimpleDateFormat(getString(R.string.time_format_str), Locale.getDefault())
-
-        val startCal = Calendar.getInstance()
-        val year = startCal.get(Calendar.YEAR)
-        val month = startCal.get(Calendar.MONTH)
-        val day = startCal.get(Calendar.DAY_OF_MONTH)
-
+        start_date.text = simpleDate.format(startDateO.time)
+        start_time.text = simpleTime.format(startDateO.time)
+        end_date.text = simpleDate.format(endDateO.time)
+        end_time.text = simpleTime.format(endDateO.time)
+        // Formats for Date and Time
         start_date.setOnClickListener {
-            dpdStart = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                    startDateO = dateFromInput(mYear, mMonth, mDay)
-                    start_date.text = simpleDate.format(startDateO.time)
-                }, year, month, day
-            )
             dpdStart.show()
         }
-
         end_date.setOnClickListener {
-            dpdEnd = DatePickerDialog(
-                this,
-                DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                    endDateO = dateFromInput(mYear, mMonth, mDay)
-                    end_date.text = simpleDate.format(endDateO.time)
-                }, year, month, day
-            )
             dpdEnd.show()
         }
-
         start_time.setOnClickListener {
-            dpdTimeStart = TimePickerDialog(
-                this,
-                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                    startTimeO.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    startTimeO.set(Calendar.MINUTE, minute)
-                    start_time.text = simpleTime.format(startTimeO.time)
-                },
-                startTimeO.get(Calendar.HOUR_OF_DAY), startTimeO.get(Calendar.MINUTE), false
-            )
             dpdTimeStart.show()
         }
-
         end_time.setOnClickListener {
-            dpdTimeEnd = TimePickerDialog(
-                this,
-                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                    endTimeO.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                    endTimeO.set(Calendar.MINUTE, minute)
-                    end_time.text = simpleTime.format(endTimeO.time)
-                },
-                endTimeO.get(Calendar.HOUR_OF_DAY), endTimeO.get(Calendar.MINUTE), false
-            )
             dpdTimeEnd.show()
         }
-
         new_event_save_button.setOnClickListener {
             saveButtonClick()
         }
-
-        all_day_switch.setOnClickListener {
-            if (all_day_switch.isChecked) {
-                allDay = true
-                start_time.setText(R.string.all_day_st)
-                end_time.visibility = View.INVISIBLE
-                end_date.visibility = View.INVISIBLE
-                ends_label.visibility = View.INVISIBLE
-            } else if (!all_day_switch.isChecked) {
-                start_time.setText(R.string.enter_time_hint)
-                end_time.text = getString(R.string.enter_time_hint)
-                end_time.visibility = View.VISIBLE
-                end_date.visibility = View.VISIBLE
-                ends_label.visibility = View.VISIBLE
-            }
+        all_day_switch.setOnCheckedChangeListener { _, isChecked ->
+            all_day_group.visibility = if (isChecked) Group.INVISIBLE else Group.VISIBLE
+            all_day_group.requestLayout()
         }
 
-        new_event_repeats_check.setOnClickListener {
-            if (new_event_repeats_check.isChecked) {
-                repeats = true
-            } else if (!new_event_repeats_check.isChecked) {
-                repeats = false
-            }
-        }
-
-        new_event_alert_check.setOnClickListener {
-            if (new_event_alert_check.isChecked) {
-                alert = true
-            } else if (!new_event_repeats_check.isChecked) {
-                alert = false
-            }
-
-        }
         new_event_back_button.setOnClickListener {
             finish()
         }
@@ -143,18 +106,23 @@ class NewEventActivity : AppCompatActivity() {
      * Assigns the times and dates to one start and end calendar event. Then creates a FinalEvent Which holds all the information for the new event.
      */
     private fun saveButtonClick() {
-        startDateO.set(Calendar.HOUR_OF_DAY, startTimeO.get(Calendar.HOUR_OF_DAY))
-        startDateO.set(Calendar.MINUTE, startTimeO.get(Calendar.MINUTE))
-        endDateO.set(Calendar.MINUTE, endTimeO.get(Calendar.MINUTE))
-        endDateO.set(Calendar.HOUR_OF_DAY, endTimeO.get(Calendar.HOUR_OF_DAY))
-        name = event_name_edit_text.editText!!.text.toString()
-        finalEvent =
-            FinalEvent(name, startDateO, endDateO, allDay, repeats, alert)
+        @Suppress("UNUSED_VARIABLE") val finalEvent = FinalEvent(
+            event_name_edit_text.editText!!.text.toString(),
+            startDateO, endDateO,
+            isAllDay(), isRepeating(), isAlert()
+        )
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+    private fun isRepeating(): Boolean {
+        return new_event_repeats_check.isChecked
+    }
+
+    private fun isAlert(): Boolean {
+        return new_event_alert_check.isChecked
+    }
+
+    private fun isAllDay(): Boolean {
+        return all_day_switch.isChecked
     }
 
 }
