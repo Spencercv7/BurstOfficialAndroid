@@ -144,9 +144,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun validateRegister(): Boolean {
-        name_register.error = ValidationUtils.instance.isUsernameValid(name_register.editText?.text.toString())
-        email_register.error = ValidationUtils.instance.isEmailValid(email_register.editText?.text.toString())
-        password_register.error = ValidationUtils.instance.isPasswordValid(password_register.editText?.text.toString())
+        name_register.error = ValidationUtils.isUsernameValid(name_register.editText?.text.toString())
+        email_register.error = ValidationUtils.isEmailValid(email_register.editText?.text.toString())
+        password_register.error = ValidationUtils.isPasswordValid(password_register.editText?.text.toString())
         return name_register.error == null && email_register.error == null && password_register.error == null
     }
 }
