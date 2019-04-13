@@ -4,7 +4,7 @@ import java.util.regex.Pattern
 
 class ValidationUtils {
     companion object {
-        val EMAIL_ADDRESS_PATTERN = Pattern.compile(
+        private val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
             "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                     "\\@" +
                     "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
@@ -41,12 +41,12 @@ class ValidationUtils {
             }
         }
 
-        fun isUsernameAvailable(@Suppress("UNUSED_PARAMETER") name: String): Boolean {
+        private fun isUsernameAvailable(@Suppress("UNUSED_PARAMETER") name: String): Boolean {
             return true
         }
 
-        fun hasLowerCase(s: String): Boolean = s.filter { c -> c.isLowerCase() }.count() > 0
-        fun hasUpperCase(s: String): Boolean = s.filter { c -> c.isUpperCase() }.count() > 0
-        fun hasNumber(s: String): Boolean = s.contains(Regex("\\d"))
+        private fun hasLowerCase(s: String): Boolean = s.filter { c -> c.isLowerCase() }.count() > 0
+        private fun hasUpperCase(s: String): Boolean = s.filter { c -> c.isUpperCase() }.count() > 0
+        private fun hasNumber(s: String): Boolean = s.contains(Regex("\\d"))
     }
 }

@@ -1,7 +1,5 @@
 package betalab.ca.burstofficialandroid
 
-import android.content.Context
-import betalab.ca.burstofficialandroid.ui.application.MainApplication
 import betalab.ca.burstofficialandroid.ui.util.ValidationUtils
 import org.junit.Test
 import org.junit.Assert.*
