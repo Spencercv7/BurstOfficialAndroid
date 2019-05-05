@@ -1,12 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<betalab.ca.burstofficialandroid.ui.util.umano.slidingpanel.SlidingUpPanelLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="180dp"
+        sothree:umanoScrollableView="@+id/campus_map_search_recyclerview"
+        sothree:umanoShadowHeight="0dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/campus_map"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/light_grey"
+                tools:ignore="ContentDescription"/>
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_centerInParent="true"
-              android:text="@string/campus_map"
-              android:textSize="30sp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/campus_map_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fabSize="normal"
+                app:tint="@color/white"
+                app:borderWidth="0dp"
+                app:rippleColor="@color/white"
+                android:backgroundTint="@color/coral"
+                android:src="@drawable/ic_search_white_24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="20dp"/>
+    </RelativeLayout>
 
-</RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/campus_map_search_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"/>
+
+
+</betalab.ca.burstofficialandroid.ui.util.umano.slidingpanel.SlidingUpPanelLayout>

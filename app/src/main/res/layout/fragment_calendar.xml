@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="16dp">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -16,8 +17,7 @@
             android:theme="@style/custom_fab"
             android:rotation="90"
             app:borderWidth="0dp"
-            android:src="@drawable/ic_add_black_24dp"
-    />
+            android:src="@drawable/ic_add_black_24dp" />
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
