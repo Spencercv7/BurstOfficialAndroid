@@ -9,8 +9,17 @@
     <color name="black">#000</color>
     <color name="light_grey">#D3D3D3</color>
     <color name="dark_grey">#808080</color>
+    <color name="black_20">#33000000</color>
     <color name="black_30">#4D000000</color>
+    <color name="black_40">#66000000</color>
     <color name="black_50">#80000000</color>
+
+    <color name="pastel_red">#d75757</color>
     <color name="default_background">#FAFAFA</color>
     <color name="blue">#4267b2</color>
+    <color name="very_light_pink">#fff7f7</color>
+    <color name="event_color_01">#59dbe0</color>
+    <color name="event_color_02">#f57f68</color>
+    <color name="event_color_03">#87d288</color>
+    <color name="event_color_04">#f8b552</color>
 </resources>

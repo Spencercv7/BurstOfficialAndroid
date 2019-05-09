@@ -13,7 +13,8 @@
             android:installLocation="auto"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
-        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.LaunchActivity" android:theme="@style/SplashTheme">
+        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.LaunchActivity"
+                  android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <action android:name="android.intent.action.VIEW"/>
@@ -22,8 +23,13 @@
         </activity>
         <activity android:name="betalab.ca.burstofficialandroid.ui.activity.LoginActivity"/>
         <activity android:name="betalab.ca.burstofficialandroid.ui.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.NewEventActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
+                  android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="betalab.ca.burstofficialandroid.ui.activity.NewEventActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen"/>
         <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
     </application>
 
