@@ -26,6 +26,7 @@
         <TextView
                 android:id="@+id/calendar_title_text"
                 style="@style/TitleText"
+                android:layout_gravity="center_horizontal"
                 android:text="@string/calendar_title_text"/>
 
         <TextView
@@ -47,7 +48,8 @@
 
         <com.google.android.material.button.MaterialButton
                 style="@style/RedButton_WhiteText"
-                android:text="@string/import_class_calendar_caps"/>
+                android:text="@string/import_class_calendar_caps"
+                android:layout_gravity="center_horizontal"/>
 
         <com.google.android.material.button.MaterialButton
                 style="@style/WhiteButton_RedText"

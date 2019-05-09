@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools" android:id="@+id/campus_map_search_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="12dp">
+
+    <TextView
+            android:id="@+id/map_search_card_title"
+            android:text="@string/stauffer_library"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <TextView
+            android:id="@+id/map_search_card_subtitle"
+            android:text="@string/study_place"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/map_search_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    <TextView
+            android:id="@+id/map_search_card_status"
+            android:text="@string/open"
+            android:fontFamily="@font/roboto_regular"
+            android:textSize="20sp"
+            android:textColor="@color/neon_green"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="RelativeOverlap"/>
+
+    <TextView
+            android:id="@+id/map_search_card_info"
+            android:text="@string/closes_at_12am"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/map_search_card_subtitle"
+            android:layout_below="@id/map_search_card_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+</RelativeLayout>
