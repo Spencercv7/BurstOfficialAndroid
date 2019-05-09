@@ -108,4 +108,18 @@
     <string name="import_str">IMPORT</string>
     <string name="card_logo">Card Logo</string>
 
+    <!-- Resources Fragment -->
+    <string name="clubs_conferences_committees">Clubs, Conferences, Committees</string>
+    <string name="qweb">QWEB</string>
+    <string name="queen_s_web_development_club">Queen\'s Web Development Club</string>
+    <string name="lorem_ipsum">Lorem Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiumsmod tempor
+        incididunt ut!
+    </string>
+
+    <!-- Campus Map Fragment -->
+    <string name="stauffer_library">Stauffer Library</string>
+    <string name="study_place">Study Place</string>
+    <string name="open">Open</string>
+    <string name="closes_at_12am">Closes at 12AM</string>
+
 </resources>

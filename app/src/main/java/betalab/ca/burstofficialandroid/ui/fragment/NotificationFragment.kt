@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.model.Notification
+import betalab.ca.burstofficialandroid.model.NotificationBroadcast
+import betalab.ca.burstofficialandroid.model.NotificationChange
+
 import betalab.ca.burstofficialandroid.ui.adapter.NotificationAdapter
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
@@ -35,7 +38,7 @@ class NotificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        notifications_fragment_recycler_view.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        notifications_fragment_recycler_view.layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         notifications_fragment_recycler_view.adapter = NotificationAdapter(myDataSet)
         notifications_fragment_recycler_view.hasFixedSize()
     }
@@ -43,28 +46,19 @@ class NotificationFragment : Fragment() {
     // Function in which we draw data from the database
     // Currently just makes placeholder information
     private fun setData() {
-        val notification1 = Notification(
+        val notification = Notification(
             "Betalabs is hosting a new event", "Web Tutorial Series Part 2 - Implementation of JavaScript",
             "March 2, 2018", "1PM - 3PM", "Ellis Hall 324"
         )
-        val notification2 = Notification(
-            "Betalabs is hosting a new event", "Meet and Greet Tech Leaders - Elon Musk",
-            "February 21, 2018", "1AM - 3AM", "Jeffery Hall 101"
+        val notificationBroadcast = NotificationBroadcast(
+            "Betalabs is hosting a new event", "Web Tutorial Series Part 2 - Implementation of JavaScript",
+            "March 2, 2018", "1PM - 3PM", "Ellis Hall 324", "This is a broadcast message. This is a broadcast message. This is a broadcast message."
         )
-        val notification3 = Notification(
-            "Betalabs is hosting a new event", "Web Tutorial Series Part 1 - Implementation of JavaScript",
-            "January 31, 2018", "1PM - 3PM", "Ellis Hall 324"
+        val notificationChange = NotificationChange(
+            "Betalabs is hosting a new event", "Web Tutorial Series Part 2 - Implementation of JavaScript",
+            "March 2, 2018", "1PM - 3PM", "Ellis Hall 324", "Ellis Hall 326", "Ellis Hall 324"
         )
-        val notification4 = Notification(
-            "Betalabs is hosting a new event", "Intro to Android - Creating your First App",
-            "April 15, 2018", "10PM - 11PM", "Dunning Hall 324"
-        )
-        myDataSet = mutableListOf(notification1, notification2, notification3, notification4)
+
+        myDataSet = mutableListOf(notification, notificationBroadcast, notificationChange)
     }
-
-
-
-
-
-
 }

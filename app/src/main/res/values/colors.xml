@@ -13,4 +13,6 @@
     <color name="black_50">#80000000</color>
     <color name="default_background">#FAFAFA</color>
     <color name="blue">#4267b2</color>
+    <color name="neon_green">#0daf27</color>
+    <color name="red">#de2222</color>
 </resources>
