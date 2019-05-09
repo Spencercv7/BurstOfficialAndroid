@@ -13,6 +13,12 @@ import androidx.fragment.app.Fragment
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.activity.NewEventActivity
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import betalab.ca.burstofficialandroid.database.EventsDatabase
+import betalab.ca.burstofficialandroid.database.FakeEventsDatabase
+import betalab.ca.burstofficialandroid.model.CalendarItem
+import com.alamkanak.weekview.*
+import java.util.*
+
 
 class CalendarFragment : Fragment() {
 
@@ -23,23 +29,35 @@ class CalendarFragment : Fragment() {
     }
 
     private var animating = false
+    private lateinit var  mDatabase: EventsDatabase
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mDatabase = FakeEventsDatabase(context!!)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+        return inflater.inflate(
+            R.layout.fragment_calendar,
+            container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        @Suppress("UNCHECKED_CAST")
+        (weekView as WeekView<CalendarItem>).setMonthChangeListener { startDate, endDate ->
+            mDatabase.getEventsInRange(startDate,endDate)
+        }
+        weekView.eventMarginHorizontal = 4
         instantiateListeners()
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun ifNotAnimating(toExecute: () -> Unit) {
-        if (!animating) {
-            animating = true
-            toExecute()
-        }
+        if (!animating) toExecute()
     }
+
     //region animations
     private fun circleReveal() {
+        animating = true
         ViewAnimationUtils.createCircularReveal(
             revealed_card,
             button_card_layout.right,
@@ -61,6 +79,7 @@ class CalendarFragment : Fragment() {
     }
 
     private fun circularHide() {
+        animating = true
         ViewAnimationUtils.createCircularReveal(
             revealed_card,
             button_card_layout.width,
@@ -81,6 +100,7 @@ class CalendarFragment : Fragment() {
             fab_import.elevation = 0f
         }
     }
+
     //endregion animations
     private fun instantiateListeners() {
         fab_import.setOnClickListener {

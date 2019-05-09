@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// TODO: Give Credit to Umano??.
 
 
 package betalab.ca.burstofficialandroid.ui.util.umano.slidingpanel;

@@ -3,9 +3,34 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp">
-
+        android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <com.alamkanak.weekview.WeekView
+                android:id="@+id/weekView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:eventTextColor="@color/white"
+                app:eventTextSize="14sp"
+                app:timeColumnTextSize="12sp"
+                app:hourHeight="60dp"
+                app:nowLineColor="@color/coral"
+                app:nowLineDotColor="@color/coral"
+                app:showNowLine="true"
+                app:showNowLineDot="true"
+                app:timeColumnPadding="8dp"
+                app:timeColumnBackgroundColor="@color/white"
+                app:headerRowPadding="12dp"
+                app:eventCornerRadius="10dp"
+                app:showCurrentTimeFirst="true"
+                app:numberOfVisibleDays="3"
+                app:headerRowBackgroundColor="@color/white"
+                app:showHeaderRowBottomLine="true"
+                app:dayBackgroundColor="@color/white"
+                app:timeColumnTextColor="@color/black_20"
+                app:headerRowTextColor="@color/black_40"
+                app:todayHeaderTextColor="@color/black_40"
+                app:todayBackgroundColor="@color/very_light_pink"/>
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -17,7 +42,11 @@
             android:theme="@style/custom_fab"
             android:rotation="90"
             app:borderWidth="0dp"
-            android:src="@drawable/ic_add_black_24dp" />
+            android:src="@drawable/ic_add_black_24dp"
+            app:tint="@color/white"
+            app:rippleColor="@android:color/transparent"
+            android:layout_margin="8dp"
+    />
 
     <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -26,8 +55,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:cardBackgroundColor="@color/coral"
+            android:elevation="8dp"
             app:cardCornerRadius="16dp"
             android:visibility="invisible"
+            android:layout_margin="8dp"
     >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +74,8 @@
                     android:id="@+id/newEvent_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/fab_button"
+                    android:theme="@style/fab_button_pastel"
+                    style="?android:attr/borderlessButtonStyle"
                     android:text="@string/event_str"
                     app:layout_constraintBottom_toTopOf="@id/import_cal_button"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -56,7 +88,8 @@
                     android:id="@+id/import_cal_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:theme="@style/fab_button"
+                    android:theme="@style/fab_button_pastel"
+                    style="?android:attr/borderlessButtonStyle"
                     android:text="@string/import_str"
                     app:layout_constraintBottom_toTopOf="@id/fab_in_menu"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +106,8 @@
                     app:elevation="0dp"
                     app:borderWidth="0dp"
                     android:src="@drawable/ic_add_black_24dp"
+                    app:tint="@color/white"
+                    app:rippleColor="@android:color/transparent"
             />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
