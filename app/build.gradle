@@ -34,6 +34,7 @@ dependencies {
     implementation 'androidx.fragment:fragment:1.1.0-alpha08'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+    implementation 'org.jsoup:jsoup:1.12.1'  //not sure if this will be of use yet
     implementation project(path: ':library')
 
 }

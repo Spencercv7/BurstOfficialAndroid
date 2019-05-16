@@ -47,6 +47,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/import_class_calendar_button"
                 style="@style/RedButton_WhiteText"
                 android:text="@string/import_class_calendar_caps"
                 android:layout_gravity="center_horizontal"/>
