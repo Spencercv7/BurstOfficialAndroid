@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.model.Card
 import betalab.ca.burstofficialandroid.R
+import betalab.ca.burstofficialandroid.model.Card
+import betalab.ca.burstofficialandroid.R.layout.item_home_event as item_home_event1
 
 class HomeEventCardAdapter(private val textToBind : Array<Card>) : RecyclerView.Adapter<HomeEventCardAdapter.ViewHolder>() {
 
@@ -19,7 +20,7 @@ class HomeEventCardAdapter(private val textToBind : Array<Card>) : RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_home_event, parent, false) as ViewGroup
+            .inflate(item_home_event1, parent, false) as ViewGroup
         return ViewHolder(view)
     }
 
