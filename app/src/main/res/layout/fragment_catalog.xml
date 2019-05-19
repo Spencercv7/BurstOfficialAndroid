@@ -1,12 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_centerInParent="true"
-              android:text="@string/catalog"
-              android:textSize="30sp"/>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/resources_search"
+            android:layout_marginTop="5dp"
+            style="@style/EditTextField_Outlined"
+            app:startIconDrawable="@drawable/ic_search_black_24dp"
+            android:hint="@string/clubs_conferences_committees"
+            android:layout_marginBottom="10dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+                style="@style/EditText_Input"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/resources_search"
+            android:id="@+id/resources_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
 
 </RelativeLayout>
