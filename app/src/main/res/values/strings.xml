@@ -142,9 +142,11 @@
     <string name="author_str">Author</string>
 
     <!-- profile-user strings -->
-    <string name="profile_name"/>
-    <string name="study_school_str"/>
+    <string name="profile_name">User Name</string>
+    <string name="study_school_str">School Info</string>
     <string name="follow_str_caps">FOLLOW</string>
     <string name="interests_str">Interests</string>
+    <string name="view_all">View All</string>
+    <string name="events">Events</string>
 
 </resources>
