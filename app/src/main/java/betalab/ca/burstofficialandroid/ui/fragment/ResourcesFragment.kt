@@ -18,21 +18,10 @@ class ResourcesFragment : Fragment() {
         }
     }
 
-    private lateinit var recyclerView: RecyclerView
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(
             R.layout.fragment_resources,
             container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        recyclerView = view.findViewById(R.id.resources_recyclerview) as RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        recyclerView.adapter = ResourceAdapter()
-        recyclerView.hasFixedSize()
     }
 
 }
