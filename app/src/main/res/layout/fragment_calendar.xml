@@ -22,7 +22,7 @@
                 app:headerRowPadding="12dp"
                 app:eventCornerRadius="10dp"
                 app:showCurrentTimeFirst="true"
-                app:numberOfVisibleDays="3"
+                app:numberOfVisibleDays="1"
                 app:headerRowBackgroundColor="@color/white"
                 app:showHeaderRowBottomLine="true"
                 app:dayBackgroundColor="@color/white"

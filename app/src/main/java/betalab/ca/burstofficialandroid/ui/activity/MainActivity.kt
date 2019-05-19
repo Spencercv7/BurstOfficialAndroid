@@ -1,6 +1,7 @@
 package betalab.ca.burstofficialandroid.ui.activity
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -31,6 +32,14 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
                 }
             close_profile_pic.setOnClickListener {
                 setFragment(1) //close profile fragment and go to main fragment
+            }
+            main_profile_pic.setOnClickListener {
+                val intent = Intent(this, ProfileActivity::class.java)//should be new activity just temp
+                startActivity(intent)
+            }
+            list_yours_button.setOnClickListener {
+                val intent = Intent(this, NewEventActivity::class.java)//should be new activity just temp
+                startActivity(intent)
             }
         }
 

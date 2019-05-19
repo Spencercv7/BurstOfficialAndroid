@@ -122,4 +122,31 @@
     <string name="open">Open</string>
     <string name="closes_at_12am">Closes at 12AM</string>
 
+    <!-- Event Page Strings -->
+    <string name="event_title_label">Implementation of\nJavaScript</string>
+    <string name="event_time_label">January 31, 2018 1PM-3PM</string>
+    <string name="event_location_label">Ellis Hall 324</string>
+    <string name="event_register_label">REGISTER</string>
+    <string name="event_body_str">Lean from Would is a comfortable and minimalist lounge chair, characterized by an angular backrest.\n\nPlus, the simple and elegant design makes a good addition to any modern space and decor.</string>
+    <string name="details_str">Details</string>
+    <string name="details_text">Lean from Would is a comfortable and minimalist lounge chair, characterized by an angular backrest.\n\nPlus, the simple and elegant design makes a good addition to any modern space and decor.</string>
+    <string name="event_gallery_label">Gallery</string>
+    <string name="event_similar_label">Similar Events</string>
+    <string name="links_label">Links</string>
+    <string name="host_str">Host</string>
+
+    <!-- similar_event_card.xml strings -->
+    <string name="executives_str">Executives</string>
+    <string name="schedule_str">Schedule</string>
+    <string name="event_title_str">Event Title</string>
+    <string name="author_str">Author</string>
+
+    <!-- profile-user strings -->
+    <string name="profile_name">User Name</string>
+    <string name="study_school_str">School Info</string>
+    <string name="follow_str_caps">FOLLOW</string>
+    <string name="interests_str">Interests</string>
+    <string name="view_all">View All</string>
+    <string name="events">Events</string>
+
 </resources>
