@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="16dp">
+
+    <ImageView android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/profile_close_button"
+               android:src="@drawable/ic_close_24px"/>
+
+    <ImageView android:layout_width="100dp" android:layout_height="100dp"
+               android:id="@+id/profile_picture"
+               android:src="@drawable/icon_profile_filled"
+               android:layout_gravity="center"
+               android:layout_marginTop="16dp"/>
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="@string/profile_name"
+              android:layout_gravity="center"
+              android:layout_marginTop="16dp"
+              style="@style/TitleText"
+    />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              android:text="@string/study_school_str"
+              android:layout_gravity="center"
+              android:layout_marginTop="16dp"
+              style="@style/SubTitleText"
+    />
+
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/follow_button"
+            style="@style/WhiteButton_RedText"
+            android:text="@string/follow_str_caps"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+    />
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_marginTop="8dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  style="@style/SubTitleText"
+                  android:layout_alignParentStart="true"
+                  android:text="@string/interests_str"
+        />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  style="@style/SubTitleText"
+                  android:layout_alignParentEnd="true"
+                  android:text="@string/view_all"
+                  android:textColor="@color/coral"/>
+    </RelativeLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="6dp"
+            android:id="@+id/profile_horz_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+              style="@style/SubTitleText"
+              android:layout_gravity="start"
+              android:text="@string/events"
+              android:layout_marginTop="8dp"
+    />
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="6dp"
+            android:id="@+id/profile_vert_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

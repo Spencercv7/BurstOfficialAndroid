@@ -8,6 +8,7 @@
         app:cardMaxElevation="1dp"
         app:cardElevation="1dp"
         android:layout_marginEnd="10dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,9 +24,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:tint="@color/black_50"
-        />
-
+                android:tint="@color/black_50" android:id="@+id/appCompatImageView"/>
 
         <ImageView
                 android:layout_marginTop="10dp"
@@ -37,7 +36,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/ic_notification"
-                android:contentDescription="@string/card_logo"/>
+                android:contentDescription="@string/card_logo"
+                app:layout_constraintStart_toEndOf="@+id/appCompatImageView" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatImageView"/>
 
         <TextView
                 android:layout_marginBottom="10dp"

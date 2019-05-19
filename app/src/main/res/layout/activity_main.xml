@@ -110,6 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/RedButton_WhiteText"
+                    android:id="@+id/list_yours_button"
                     android:text="@string/list_yours_caps"/>
         </LinearLayout>
 

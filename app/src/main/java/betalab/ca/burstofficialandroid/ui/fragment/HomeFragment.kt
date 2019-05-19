@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.model.Card
-import betalab.ca.burstofficialandroid.ui.adapter.HomeScheduleAdapter
 import betalab.ca.burstofficialandroid.R
+import betalab.ca.burstofficialandroid.model.Card
 import betalab.ca.burstofficialandroid.model.ScheduleCard
 import betalab.ca.burstofficialandroid.ui.adapter.HomeEventCardAdapter
+import betalab.ca.burstofficialandroid.ui.adapter.HomeScheduleAdapter
 
 class HomeFragment : Fragment() {
     companion object {
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
                 "Leonard Hall"
             ),
             Card(
-                "Finance DAB",
+                "Finance 305",
                 "Queen's Finance Association\nConference",
                 "February 2, 2019",
                 "4:30PM - 6:30PM",

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/card_temp_backing"/>
+
+                <ImageView
+                        android:id="@+id/event_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/ic_close_white_24dp"
+                />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+                android:id="@+id/event_name_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TitleText"
+                android:text="@string/event_title_label"
+                android:lineHeight="35dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"/>
+
+        <TextView
+                android:id="@+id/event_data_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SubTitleText"
+                android:text="@string/event_time_label"/>
+
+        <TextView
+                android:id="@+id/event_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SubTitleText"
+                android:text="@string/event_location_label"
+                android:layout_marginTop="5dp"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/event_register_button"
+                android:layout_width="164dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/event_register_label"/>
+
+        <TextView
+                android:id="@+id/event_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/event_body_str"
+                style="@style/SubTitleText"
+                android:textAlignment="textStart"
+                android:layout_margin="16dp"/>
+
+        <ImageView
+                android:id="@+id/event_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/card_temp_backing"
+                android:layout_margin="16dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/details_str"
+                style="@style/SubTitleText"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/details_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SubTitleText"
+                android:layout_margin="16dp"
+                android:textAlignment="textStart"
+                android:text="@string/details_text"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/SubTitleText"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:text="@string/event_gallery_label"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_gallery_rec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                style="@style/SubTitleText"
+                android:layout_margin="16dp"
+                android:text="@string/links_label"/>
+
+        <!-- This is super jank and inefficient. Need the photos together instead of the background and logo separate -->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:id="@+id/insta_rectangel"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/insta_rectangel"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/insta_logo"
+                    app:layout_constraintStart_toStartOf="@id/insta_rectangel"
+                    app:layout_constraintTop_toTopOf="@id/insta_rectangel"
+                    app:layout_constraintBottom_toBottomOf="@id/insta_rectangel"
+                    app:layout_constraintEnd_toEndOf="@id/insta_rectangel"/>
+
+            <ImageView
+                    android:id="@+id/face_rectangle"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/face_rectangel"
+                    app:layout_constraintStart_toEndOf="@id/insta_rectangel"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/face_logo"
+                    app:layout_constraintTop_toTopOf="@id/face_rectangle"
+                    app:layout_constraintBottom_toBottomOf="@id/face_rectangle"
+                    app:layout_constraintStart_toStartOf="@id/face_rectangle"
+                    app:layout_constraintEnd_toEndOf="@id/face_rectangle"/>
+
+            <ImageView
+                    android:id="@+id/email_rectangle"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/email_rectangel"
+                    app:layout_constraintStart_toEndOf="@id/face_rectangle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/email_logo"
+                    app:layout_constraintTop_toTopOf="@id/email_rectangle"
+                    app:layout_constraintStart_toStartOf="@id/email_rectangle"
+                    app:layout_constraintEnd_toEndOf="@id/email_rectangle"
+                    app:layout_constraintBottom_toBottomOf="@id/email_rectangle"
+            />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/event_similar_label"
+                style="@style/SubTitleText"
+                android:textStyle="bold"
+                android:layout_margin="16dp"
+
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/event_similar_rec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+        >
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+</ScrollView>
