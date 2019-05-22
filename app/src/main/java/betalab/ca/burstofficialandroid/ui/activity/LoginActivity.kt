@@ -1,11 +1,14 @@
 package betalab.ca.burstofficialandroid.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.media.Image
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -168,6 +171,12 @@ class LoginActivity : AppCompatActivity() {
 
 
 
+
+
+
+
+
+
     //IMPORT CLASS CALENDAR HANDLING
     @SuppressLint("SetJavaScriptEnabled")
     private fun importClassCalendar() {
@@ -177,31 +186,55 @@ class LoginActivity : AppCompatActivity() {
 
         import_class_webview.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                import_class_webview.loadUrl("javascript:HtmlViewer.showHTML" +     //read the html of the page
-                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>');")
+                import_class_webview.loadUrl("javascript:alert(HtmlViewer.showHTML" +     //read the html of the page
+                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'));")
 
                 if (url == "https://my.queensu.ca/software-centre" ) {   //If the webview gets to the software page exit the screen
                     setScreen(SCREEN.IMPORT)
                 }
             }
         }
+
+        import_class_webview.webChromeClient = object: WebChromeClient() {
+            override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
+                Log.d("LogTag", message)
+                if (message != "not found") {
+                    downloadFile(message)
+                    Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+                }
+                result!!.confirm()
+                return true
+            }
+        }
+
         import_class_webview.loadUrl("https://my.queensu.ca/software-centre")
     }
 
 
 
+    fun downloadFile(url: String?){
+        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val uri = Uri.parse(url)
+        val request = DownloadManager.Request(uri)
+        request.setDescription("Calendar ICS Download").setTitle("Calendar Download")
+        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "calendar")
+        request.setVisibleInDownloadsUi(true)
+        downloadManager.enqueue(request)  //TODO: TAKE TO INTERNAL STORAGE?
+    }
+
+
     class MyJavaScriptInterface(private val ctx: Context) {
 
         @JavascriptInterface
-        fun showHTML(html: String) {
+        fun showHTML(html: String) : String {
             if (html.contains("https://mytimetable.queensu.ca/timetable")) {    //stop if html contains this url
                 val icsURL = html.substring(
                     html.indexOf("https://mytimetable.queensu.ca/timetable"),  //substring starts here
                     html.indexOf(".</p>\n" + "  <p>Visit the ITS")     //ends right before this
                 )
-                Log.e("ICS URL", icsURL)  //TODO: FOR THE LOVE OF GOODNESS LET ME TAKE THIS VALUE SOMEHOW
-                Toast.makeText(ctx, icsURL, Toast.LENGTH_LONG).show()
+                return icsURL
             }
+            return "not found"
         }
     }
 }
