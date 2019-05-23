@@ -2,9 +2,11 @@ package betalab.ca.burstofficialandroid.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
+import betalab.ca.burstofficialandroid.internal.glide.GlideApp
 import betalab.ca.burstofficialandroid.model.Card
 import betalab.ca.burstofficialandroid.R.layout.item_home_event as item_home_event1
 
@@ -16,6 +18,7 @@ class HomeEventCardAdapter(private val textToBind : Array<Card>) : RecyclerView.
         val cardDate : TextView = view.findViewById(R.id.card_date)
         val cardTime : TextView = view.findViewById(R.id.card_time)
         val cardLoc : TextView = view.findViewById(R.id.card_location)
+        val cardImage: ImageView = view.findViewById(R.id.appCompatImageView)
 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +34,7 @@ class HomeEventCardAdapter(private val textToBind : Array<Card>) : RecyclerView.
         holder.cardDate.text = curCard.date
         holder.cardTime.text = curCard.time
         holder.cardLoc.text = curCard.location
+        //GlideApp.with(holder.cardImage).load("https://dummyimage.com/600x400/e815e8/fff.png&text=test").into(holder.cardImage)
     }
 
     override fun getItemCount() = textToBind.size
