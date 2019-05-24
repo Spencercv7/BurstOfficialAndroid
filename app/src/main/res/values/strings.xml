@@ -149,4 +149,9 @@
     <string name="view_all">View All</string>
     <string name="events">Events</string>
 
+    <!-- profile-organization strings -->
+    <string name="profile_org_name_str">Club Name</string>
+    <string name="profile_org_desc_str">Club Description</string>
+    <string name="profile_org_body_str">Body text of information on the club goes here.</string>
+
 </resources>
