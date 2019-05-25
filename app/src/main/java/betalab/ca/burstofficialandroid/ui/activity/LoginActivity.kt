@@ -229,7 +229,6 @@ class LoginActivity : AppCompatActivity() {
         import_class_webview.visibility = View.VISIBLE
     }
 
-
     fun downloadFile(url: String?) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri = Uri.parse(url)
