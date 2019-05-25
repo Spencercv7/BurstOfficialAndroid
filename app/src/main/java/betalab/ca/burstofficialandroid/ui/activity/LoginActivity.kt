@@ -5,26 +5,23 @@ import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.ImageView
 import android.widget.Toast
-import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.util.ValidationUtils
 import kotlinx.android.synthetic.main.activity_onboarding.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.import_class_calendar.*
 import kotlinx.android.synthetic.main.onboarding_calendar.*
 import kotlinx.android.synthetic.main.onboarding_interests.*
@@ -35,8 +32,6 @@ import kotlinx.android.synthetic.main.onboarding_profile.*
 import kotlinx.android.synthetic.main.onboarding_school.*
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 
 
 class LoginActivity : AppCompatActivity() {
@@ -114,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         })
-        password_register.editText?.setOnEditorActionListener { v, keyCode, event ->
+        password_register.editText?.setOnEditorActionListener { _, _, _ ->
             val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputManager.hideSoftInputFromWindow(this.currentFocus!!.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
             if (validateRegister())
@@ -141,7 +136,7 @@ class LoginActivity : AppCompatActivity() {
         //Calendar screen
         calendar_back.setOnClickListener { setScreen(SCREEN.PROFILE) } //Go back to profile
         calendar_skip.setOnClickListener { setScreen(SCREEN.NOTIFICATION) } //forward to notification screen
-        import_class_calendar_button.setOnClickListener { importClassCalendar()}
+        import_class_calendar_button.setOnClickListener { importClassCalendar() }
         import_class_back_arrow.setOnClickListener { setScreen(SCREEN.IMPORT) }
 
         //notification screen
@@ -171,34 +166,59 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
     //IMPORT CLASS CALENDAR HANDLING
-    @SuppressLint("SetJavaScriptEnabled")
     private fun importClassCalendar() {
         setScreen(SCREEN.IMPORT_CLASS_CALENDAR)
+        setUpWebview()
+        import_class_webview.loadUrl("https://my.queensu.ca/software-centre")
+    }
+
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setUpWebview() {
         import_class_webview.settings.javaScriptEnabled = true
-        import_class_webview.addJavascriptInterface(MyJavaScriptInterface(this), "HtmlViewer")
+        import_class_webview.addJavascriptInterface(MyJavaScriptInterface(), "HtmlViewer")
 
         import_class_webview.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
-                import_class_webview.loadUrl("javascript:alert(HtmlViewer.showHTML" +     //read the html of the page
-                        "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'));")
+                import_class_webview.loadUrl(
+                    "javascript:alert(HtmlViewer.showHTML" +     //read the html of the page
+                            "('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'));"
+                )
 
-                if (url == "https://my.queensu.ca/software-centre" ) {   //If the webview gets to the software page exit the screen
+                if (url == "https://my.queensu.ca/software-centre") {   //If the webview gets to the software page exit the screen
                     setScreen(SCREEN.IMPORT)
+                    import_class_calendar_button.visibility = View.GONE //TODO: MAKE BETTER METHOD TO PREVENT MULTIPLE ATTEMPTS
                 }
+            }
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                Log.e("URL", url)
+
+                if (url!!.startsWith("https://login.queensu.ca/idp/profile/SAML2/")){ //attempt to hide other pages that try to be loaded
+                    import_class_webview.visibility = View.VISIBLE
+                    import_calendar_progress.visibility = View.GONE
+                }
+                else{
+                    import_class_webview.visibility = View.GONE
+                    import_calendar_progress.visibility = View.VISIBLE
+                }
+
+
+                if (!(url.contains("https://login.queensu.ca/idp/profile/SAML2/") || url.contains("https://my.queensu.ca/software-centre") ||
+                            url.contains("https://my.queensu.ca/Shibboleth.sso/SAML2"))
+                ) {
+                    import_class_webview.loadUrl("https://my.queensu.ca/software-centre") //if user goes off track redirects
+                }
+
+                super.onPageStarted(view, url, favicon)
             }
         }
 
-        import_class_webview.webChromeClient = object: WebChromeClient() {
+        import_class_webview.webChromeClient = object : WebChromeClient() {
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
-                Log.d("LogTag", message)
-                if (message != "not found") {
+                Log.e("LogTag", message)
+                if (message!!.contains("https://mytimetable.queensu.ca/timetable")) {
                     downloadFile(message)
                     Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                 }
@@ -206,13 +226,11 @@ class LoginActivity : AppCompatActivity() {
                 return true
             }
         }
-
-        import_class_webview.loadUrl("https://my.queensu.ca/software-centre")
+        import_class_webview.visibility = View.VISIBLE
     }
 
 
-
-    fun downloadFile(url: String?){
+    fun downloadFile(url: String?) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri = Uri.parse(url)
         val request = DownloadManager.Request(uri)
@@ -223,16 +241,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    class MyJavaScriptInterface(private val ctx: Context) {
-
+    class MyJavaScriptInterface {
         @JavascriptInterface
-        fun showHTML(html: String) : String {
+        fun showHTML(html: String): String {
             if (html.contains("https://mytimetable.queensu.ca/timetable")) {    //stop if html contains this url
-                val icsURL = html.substring(
+                return html.substring(
                     html.indexOf("https://mytimetable.queensu.ca/timetable"),  //substring starts here
                     html.indexOf(".</p>\n" + "  <p>Visit the ITS")     //ends right before this
                 )
-                return icsURL
             }
             return "not found"
         }
