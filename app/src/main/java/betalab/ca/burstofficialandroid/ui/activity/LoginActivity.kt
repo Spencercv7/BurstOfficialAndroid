@@ -46,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
         Toast.makeText(this, "Starts at import screen for testing purposes", Toast.LENGTH_LONG).show()
-        setScreen(SCREEN.IMPORT) //TODO: SWITCH BACK TO LANDING
+        setScreen(SCREEN.LANDING)
         password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO)
                 loginToApp()
