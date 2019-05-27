@@ -13,6 +13,7 @@ import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
     entities = [EventEntry::class],
     version = 1
 )
+@TypeConverters(Converters::class)
 abstract class EventsDatabase : RoomDatabase() {
     abstract fun eventsDao(): EventsDao
 
@@ -26,7 +27,8 @@ abstract class EventsDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                EventsDatabase::class.java, "futureWeatherEntries.db")
+                EventsDatabase::class.java, "events.db")
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }

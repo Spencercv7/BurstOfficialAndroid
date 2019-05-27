@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.threeten.bp.ZonedDateTime
 
 class EventsRepositoryImpl (private val eventsDao: EventsDao, private val eventsDataSource:EventsDataSource): EventsRepository {
     init {
@@ -20,10 +19,10 @@ class EventsRepositoryImpl (private val eventsDao: EventsDao, private val events
             }
         }
     }
-    private fun persistFetchedEvents(events: EventsResponse) {
+    private fun persistFetchedEvents(events: List<EventsResponse>) {
         GlobalScope.launch(Dispatchers.IO) {
-            Log.e("helllllll", events.toString())
-            events.events.forEach{eventsDao.upsert(it)}
+            events.forEach {eventsDao.upsert(it.toEntry()) }
+
         }
     }
     override suspend fun getEvents(): LiveData<List<EventEntry>> {
