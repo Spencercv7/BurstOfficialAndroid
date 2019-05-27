@@ -1,43 +1,40 @@
 package betalab.ca.burstofficialandroid.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import betalab.ca.burstofficialandroid.R
-import betalab.ca.burstofficialandroid.internal.glide.GlideApp
-import betalab.ca.burstofficialandroid.model.Card
+import betalab.ca.burstofficialandroid.model.EventCardData
+import kotlinx.android.synthetic.main.item_home_event.view.*
 import betalab.ca.burstofficialandroid.R.layout.item_home_event as item_home_event1
 
-class HomeEventCardAdapter(private val textToBind : Array<Card>) : RecyclerView.Adapter<HomeEventCardAdapter.ViewHolder>() {
+class HomeEventCardAdapter(private val dataList: List<EventCardData>, private val clickListener: (EventCardData) -> Unit) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    class ViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view){
-        val cardLabel : TextView = view.findViewById(R.id.card_label)
-        val cardDesc : TextView = view.findViewById(R.id.card_description)
-        val cardDate : TextView = view.findViewById(R.id.card_date)
-        val cardTime : TextView = view.findViewById(R.id.card_time)
-        val cardLoc : TextView = view.findViewById(R.id.card_location)
-        val cardImage: ImageView = view.findViewById(R.id.appCompatImageView)
-}
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(item_home_event1, parent, false) as ViewGroup
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val view = inflater.inflate(item_home_event1, parent, false)
+        return PartViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val curCard : Card = textToBind[position]
-        holder.cardLabel.text = curCard.label
-        holder.cardDesc.text = curCard.description
-        holder.cardDate.text = curCard.date
-        holder.cardTime.text = curCard.time
-        holder.cardLoc.text = curCard.location
-        //GlideApp.with(holder.cardImage).load("https://dummyimage.com/600x400/e815e8/fff.png&text=test").into(holder.cardImage)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as PartViewHolder).bind(dataList[position], clickListener)
     }
 
-    override fun getItemCount() = textToBind.size
+    override fun getItemCount() = dataList.size
+
+
+    class PartViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(event : EventCardData, clickListener: (EventCardData) -> Unit) {
+            itemView.card_label.text = event.name
+            itemView.card_description.text = event.description
+            itemView.card_date.text = event.date
+            itemView.card_location.text = event.location
+            itemView.card_time.text = event.time
+            itemView.setOnClickListener {clickListener(event)}
+        }
+    }
+
 }
 
 

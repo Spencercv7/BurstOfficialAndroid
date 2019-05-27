@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
-import betalab.ca.burstofficialandroid.model.ScheduleCard
+import betalab.ca.burstofficialandroid.model.ScheduleCardData
 
-class HomeScheduleAdapter(private val textToBind : Array<ScheduleCard>) : RecyclerView.Adapter<HomeScheduleAdapter.ViewHolder>() {
+class HomeScheduleAdapter(private val textToBind : List<ScheduleCardData>) : RecyclerView.Adapter<HomeScheduleAdapter.ViewHolder>() {
 
     class ViewHolder(view: ViewGroup) : RecyclerView.ViewHolder(view) {
         val scheduleLabel : TextView = view.findViewById(R.id.schedule_label)
@@ -22,9 +22,9 @@ class HomeScheduleAdapter(private val textToBind : Array<ScheduleCard>) : Recycl
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val curCard : ScheduleCard = textToBind[position]
+        val curCard : ScheduleCardData = textToBind[position]
         holder.scheduleLabel.text = curCard.label
-        holder.scheduleDescription.text = curCard.description
+        holder.scheduleDescription.text = curCard.location
         holder.scheduleTime.text = curCard.time
 
     }
