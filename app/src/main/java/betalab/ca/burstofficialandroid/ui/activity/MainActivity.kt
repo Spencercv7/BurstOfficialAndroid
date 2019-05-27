@@ -45,9 +45,6 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
                 val intent = Intent(this, NewEventActivity::class.java)//should be new activity just temp
                 startActivity(intent)
             }
-            val testCal = Calendar.getInstance()
-            testCal.add(Calendar.SECOND, 5)
-            NotificationUtil.showEventReminder(this,testCal)
         }
 
 
