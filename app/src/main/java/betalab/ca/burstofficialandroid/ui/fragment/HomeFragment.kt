@@ -3,10 +3,14 @@ package betalab.ca.burstofficialandroid.ui.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
@@ -15,8 +19,20 @@ import betalab.ca.burstofficialandroid.model.ScheduleCardData
 import betalab.ca.burstofficialandroid.ui.activity.EventActivity
 import betalab.ca.burstofficialandroid.ui.adapter.HomeEventCardAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.HomeScheduleAdapter
+import betalab.ca.burstofficialandroid.ui.events.EventViewModel
+import betalab.ca.burstofficialandroid.ui.events.EventsViewModelFactory
+import kotlinx.coroutines.launch
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class HomeFragment: Fragment(), OnClickAdapterHome{
+class HomeFragment : ScopedFragment(), KodeinAware, OnClickAdapterHome {
+
+    override val kodein by closestKodein()
+    private val viewModelFactory: EventsViewModelFactory by instance()
+
+    private lateinit var viewModel: EventViewModel
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -27,6 +43,17 @@ class HomeFragment: Fragment(), OnClickAdapterHome{
     private lateinit var cardRecycler: RecyclerView
     private lateinit var vertRecycler: RecyclerView
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
+        bindUI()
+    }
+    private fun bindUI() = launch {
+        val currentEvents = viewModel.events.await()
+        currentEvents.observe(this@HomeFragment, Observer { events ->
+                Log.e("huh", events.toString())
+            })
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
