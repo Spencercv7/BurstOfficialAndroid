@@ -13,8 +13,10 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentActivity
 import betalab.ca.burstofficialandroid.*
 import betalab.ca.burstofficialandroid.ui.adapter.NavigationAdapter
+import betalab.ca.burstofficialandroid.ui.util.NotificationUtil
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +45,9 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
                 val intent = Intent(this, NewEventActivity::class.java)//should be new activity just temp
                 startActivity(intent)
             }
+            val testCal = Calendar.getInstance()
+            testCal.add(Calendar.SECOND, 5)
+            NotificationUtil.showEventReminder(this,testCal)
         }
 
 
