@@ -1,75 +1,49 @@
 package betalab.ca.burstofficialandroid.ui.util
 
 import android.annotation.TargetApi
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
-import androidx.core.app.NotificationCompat
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.activity.MainActivity
 import betalab.ca.burstofficialandroid.ui.util.notification.EventNotificationActionReciever
-import java.text.SimpleDateFormat
+
+import androidx.core.app.NotificationCompat
+import betalab.ca.burstofficialandroid.ui.util.AppConstants.Companion.ACTION_SHOW_EVENT_NOTIFICATION
 import java.util.*
-import android.app.AlarmManager
-import androidx.core.content.ContextCompat.getSystemService
-import android.R.attr.delay
-import android.os.SystemClock
-
-
 
 
 class NotificationUtil {
     companion object {
         private const val CHANNEL_ID_TIMER = "menu_timer"
-        private const val CHANNEL_NAME_TIMER = "Timer App Timer"
+        private const val CHANNEL_NAME_TIMER = "Event Reminders"
         private const val TIMER_ID = 0
 
-        fun showTimerExpired(context: Context){
-            val startIntent = Intent(context, MainActivity::class.java)
-            startIntent.action = AppConstants.ACTION_START
-            val startPendingIntent = PendingIntent.getBroadcast(context,
-                0, startIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("Timer Expired!")
-                .setContentText("Start again?")
-                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
-                .addAction(R.drawable.ic_arrow_circle, "Start", startPendingIntent)
-
+        fun showEventNotification(context: Context, notification: Notification){
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
-
-            nManager.notify(TIMER_ID, nBuilder.build())
+            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, false)
+            nManager.notify(TIMER_ID, notification)
         }
-        fun showEventReminder(context: Context, eventDate: Calendar){
-            val startIntent = Intent(context, EventNotificationActionReciever::class.java)
-            startIntent.action = AppConstants.ACTION_START
-            startIntent.putExtra("eventDate", eventDate)
-            val nBuilder = getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, true)
-            nBuilder.setContentTitle("Event Title")
-                .setContentText("Event in one hour")
-                .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java))
 
-            val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, true)
+        fun scheduleEventNotification(context: Context, future: Calendar) {
+            val pendingIntent = Intent(context, EventNotificationActionReciever::class.java).let { intent ->
+                intent.action = ACTION_SHOW_EVENT_NOTIFICATION
+                intent.putExtra(
+                    EventNotificationActionReciever.NOTIFICATION,
+                    getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, false).setContentTitle("Event Title")
+                        .setContentText("Event in one hour")
+                        .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java)).build()
+                )
 
-            val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                TIMER_ID,
-                startIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT
-            )
+                PendingIntent.getBroadcast(context, 0, intent, 0)
+            }
 
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, eventDate.timeInMillis, pendingIntent)
-            //nManager.notify(TIMER_ID, nBuilder.build())
+            alarmManager.set(AlarmManager.RTC_WAKEUP, future.timeInMillis, pendingIntent)
         }
 
         fun hideTimerNotification(context: Context){

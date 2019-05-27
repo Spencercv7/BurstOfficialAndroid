@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.adapter.ImageCardAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.SimilarCardAdapter
+import kotlinx.android.synthetic.main.activity_event_page.*
 
 class EventActivity : AppCompatActivity() {
 
@@ -31,9 +32,7 @@ class EventActivity : AppCompatActivity() {
         similarRec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         similarRec.adapter = SimilarCardAdapter(imageArray,textArray)
 
-
-
-
+        event_close.setOnClickListener { onBackPressed() }
 
     }
 
