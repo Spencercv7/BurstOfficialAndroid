@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-        setScreen(SCREEN.IMPORT)
+        setScreen(SCREEN.LANDING)
         password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO)
                 loginToApp()
