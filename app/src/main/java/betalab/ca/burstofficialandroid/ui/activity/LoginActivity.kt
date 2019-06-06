@@ -2,8 +2,10 @@ package betalab.ca.burstofficialandroid.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -32,9 +34,21 @@ import kotlinx.android.synthetic.main.onboarding_profile.*
 import kotlinx.android.synthetic.main.onboarding_school.*
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
+import net.fortuna.ical4j.data.CalendarBuilder
+import net.fortuna.ical4j.util.MapTimeZoneCache
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class LoginActivity : AppCompatActivity() {
+
+    //for use downloading calendar file
+    var enqueue: Long? = null
+    var downloadManager: DownloadManager? = null
+
+
+
     enum class SCREEN(val value: Int) {
         LANDING(0), LOGIN(1),
         SCHOOL(2), PROFILE(3),
@@ -45,14 +59,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
-        Toast.makeText(this, "Starts at import screen for testing purposes", Toast.LENGTH_LONG).show()
-        setScreen(SCREEN.LANDING)
+        setScreen(SCREEN.IMPORT)
         password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO)
                 loginToApp()
             true
         }
         instantiateListeners()
+        instantiateDownloadReciever()
     }
 
     private fun setScreen(screen: SCREEN) {
@@ -139,6 +153,19 @@ class LoginActivity : AppCompatActivity() {
         import_class_calendar_button.setOnClickListener { importClassCalendar() }
         import_class_back_arrow.setOnClickListener { setScreen(SCREEN.IMPORT) }
 
+
+        // TODO: GET RID OF, USED TO DEBUG TO SEE IF FILE WAS IN FOLDER
+        connect_to_google_calendar.setOnClickListener{
+            val path = applicationInfo.dataDir + "/files"
+            Log.e("Files", "Path: $path")
+            val directory = File(path)
+            val files = directory.listFiles()
+            for (i in 0 until files.size)
+            {
+                Log.e("Files", "FileName:" + files[i].name)
+            }
+        }
+
         //notification screen
         skip_button_notifications.setOnClickListener { setScreen(SCREEN.INTERESTS) }
         location_button_notifications.setOnClickListener { setScreen(SCREEN.IMPORT) }
@@ -165,8 +192,54 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
     //IMPORT CLASS CALENDAR HANDLING
+
+    private fun instantiateDownloadReciever() {
+        val downloadReceiver = object: BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                val action = intent!!.action
+                if (DownloadManager.ACTION_DOWNLOAD_COMPLETE == action){
+                    // val downloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, 0)
+                    val query = DownloadManager.Query()
+                    query.setFilterById(enqueue!!)
+                    val c = downloadManager!!.query(query)
+                    if (c.moveToFirst()){
+                        val columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                        if (DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)) {
+                            val uriString = c.getString(c.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI))
+                            val a = Uri.parse(uriString)
+                            val d = File(a.path)
+
+                            //move file
+                            moveFile(d, File(applicationInfo.dataDir + "/files/calendar.ics"))
+                        }
+                    }
+                }
+            }
+        }
+        registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+    }
+
+    private fun moveFile(src: File, dest: File) {
+        val inChannel = FileInputStream(src).channel
+        val outChannel = FileOutputStream(dest).channel
+        try{
+            inChannel.transferTo(0, inChannel.size(), outChannel)
+        }
+        finally {
+            inChannel?.close()
+            outChannel?.close()  //TODO: PARSE CALENDAR FILE
+        }
+        src.delete() //delete file in downloads folder
+        // Path to file - applicationInfo.dataDir + "/files/calendar.ics"
+
+        /* TODO: This Should Read in the Calendar file
+        val fin = FileInputStream(File(applicationInfo.dataDir + "/files/calendar.ics"))
+        val builder = CalendarBuilder()
+        val calendar = builder.build(fin)   */
+    }
+
+
     private fun importClassCalendar() {
         setScreen(SCREEN.IMPORT_CLASS_CALENDAR)
         setUpWebview()
@@ -230,15 +303,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun downloadFile(url: String?) {
-        val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri = Uri.parse(url)
         val request = DownloadManager.Request(uri)
-        request.setDescription("Calendar ICS Download").setTitle("Calendar Download")
-        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "calendar")
-        request.setVisibleInDownloadsUi(true)
-        downloadManager.enqueue(request)  //TODO: TAKE TO INTERNAL STORAGE?
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "calendar.ics")
+        enqueue = downloadManager!!.enqueue(request)  //TODO: ASK FOR WRITE EXTERNAL STORAGE
     }
-
 
     class MyJavaScriptInterface {
         @JavascriptInterface
