@@ -18,4 +18,6 @@
             layout="@layout/onboarding_notifications"/>
     <include
             layout="@layout/onboarding_interests"/>
+    <include
+            layout="@layout/import_class_calendar"/>
 </ViewFlipper>

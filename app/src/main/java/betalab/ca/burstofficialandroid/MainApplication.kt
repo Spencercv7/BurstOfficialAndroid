@@ -14,9 +14,17 @@ import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.*
+import net.fortuna.ical4j.util.CompatibilityHints
+
+
 
 
 class MainApplication: Application(), KodeinAware {
+    init {
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_UNFOLDING, true)
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_PARSING, true)
+        CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_OUTLOOK_COMPATIBILITY, true)
+    }
     override val kodein = Kodein.lazy {
         import(androidXModule(this@MainApplication))
 
@@ -27,10 +35,6 @@ class MainApplication: Application(), KodeinAware {
         bind<EventsDataSource>() with singleton { EventsDataSourceImpl(instance()) }
         bind<EventsRepository>() with singleton { EventsRepositoryImpl(instance(), instance()) }
         bind() from provider { EventsViewModelFactory(instance()) }
-    }
-
-    override fun onCreate() {
-        super.onCreate()
     }
 
 }
