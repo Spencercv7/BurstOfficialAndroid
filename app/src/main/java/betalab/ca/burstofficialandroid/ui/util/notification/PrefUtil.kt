@@ -8,6 +8,16 @@ class PrefUtil {
     companion object {
 
         private const val TIMER_LENGTH_ID = "com.resocoder.timer.timer_length"
+        private const val CAL_URL_ID = "com.betalab.calendarurl"
+        fun getCalUrl(context: Context): String? {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(CAL_URL_ID, null)
+        }
+        fun setCalUrl(calUrl: String, context: Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putString(CAL_URL_ID, calUrl)
+            editor.apply()
+        }
         fun getTimerLength(context: Context): Int{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             return preferences.getInt(TIMER_LENGTH_ID, 10)
