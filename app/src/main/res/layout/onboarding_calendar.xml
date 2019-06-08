@@ -53,6 +53,7 @@
                 android:layout_gravity="center_horizontal"/>
 
         <com.google.android.material.button.MaterialButton
+                android:id="@+id/connect_to_google_calendar"
                 style="@style/WhiteButton_RedText"
                 android:text="@string/google_calendar_caps"/>
 
