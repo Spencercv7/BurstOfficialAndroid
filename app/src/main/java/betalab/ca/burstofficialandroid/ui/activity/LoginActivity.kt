@@ -2,8 +2,8 @@ package betalab.ca.burstofficialandroid.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -32,6 +32,13 @@ import kotlinx.android.synthetic.main.onboarding_profile.*
 import kotlinx.android.synthetic.main.onboarding_school.*
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
+import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import betalab.ca.burstofficialandroid.ui.util.notification.PrefUtil
+import java.io.File
+import net.fortuna.ical4j.data.CalendarBuilder
+import java.io.FileInputStream
 
 
 class LoginActivity : AppCompatActivity() {
@@ -42,9 +49,24 @@ class LoginActivity : AppCompatActivity() {
         INTERESTS(6), IMPORT_CLASS_CALENDAR(7);
     }
 
+    private val EXTERNAL_PERMISSION_READ = 1
+    private val EXTERNAL_PERMISSION_WRITE = 2
+    private val onDownloadComplete = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Toast.makeText(context, "file downloaded" + intent?.extras.toString(), Toast.LENGTH_SHORT).show()
+            if(checkReadPermission())
+                readCalendar()
+            else
+                requestReadPermission()
+        }
+
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+        registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         Toast.makeText(this, "Starts at import screen for testing purposes", Toast.LENGTH_LONG).show()
         setScreen(SCREEN.LANDING)
         password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
@@ -164,13 +186,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
-
     //IMPORT CLASS CALENDAR HANDLING
     private fun importClassCalendar() {
-        setScreen(SCREEN.IMPORT_CLASS_CALENDAR)
-        setUpWebview()
-        import_class_webview.loadUrl("https://my.queensu.ca/software-centre")
+        if (PrefUtil.getCalUrl(this@LoginActivity).isNullOrBlank()) {
+            setScreen(SCREEN.IMPORT_CLASS_CALENDAR)
+            setUpWebview()
+            import_class_webview.loadUrl("https://my.queensu.ca/software-centre")
+        } else {
+            if(checkWritePermission())
+                downloadFile()
+            else
+                requestWritePermission()
+        }
     }
 
 
@@ -188,18 +215,18 @@ class LoginActivity : AppCompatActivity() {
 
                 if (url == "https://my.queensu.ca/software-centre") {   //If the webview gets to the software page exit the screen
                     setScreen(SCREEN.IMPORT)
-                    import_class_calendar_button.visibility = View.GONE //TODO: MAKE BETTER METHOD TO PREVENT MULTIPLE ATTEMPTS
+                    import_class_calendar_button.visibility =
+                        View.GONE
                 }
             }
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 Log.e("URL", url)
 
-                if (url!!.startsWith("https://login.queensu.ca/idp/profile/SAML2/")){ //attempt to hide other pages that try to be loaded
+                if (url!!.startsWith("https://login.queensu.ca/idp/profile/SAML2/")) { //attempt to hide other pages that try to be loaded
                     import_class_webview.visibility = View.VISIBLE
                     import_calendar_progress.visibility = View.GONE
-                }
-                else{
+                } else {
                     import_class_webview.visibility = View.GONE
                     import_calendar_progress.visibility = View.VISIBLE
                 }
@@ -219,7 +246,11 @@ class LoginActivity : AppCompatActivity() {
             override fun onJsAlert(view: WebView?, url: String?, message: String?, result: JsResult?): Boolean {
                 Log.e("LogTag", message)
                 if (message!!.contains("https://mytimetable.queensu.ca/timetable")) {
-                    downloadFile(message)
+                    PrefUtil.setCalUrl(message, this@LoginActivity)
+                    if(checkWritePermission())
+                        downloadFile()
+                    else
+                        requestWritePermission()
                     Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
                 }
                 result!!.confirm()
@@ -228,17 +259,19 @@ class LoginActivity : AppCompatActivity() {
         }
         import_class_webview.visibility = View.VISIBLE
     }
-
-    fun downloadFile(url: String?) {
+    @RequiresPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun downloadFile() {
+        val url = PrefUtil.getCalUrl(this@LoginActivity)
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val uri = Uri.parse(url)
         val request = DownloadManager.Request(uri)
-        request.setDescription("Calendar ICS Download").setTitle("Calendar Download")
-        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "calendar")
-        request.setVisibleInDownloadsUi(true)
-        downloadManager.enqueue(request)  //TODO: TAKE TO INTERNAL STORAGE?
-    }
+        request.setDescription("Calendar ICS Download").setTitle("calendar.ics").setAllowedOverRoaming(true)
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "calendar.ics")
+        request.setVisibleInDownloadsUi(true).setMimeType("ics")
+        downloadManager.enqueue(request)
 
+
+    }
 
     class MyJavaScriptInterface {
         @JavascriptInterface
@@ -252,6 +285,90 @@ class LoginActivity : AppCompatActivity() {
             return "not found"
         }
     }
+
+    private fun checkReadPermission(): Boolean {
+        val readResult = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return readResult == PackageManager.PERMISSION_GRANTED
+    }
+    private fun checkWritePermission(): Boolean {
+        val writeResult = ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        return writeResult == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestReadPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            Toast.makeText(
+                this,
+                "External Storage permission allows us to store your calendar. Please allow this permission in App Settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                EXTERNAL_PERMISSION_READ
+            )
+        }
+    }
+    private fun requestWritePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        ) {
+            Toast.makeText(
+                this,
+                "External Storage permission allows us to store your calendar. Please allow this permission in App Settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                EXTERNAL_PERMISSION_WRITE
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            EXTERNAL_PERMISSION_READ -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.e("value", "Permission Granted,")
+                if(checkReadPermission())
+                    readCalendar()
+            } else {
+                Log.e("value", "Permission Denied")
+            }
+            EXTERNAL_PERMISSION_WRITE -> downloadFile()
+        }
+    }
+
+    @RequiresPermission(allOf = [android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE])
+    private fun readCalendar() {
+        val test = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).list()
+        val file = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "/calendar.ics"
+        )
+        val result = FileInputStream(file).use {
+
+            val calendar = CalendarBuilder().build(it)
+            calendar.components
+        }
+        Log.e("test", result.toString())
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(onDownloadComplete)
+    }
 }
+
 
 

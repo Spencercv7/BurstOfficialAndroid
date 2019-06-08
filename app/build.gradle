@@ -73,6 +73,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
 
+    implementation 'org.mnode.ical4j:ical4j:1.0.5'
+    kapt 'org.mnode.ical4j:ical4j:1.0.5'
+    implementation 'backport-util-concurrent:backport-util-concurrent:3.1'
+    implementation 'commons-codec:commons-codec:1.8'
+    implementation 'commons-lang:commons-lang:2.6'
+
     implementation project(path: ':library')
 
 }
