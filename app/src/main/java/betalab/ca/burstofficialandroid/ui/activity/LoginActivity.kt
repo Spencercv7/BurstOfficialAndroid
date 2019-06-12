@@ -36,6 +36,8 @@ import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import betalab.ca.burstofficialandroid.ui.util.notification.PrefUtil
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import java.io.File
 import net.fortuna.ical4j.data.CalendarBuilder
 import java.io.FileInputStream
@@ -49,29 +51,26 @@ class LoginActivity : AppCompatActivity() {
         INTERESTS(6), IMPORT_CLASS_CALENDAR(7);
     }
 
-    private val EXTERNAL_PERMISSION_READ = 1
-    private val EXTERNAL_PERMISSION_WRITE = 2
-    private val onDownloadComplete = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            Toast.makeText(context, "file downloaded" + intent?.extras.toString(), Toast.LENGTH_SHORT).show()
-            if(checkReadPermission())
-                readCalendar()
-            else
-                requestReadPermission()
-        }
-
-    }
-
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Get Firebase Authentication
+        auth = FirebaseAuth.getInstance()
+
+        val user = auth.currentUser
+        if (user != null) {
+            // User is signed in
+            startMainActivity()
+        }
+
         setContentView(R.layout.activity_onboarding)
         registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
-        Toast.makeText(this, "Starts at import screen for testing purposes", Toast.LENGTH_LONG).show()
         setScreen(SCREEN.LANDING)
         password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO)
-                loginToApp()
+                startMainActivity()
             true
         }
         instantiateListeners()
@@ -87,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
         login_button.setOnClickListener { setScreen(SCREEN.LOGIN) }
 
         //Login screen
-        login_login_button.setOnClickListener { loginToApp() }  //open main activity
+        login_login_button.setOnClickListener { attemptFirebaseSignIn(email_edit_text.editText?.text.toString(), password_edit_text.editText?.text.toString()) }  //open main activity
         back_button_login.setOnClickListener { setScreen(SCREEN.LANDING) } //back to landing
 
         //activity_school_an screen
@@ -97,8 +96,9 @@ class LoginActivity : AppCompatActivity() {
 
         //profile screen
         calendar_button_profile.setOnClickListener {
-            if (validateRegister())
-                setScreen(SCREEN.IMPORT)
+            if (validateRegister()) {
+                createFirebaseUser()
+            }
         }
         location_button_profile.setOnClickListener { setScreen(SCREEN.SCHOOL) }
 //        name_register.editText?.setOnEditorActionListener { v, keyCode, event ->
@@ -166,11 +166,48 @@ class LoginActivity : AppCompatActivity() {
         location_button_notifications.setOnClickListener { setScreen(SCREEN.IMPORT) }
 
         //Interests screen
-        confirm_interests_button.setOnClickListener { loginToApp() }
+        confirm_interests_button.setOnClickListener { startMainActivity() }
 
     }
 
-    private fun loginToApp() {
+
+    private fun createFirebaseUser() {
+        auth.createUserWithEmailAndPassword(email_register.editText?.text.toString(), password_register.editText?.text.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Success", "createUserWithEmail:success")
+                    setScreen(SCREEN.IMPORT) //Go to import calendar screen
+                } else {
+                    // If sign in fails, display a message to the user. TODO: Make message more descriptive change from toast
+                    Log.w("Failure", "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed: " + task.exception!!.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+         }
+    }
+
+    private fun attemptFirebaseSignIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Login", "signInWithEmail:success")
+                    startMainActivity()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    // TODO: Change from toast to better display of message
+                    Log.w("Login", "signInWithEmail:failure", task.exception)
+                    //task.exception
+                    Toast.makeText(baseContext, "Authentication failed: " + task.exception!!.message,
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun startMainActivity() {
         val intent = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
@@ -186,7 +223,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(onDownloadComplete)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //IMPORT CLASS CALENDAR HANDLING
+    //TODO: MOVE TO DIFFERENT LOCATION FOR REUSE LATER ON IF WANTED?
     private fun importClassCalendar() {
         if (PrefUtil.getCalUrl(this@LoginActivity).isNullOrBlank()) {
             setScreen(SCREEN.IMPORT_CLASS_CALENDAR)
@@ -199,7 +260,6 @@ class LoginActivity : AppCompatActivity() {
                 requestWritePermission()
         }
     }
-
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setUpWebview() {
@@ -259,6 +319,21 @@ class LoginActivity : AppCompatActivity() {
         }
         import_class_webview.visibility = View.VISIBLE
     }
+
+    private val EXTERNAL_PERMISSION_READ = 1
+    private val EXTERNAL_PERMISSION_WRITE = 2
+    private val onDownloadComplete = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Toast.makeText(context, "file downloaded" + intent?.extras.toString(), Toast.LENGTH_SHORT).show()
+            if(checkReadPermission())
+                readCalendar()
+            else
+                requestReadPermission()
+        }
+
+    }
+
+
     @RequiresPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun downloadFile() {
         val url = PrefUtil.getCalUrl(this@LoginActivity)
@@ -269,8 +344,6 @@ class LoginActivity : AppCompatActivity() {
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "calendar.ics")
         request.setVisibleInDownloadsUi(true).setMimeType("ics")
         downloadManager.enqueue(request)
-
-
     }
 
     class MyJavaScriptInterface {
@@ -361,12 +434,6 @@ class LoginActivity : AppCompatActivity() {
             calendar.components
         }
         Log.e("test", result.toString())
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(onDownloadComplete)
     }
 }
 
