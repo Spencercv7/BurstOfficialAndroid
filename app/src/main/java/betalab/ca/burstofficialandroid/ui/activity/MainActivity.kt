@@ -15,16 +15,22 @@ import betalab.ca.burstofficialandroid.*
 import betalab.ca.burstofficialandroid.ui.adapter.NavigationAdapter
 import betalab.ca.burstofficialandroid.ui.util.NotificationUtil
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
 class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener {
         private var viewPagerAdapter: NavigationAdapter? = null
+        private lateinit var auth: FirebaseAuth
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
+
+            auth = FirebaseAuth.getInstance()
+            val user = auth.currentUser
+            Toast.makeText(this, "USER UID: " + user!!.uid, Toast.LENGTH_LONG).show()
 
             setUpNavigationDrawer()
             setUpViewPager()
@@ -90,7 +96,7 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
     }
 
     private fun setUpNavigationDrawer() {
-        val toggle = ActionBarDrawerToggle(this, main_drawer_layout, main_toolbar, betalab.ca.burstofficialandroid.R.string.navigation_drawer_open, betalab.ca.burstofficialandroid.R.string.navigation_drawer_close)
+        val toggle = ActionBarDrawerToggle(this, main_drawer_layout, main_toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         main_drawer_layout.addDrawerListener(toggle) //create toggle icon that comes with animation
         toggle.syncState()
 
