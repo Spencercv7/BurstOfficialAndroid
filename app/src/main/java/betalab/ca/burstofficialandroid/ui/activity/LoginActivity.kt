@@ -36,8 +36,11 @@ import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import betalab.ca.burstofficialandroid.ui.util.notification.PrefUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 import net.fortuna.ical4j.data.CalendarBuilder
 import java.io.FileInputStream
@@ -62,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
         val user = auth.currentUser
         if (user != null) {
             // User is signed in
-            startMainActivity()
+            // startMainActivity()
         }
 
         setContentView(R.layout.activity_onboarding)
@@ -106,6 +109,15 @@ class LoginActivity : AppCompatActivity() {
 //            return@setOnEditorActionListener !isUsernameValid(name_register)
 //
 //        }
+        //Picker for profile image
+        profile_pic_chooser.setOnClickListener {
+            // start picker to get image for cropping and then use the image in cropping activity
+            CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropMenuCropButtonTitle("CONFIRM")
+                .start(this)
+        }
+
         name_register.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 name_register.error = null
@@ -171,6 +183,35 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+
+
+
+
+
+    //Get cropped image picked for profile pictures
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri
+                PrefUtil.setProfilePicUrl(resultUri.toString(), this@LoginActivity) //set preference to url of profile picture
+                Glide.with(this)
+                    .load(resultUri)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profile_pic_chooser)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+
+
+
+
     private fun createFirebaseUser() {
         auth.createUserWithEmailAndPassword(email_register.editText?.text.toString(), password_register.editText?.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -227,22 +268,6 @@ class LoginActivity : AppCompatActivity() {
         super.onDestroy()
         unregisterReceiver(onDownloadComplete)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
