@@ -5,13 +5,16 @@ import androidx.lifecycle.LiveData
 import betalab.ca.burstofficialandroid.data.EventsDao
 import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
 import betalab.ca.burstofficialandroid.data.network.EventsDataSource
-import betalab.ca.burstofficialandroid.data.network.response.EventsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EventsRepositoryImpl (private val eventsDao: EventsDao, private val eventsDataSource:EventsDataSource): EventsRepository {
+    override fun getEventById(id: String): EventEntry {
+        return eventsDao.getEventById(id)
+    }
+
     init {
         eventsDataSource.apply {
             downloadedEvents.observeForever {
@@ -19,9 +22,9 @@ class EventsRepositoryImpl (private val eventsDao: EventsDao, private val events
             }
         }
     }
-    private fun persistFetchedEvents(events: List<EventsResponse>) {
+    private fun persistFetchedEvents(events: List<EventEntry>) {
         GlobalScope.launch(Dispatchers.IO) {
-            events.forEach {eventsDao.upsert(it.toEntry()) }
+            events.forEach {eventsDao.upsert(it) }
 
         }
     }

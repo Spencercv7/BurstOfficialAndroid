@@ -153,5 +153,9 @@
     <string name="profile_org_name_str">Club Name</string>
     <string name="profile_org_desc_str">Club Description</string>
     <string name="profile_org_body_str">Body text of information on the club goes here.</string>
+    <string name="submit">SUBMIT</string>
+    <string name="back">BACK</string>
+    <string name="attending_event_string">Attending</string>
+    <string name="register_event_string">Register</string>
 
 </resources>

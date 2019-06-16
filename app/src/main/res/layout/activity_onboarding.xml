@@ -9,9 +9,9 @@
     <include
             layout="@layout/onboarding_login"/>
     <include
-            layout="@layout/onboarding_school"/>
-    <include
             layout="@layout/onboarding_profile"/>
+    <include
+            layout="@layout/onboarding_school"/>
     <include
             layout="@layout/onboarding_calendar"/>
     <include

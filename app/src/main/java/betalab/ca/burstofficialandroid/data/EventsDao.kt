@@ -12,7 +12,10 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(weatherEntry: EventEntry)
 
-    @Query("select * from events order by time")
+    @Query("select * from events order by start")
     fun getEvents(): LiveData<List<EventEntry>>
-
+    @Query("select * from events where eventId = :eventId LIMIT 1")
+    fun getEventById(eventId: String): EventEntry
+    @Query("select * from events where eventId IN (:eventId)")
+    fun getEventsById(eventId: List<String>): EventEntry
 }

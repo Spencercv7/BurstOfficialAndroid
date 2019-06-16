@@ -1,7 +1,8 @@
-package betalab.ca.burstofficialandroid.ui.util.notification
+package betalab.ca.burstofficialandroid.ui.util
 
 import android.content.Context
 import android.preference.PreferenceManager
+import com.google.firebase.auth.GetTokenResult
 
 
 class PrefUtil {
@@ -9,6 +10,17 @@ class PrefUtil {
 
         private const val TIMER_LENGTH_ID = "com.resocoder.timer.timer_length"
         private const val CAL_URL_ID = "com.betalab.calendarurl"
+        private const val COMPLETED_ONBOARDING = "com.betalab.completedOnBoarding"
+
+        fun completedOnboarding(context: Context): Boolean {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getBoolean(COMPLETED_ONBOARDING, false)
+        }
+        fun setCompletedOnboarding(completed:Boolean, context:Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putBoolean(COMPLETED_ONBOARDING, completed)
+            editor.apply()
+        }
         fun getCalUrl(context: Context): String? {
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             return preferences.getString(CAL_URL_ID, null)

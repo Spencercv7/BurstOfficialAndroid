@@ -1,4 +1,4 @@
-package betalab.ca.burstofficialandroid.ui.util
+package betalab.ca.burstofficialandroid.ui.util.notification
 
 import android.annotation.TargetApi
 import android.app.*
@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Build
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.ui.activity.MainActivity
-import betalab.ca.burstofficialandroid.ui.util.notification.EventNotificationActionReciever
 
 import androidx.core.app.NotificationCompat
 import betalab.ca.burstofficialandroid.ui.util.AppConstants.Companion.ACTION_SHOW_EVENT_NOTIFICATION
@@ -25,7 +24,9 @@ class NotificationUtil {
 
         fun showEventNotification(context: Context, notification: Notification){
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nManager.createNotificationChannel(CHANNEL_ID_TIMER, CHANNEL_NAME_TIMER, false)
+            nManager.createNotificationChannel(
+                CHANNEL_ID_TIMER,
+                CHANNEL_NAME_TIMER, false)
             nManager.notify(TIMER_ID, notification)
         }
 
@@ -34,9 +35,18 @@ class NotificationUtil {
                 intent.action = ACTION_SHOW_EVENT_NOTIFICATION
                 intent.putExtra(
                     EventNotificationActionReciever.NOTIFICATION,
-                    getBasicNotificationBuilder(context, CHANNEL_ID_TIMER, false).setContentTitle("Event Title")
+                    getBasicNotificationBuilder(
+                        context,
+                        CHANNEL_ID_TIMER,
+                        false
+                    ).setContentTitle("Event Title")
                         .setContentText("Event in one hour")
-                        .setContentIntent(getPendingIntentWithStack(context, MainActivity::class.java)).build()
+                        .setContentIntent(
+                            getPendingIntentWithStack(
+                                context,
+                                MainActivity::class.java
+                            )
+                        ).build()
                 )
 
                 PendingIntent.getBroadcast(context, 0, intent, 0)
