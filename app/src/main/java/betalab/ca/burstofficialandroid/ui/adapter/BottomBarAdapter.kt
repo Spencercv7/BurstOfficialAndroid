@@ -8,7 +8,7 @@ import betalab.ca.burstofficialandroid.ui.fragment.CalendarFragment
 import betalab.ca.burstofficialandroid.ui.fragment.HomeFragment
 import betalab.ca.burstofficialandroid.ui.fragment.NotificationFragment
 
-class BottomBarAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class BottomBarAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

@@ -1,4 +1,4 @@
-package betalab.ca.burstofficialandroid.ui.events
+package betalab.ca.burstofficialandroid.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import betalab.ca.burstofficialandroid.data.repository.EventsRepository

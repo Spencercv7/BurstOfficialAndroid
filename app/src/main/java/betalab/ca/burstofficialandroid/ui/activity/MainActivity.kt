@@ -13,11 +13,9 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.FragmentActivity
 import betalab.ca.burstofficialandroid.*
 import betalab.ca.burstofficialandroid.ui.adapter.NavigationAdapter
-import betalab.ca.burstofficialandroid.ui.util.NotificationUtil
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 
 class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,9 +27,6 @@ class MainActivity : FragmentActivity(), NavigationView.OnNavigationItemSelected
             setContentView(R.layout.activity_main)
 
             auth = FirebaseAuth.getInstance()
-            val user = auth.currentUser
-            Toast.makeText(this, "USER UID: " + user!!.uid, Toast.LENGTH_LONG).show()
-
             setUpNavigationDrawer()
             setUpViewPager()
             setFragment(1) //open main fragment

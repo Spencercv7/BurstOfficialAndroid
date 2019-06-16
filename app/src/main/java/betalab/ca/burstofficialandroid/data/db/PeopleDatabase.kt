@@ -6,19 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import betalab.ca.burstofficialandroid.data.EventsDao
+import betalab.ca.burstofficialandroid.data.PeopleDao
 import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
-
+import betalab.ca.burstofficialandroid.data.db.entity.PeopleEntry
 
 @Database(
-    entities = [EventEntry::class],
-    version = 4
+    entities = [PeopleEntry::class],
+    version = 1
 )
 @TypeConverters(Converters::class)
-abstract class EventsDatabase : RoomDatabase() {
-    abstract fun eventsDao(): EventsDao
+abstract class PeopleDatabase : RoomDatabase() {
+    abstract fun peopleDao(): PeopleDao
 
     companion object {
-        @Volatile private var instance: EventsDatabase? = null
+        @Volatile private var instance: PeopleDatabase? = null
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
@@ -27,7 +28,7 @@ abstract class EventsDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
-                EventsDatabase::class.java, "events.db")
+                PeopleDatabase::class.java, "people.db")
                 .fallbackToDestructiveMigration()
                 .build()
     }

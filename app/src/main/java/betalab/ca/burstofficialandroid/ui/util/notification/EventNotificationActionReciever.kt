@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import betalab.ca.burstofficialandroid.ui.util.AppConstants
-import betalab.ca.burstofficialandroid.ui.util.NotificationUtil
 
 class EventNotificationActionReciever : BroadcastReceiver() {
     companion object {

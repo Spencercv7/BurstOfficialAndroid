@@ -1,25 +1,36 @@
 package betalab.ca.burstofficialandroid.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.EventLog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
-import betalab.ca.burstofficialandroid.model.ExploreHorizontalCardData
+import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
 import betalab.ca.burstofficialandroid.model.ScheduleCardData
 import betalab.ca.burstofficialandroid.ui.adapter.ExploreAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.HomeScheduleAdapter
+import betalab.ca.burstofficialandroid.ui.viewmodels.EventViewModel
+import betalab.ca.burstofficialandroid.ui.viewmodels.EventsViewModelFactory
 import betalab.ca.burstofficialandroid.ui.fragment.OnClickAdapterExplore
+import betalab.ca.burstofficialandroid.ui.util.NavigationUtils
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
 
 
-class ProfileActivity : AppCompatActivity(), OnClickAdapterExplore {
+class ProfileActivity : ScopedActivity(), KodeinAware, OnClickAdapterExplore {
+    override val kodein by closestKodein()
+    private val viewModelFactory: EventsViewModelFactory by instance()
 
+    private lateinit var viewModel: EventViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
+        bindUI()
         val dataSetSchedule = listOf(
             ScheduleCardData("CISC 101", "Jeffery Hall 101", "12:30PM-1PM"),
             ScheduleCardData("APSC 221", "BioSci Aud", "4:30PM-5:30PM"),
@@ -28,20 +39,25 @@ class ProfileActivity : AppCompatActivity(), OnClickAdapterExplore {
             ScheduleCardData("APSC 221", "BioSci Aud", "4:30PM-5:30PM")
         )
 
-        val dataSet = listOf(ExploreHorizontalCardData("Card One"), ExploreHorizontalCardData("Card Two"), ExploreHorizontalCardData("Card Three"))
+
 
         profile_horz_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         profile_vert_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        profile_horz_recycler.adapter = ExploreAdapter(dataSet) {event: ExploreHorizontalCardData -> onClickedAdapterExplore(event)}
+        profile_horz_recycler.adapter = ExploreAdapter{event: EventEntry -> onClickedAdapterExplore(event)}
         profile_vert_recycler.adapter = HomeScheduleAdapter(dataSetSchedule)
         profile_vert_recycler.hasFixedSize()
         profile_horz_recycler.hasFixedSize()
         profile_close_button.setOnClickListener { onBackPressed() }
     }
+    private fun bindUI() = launch {
+        val currentEvents = viewModel.events.await()
+        currentEvents.observe(this@ProfileActivity, Observer { events ->
+            (profile_horz_recycler.adapter as ExploreAdapter).updateData(events)
+        })
+    }
 
-    override fun onClickedAdapterExplore(event: ExploreHorizontalCardData) {
-        val intent = Intent(this, EventActivity::class.java)
-        startActivity(intent)
+    override fun onClickedAdapterExplore(event: EventEntry) {
+        NavigationUtils.sendToEvent(this, event)
     }
 }
 

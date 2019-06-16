@@ -2,59 +2,68 @@ package betalab.ca.burstofficialandroid.ui.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.text.format.DateFormat
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.Group
-import betalab.ca.burstofficialandroid.model.FinalEvent
 import betalab.ca.burstofficialandroid.R
+import betalab.ca.burstofficialandroid.data.network.BurstApiService
+import betalab.ca.burstofficialandroid.data.network.response.ServerReponse
+import com.alamkanak.weekview.toCalendar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_new_event.*
-import java.text.SimpleDateFormat
-import java.util.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
+import org.threeten.bp.*
+import org.threeten.bp.format.DateTimeFormatter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class NewEventActivity : AppCompatActivity() {
+class NewEventActivity : AppCompatActivity(), KodeinAware {
 
-    private var startDateO: Calendar = Calendar.getInstance().also {
-        it.add(Calendar.HOUR, 1)
-        it.set(Calendar.MINUTE, 0)
-    }
-    private var endDateO: Calendar = (startDateO.clone() as Calendar).also { it.add(Calendar.HOUR, 3) }
-    private val simpleDate by lazy { SimpleDateFormat(getString(R.string.simple_date_format_str), Locale.getDefault()) }
-    private val simpleTime by lazy { SimpleDateFormat(getString(R.string.time_format_str), Locale.getDefault()) }
+    private var startDateO: ZonedDateTime = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).plusHours(1).withMinute(0)
+    override val kodein by closestKodein()
+    private val burstApiService: BurstApiService by instance()
+    private var endDateO: ZonedDateTime = ZonedDateTime.ofInstant(Instant.now(), ZoneId.systemDefault()).plusHours(4).withMinute(0)
+
+
     private val dpdStart by lazy {
         DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                startDateO = dateFromInput(mYear, mMonth, mDay)
-                start_date.text = simpleDate.format(startDateO.time)
-            }, startDateO.get(Calendar.YEAR), startDateO.get(Calendar.MONTH), startDateO.get(Calendar.MONTH)
+                startDateO = startDateO.withYear(mYear).withMonth(mMonth).withDayOfMonth(mDay)
+                start_date.text = DateFormat.format("MMM, dd, yyyy", startDateO.toCalendar())
+            }, startDateO.year, startDateO.monthValue, startDateO.dayOfMonth
         )
     }
     private val dpdEnd by lazy {
         DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { _, mYear, mMonth, mDay ->
-                endDateO = dateFromInput(mYear, mMonth, mDay)
-                end_date.text = simpleDate.format(endDateO.time)
-            }, endDateO.get(Calendar.YEAR), endDateO.get(Calendar.MONTH), endDateO.get(Calendar.MONTH)
+                endDateO = endDateO.withYear(mYear).withMonth(mMonth).withDayOfMonth(mDay)
+                end_date.text = DateFormat.format("MMM, dd, yyyy", endDateO.toCalendar())
+            }, endDateO.year, endDateO.monthValue, endDateO.dayOfMonth
         )
     }
     private val dpdTimeStart by lazy {
         TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                startDateO.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                startDateO.set(Calendar.MINUTE, minute)
-                start_time.text = simpleTime.format(startDateO.time)
-            }, startDateO.get(Calendar.HOUR_OF_DAY), startDateO.get(Calendar.MINUTE), false
+                startDateO = startDateO.withHour(hourOfDay).withMinute(minute)
+                start_time.text = DateFormat.format("h:mm a", startDateO.toCalendar())
+            }, startDateO.hour, startDateO.minute, false
         )
     }
     private val dpdTimeEnd by lazy {
         TimePickerDialog(
             this,
             TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                endDateO.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                endDateO.set(Calendar.MINUTE, minute)
-                end_time.text = simpleTime.format(endDateO.time)
-            }, endDateO.get(Calendar.HOUR_OF_DAY), endDateO.get(Calendar.MINUTE), false
+                endDateO = endDateO.withHour(hourOfDay).withMinute(minute)
+                end_time.text = DateFormat.format("h:mm a", endDateO.toCalendar())
+            }, endDateO.hour, endDateO.minute, false
         )
     }
 
@@ -62,10 +71,10 @@ class NewEventActivity : AppCompatActivity() {
         super.onStart()
         setContentView(R.layout.activity_new_event)
         setSupportActionBar(findViewById(R.id.new_event_toolBar))
-        start_date.text = simpleDate.format(startDateO.time)
-        start_time.text = simpleTime.format(startDateO.time)
-        end_date.text = simpleDate.format(endDateO.time)
-        end_time.text = simpleTime.format(endDateO.time)
+        start_date.text = DateFormat.format("MMM, dd, yyyy", startDateO.toCalendar())
+        start_time.text = DateFormat.format("h:mm a", startDateO.toCalendar())
+        end_date.text = DateFormat.format("MMM, dd, yyyy", endDateO.toCalendar())
+        end_time.text = DateFormat.format("h:mm a", endDateO.toCalendar())
         // Formats for Date and Time
         start_date.setOnClickListener {
             dpdStart.show()
@@ -96,21 +105,41 @@ class NewEventActivity : AppCompatActivity() {
         }
     }
 
-    private fun dateFromInput(mYear: Int, mMonth: Int, mDay: Int): Calendar {
-        val tempCal: Calendar = Calendar.getInstance()
-        tempCal.set(mYear, mMonth, mDay)
-        return tempCal
-    }
 
     /**
      * Assigns the times and dates to one start and end calendar event. Then creates a FinalEvent Which holds all the information for the new event.
      */
     private fun saveButtonClick() {
-        @Suppress("UNUSED_VARIABLE") val finalEvent = FinalEvent(
-            event_name_edit_text.editText!!.text.toString(),
-            startDateO, endDateO,
-            isAllDay(), isRepeating(), isAlert()
-        )
+        FirebaseAuth.getInstance().currentUser?.getIdToken(false)!!.addOnCompleteListener {
+            burstApiService.createEventAsync(
+                token = it.result!!.token!!,
+                eventName = event_name_edit_text.editText!!.text.toString(),
+                location= event_location_edit_text.editText!!.text.toString(),
+                description = "temp empty description",
+                startTimeEpoch = startDateO.toEpochSecond(),
+                endTimeEpoch = endDateO.toEpochSecond(),
+                allDay = isAllDay(),
+                repeat = 0,
+                images = listOf("https://img.freepik.com/free-photo/tulips-bouquet-pink-background-with-copyspace_24972-271.jpg?size=626&ext=jpg",
+                    "https://images.unsplash.com/photo-1500322969630-a26ab6eb64cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"),
+                mainImage = "https://www.gamespew.com/wp-content/uploads/2019/02/Portalcake-696x391.jpg",
+                coverImage = "https://images.unsplash.com/photo-1500322969630-a26ab6eb64cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+
+            ).enqueue(object : Callback<ServerReponse> {
+                override fun onFailure(call: Call<ServerReponse>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Error: check internet connection", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onResponse(call: Call<ServerReponse>, response: Response<ServerReponse>) {
+                    Log.e("test", response.toString())
+                    Toast.makeText(applicationContext, "Event created", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
+            })
+        }
+
+
     }
 
     private fun isRepeating(): Boolean {

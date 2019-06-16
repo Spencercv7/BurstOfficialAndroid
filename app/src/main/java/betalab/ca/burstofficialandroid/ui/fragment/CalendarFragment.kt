@@ -18,6 +18,7 @@ import betalab.ca.burstofficialandroid.database.FakeEventsDatabase
 import betalab.ca.burstofficialandroid.model.CalendarItem
 import betalab.ca.burstofficialandroid.ui.activity.EventActivity
 import betalab.ca.burstofficialandroid.ui.activity.ProfileActivity
+import betalab.ca.burstofficialandroid.ui.util.NavigationUtils
 import com.alamkanak.weekview.*
 import java.util.*
 
@@ -119,9 +120,8 @@ class CalendarFragment : Fragment() {
         import_cal_button.setOnClickListener {
             Toast.makeText(activity, "Launching Import Activity", Toast.LENGTH_SHORT).show()
         }
-        weekView.setOnEventClickListener { any, rect ->
-            val intent = Intent(context, EventActivity::class.java)
-            startActivity(intent)
+        weekView.setOnEventClickListener { _, _ ->
+            NavigationUtils.sendToEvent(context!!)
         }
     }
 }

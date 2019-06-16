@@ -89,7 +89,7 @@
     <com.google.android.material.button.MaterialButton
             android:id="@+id/location_button_profile"
             style="@style/TextButton_GreyText"
-            android:text="@string/location_str"
+            android:text="@string/back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

@@ -1,5 +1,6 @@
 package betalab.ca.burstofficialandroid.ui.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
 import betalab.ca.burstofficialandroid.model.ExploreHorizontalCardData
 import kotlinx.android.synthetic.main.item_explore_horizontal.view.*
 
-class ExploreAdapter(private val clickListener: (EventEntry) -> Unit) :
+class OrganizationCardAdapter(private val clickListener: (EventEntry) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val dataList : ArrayList<EventEntry> = ArrayList()
 
