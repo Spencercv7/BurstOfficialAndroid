@@ -3,6 +3,8 @@ package betalab.ca.burstofficialandroid.ui.util
 import android.content.Context
 import android.preference.PreferenceManager
 import com.google.firebase.auth.GetTokenResult
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 
 class PrefUtil {
@@ -21,6 +23,20 @@ class PrefUtil {
             editor.putBoolean(COMPLETED_ONBOARDING, completed)
             editor.apply()
         }
+
+        private const val PROFILE_PIC_URL_ID = "com.betalab.profilepicurl"
+
+        fun getProfilePicUrl(context: Context): String? {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(PROFILE_PIC_URL_ID, null)
+        }
+
+        fun setProfilePicUrl(picUrl: String, context: Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putString(PROFILE_PIC_URL_ID, picUrl)
+            editor.apply()
+        }
+
         fun getCalUrl(context: Context): String? {
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             return preferences.getString(CAL_URL_ID, null)
@@ -30,6 +46,7 @@ class PrefUtil {
             editor.putString(CAL_URL_ID, calUrl)
             editor.apply()
         }
+
         fun getTimerLength(context: Context): Int{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             return preferences.getInt(TIMER_LENGTH_ID, 10)

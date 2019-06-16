@@ -39,6 +39,12 @@ import betalab.ca.burstofficialandroid.data.network.BurstApiService
 import betalab.ca.burstofficialandroid.data.network.response.ServerReponse
 import betalab.ca.burstofficialandroid.ui.util.PrefUtil
 import com.google.firebase.auth.FirebaseAuth
+import betalab.ca.burstofficialandroid.ui.util.notification.PrefUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 import net.fortuna.ical4j.data.CalendarBuilder
 import org.kodein.di.KodeinAware
@@ -87,7 +93,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         setContentView(R.layout.activity_onboarding)
         //Get Firebase Authentication
 
-
         registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         setScreen(SCREEN.LANDING)
 
@@ -97,7 +102,32 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             true
         }
         instantiateListeners()
+        profile_pic_chooser.setOnClickListener {
+            // start picker to get image for cropping and then use the image in cropping activity
+            CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropMenuCropButtonTitle("CONFIRM")
+                .start(this)
+        }
     }
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri
+                PrefUtil.setProfilePicUrl(resultUri.toString(), this@LoginActivity) //set preference to url of profile picture
+                Glide.with(this)
+                    .load(resultUri)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profile_pic_chooser)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 
     private fun setScreen(screen: SCREEN) {
         viewFlipper.displayedChild = screen.value
@@ -131,6 +161,15 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
 //            return@setOnEditorActionListener !isUsernameValid(name_register)
 //
 //        }
+        //Picker for profile image
+        profile_pic_chooser.setOnClickListener {
+            // start picker to get image for cropping and then use the image in cropping activity
+            CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropMenuCropButtonTitle("CONFIRM")
+                .start(this)
+        }
+
         name_register.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 name_register.error = null
@@ -221,6 +260,35 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     }
 
 
+
+
+
+
+
+    //Get cropped image picked for profile pictures
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val resultUri = result.uri
+                PrefUtil.setProfilePicUrl(resultUri.toString(), this@LoginActivity) //set preference to url of profile picture
+                Glide.with(this)
+                    .load(resultUri)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(profile_pic_chooser)
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show()
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+
+
+
+
     private fun createFirebaseUser() {
         auth.createUserWithEmailAndPassword(
             email_register.editText?.text.toString(),
@@ -280,6 +348,13 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         password_register.error = ValidationUtils.isPasswordValid(password_register.editText?.text.toString())
         return name_register.error == null && email_register.error == null && password_register.error == null
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(onDownloadComplete)
+    }
+
 
 
     //IMPORT CLASS CALENDAR HANDLING
