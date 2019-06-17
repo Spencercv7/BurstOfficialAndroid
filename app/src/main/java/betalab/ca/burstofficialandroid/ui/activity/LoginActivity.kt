@@ -32,14 +32,15 @@ import kotlinx.android.synthetic.main.onboarding_profile.*
 import kotlinx.android.synthetic.main.onboarding_school.*
 import android.webkit.JsResult
 import android.webkit.WebChromeClient
+import android.widget.ExpandableListView
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import betalab.ca.burstofficialandroid.data.network.BurstApiService
 import betalab.ca.burstofficialandroid.data.network.response.ServerReponse
 import betalab.ca.burstofficialandroid.ui.util.PrefUtil
-import com.google.firebase.auth.FirebaseAuth
-import betalab.ca.burstofficialandroid.ui.util.notification.PrefUtil
+import betalab.ca.burstofficialandroid.ui.view.expandable_list.CustomExpandableListAdapter
+import betalab.ca.burstofficialandroid.ui.view.expandable_list.ExpandableListDataPump
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -91,6 +92,8 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+        setupExpandableList()
+
         //Get Firebase Authentication
 
         registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
@@ -110,22 +113,60 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
                 .start(this)
         }
     }
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    private fun setupExpandableList() {
+        val expandableListDetail = ExpandableListDataPump.data
+        val expandableListTitle = ArrayList<String>(expandableListDetail.keys)
+        val expandableListAdapter = CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail)
+        expandableListView.setAdapter(expandableListAdapter)
+        expandableListView.setOnGroupExpandListener { groupPosition ->
+            Toast.makeText(
+                applicationContext,
+                expandableListTitle[groupPosition] + " List Expanded.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        expandableListView.setOnGroupCollapseListener {
+
+            Toast.makeText(
+                applicationContext,
+                expandableListTitle[it] + " List Collapsed.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
+
+        expandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
+            Toast.makeText(
+                applicationContext,
+                expandableListTitle[groupPosition]
+                        + " -> "
+                        + expandableListDetail[expandableListTitle[groupPosition]]!![childPosition],
+                Toast.LENGTH_SHORT
+            ).show()
+            true
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             if (resultCode == RESULT_OK) {
                 val resultUri = result.uri
-                PrefUtil.setProfilePicUrl(resultUri.toString(), this@LoginActivity) //set preference to url of profile picture
+                PrefUtil.setProfilePicUrl(
+                    resultUri.toString(),
+                    this@LoginActivity
+                ) //set preference to url of profile picture
                 Glide.with(this)
                     .load(resultUri)
-                    .apply(RequestOptions.circleCropTransform())
                     .into(profile_pic_chooser)
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
                 Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show()
             }
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
 
@@ -167,6 +208,8 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
             CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .setCropMenuCropButtonTitle("CONFIRM")
+                .setFixAspectRatio(true)
+                .setCropShape(CropImageView.CropShape.OVAL)
                 .start(this)
         }
 
@@ -260,35 +303,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     }
 
 
-
-
-
-
-
-    //Get cropped image picked for profile pictures
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            val result = CropImage.getActivityResult(data)
-            if (resultCode == RESULT_OK) {
-                val resultUri = result.uri
-                PrefUtil.setProfilePicUrl(resultUri.toString(), this@LoginActivity) //set preference to url of profile picture
-                Glide.with(this)
-                    .load(resultUri)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(profile_pic_chooser)
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                val error = result.error
-                Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show()
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-
-
-
-
-
     private fun createFirebaseUser() {
         auth.createUserWithEmailAndPassword(
             email_register.editText?.text.toString(),
@@ -348,13 +362,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         password_register.error = ValidationUtils.isPasswordValid(password_register.editText?.text.toString())
         return name_register.error == null && email_register.error == null && password_register.error == null
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(onDownloadComplete)
-    }
-
 
 
     //IMPORT CLASS CALENDAR HANDLING
@@ -530,10 +537,10 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         /**
         val file = File(filesDir, "calendar.ics")
         val result = FileInputStream(file).use {
-            val calendar = CalendarBuilder().build(it)
-            calendar.components
+        val calendar = CalendarBuilder().build(it)
+        calendar.components
         }
-        **/
+         **/
     }
 
     @RequiresPermission(allOf = [android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE])

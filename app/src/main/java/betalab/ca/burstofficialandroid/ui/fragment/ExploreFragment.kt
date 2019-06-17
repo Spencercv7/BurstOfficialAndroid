@@ -1,5 +1,6 @@
 package betalab.ca.burstofficialandroid.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.Log
@@ -17,6 +18,7 @@ import betalab.ca.burstofficialandroid.data.db.entity.PeopleEntry
 import betalab.ca.burstofficialandroid.data.network.BurstApiService
 import betalab.ca.burstofficialandroid.data.network.response.EventIdResponse
 import betalab.ca.burstofficialandroid.internal.glide.GlideApp
+import betalab.ca.burstofficialandroid.ui.activity.NewEventActivity
 import betalab.ca.burstofficialandroid.ui.adapter.ClubAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.ExploreAdapter
 import betalab.ca.burstofficialandroid.ui.viewmodels.EventViewModel
@@ -86,7 +88,10 @@ class ExploreFragment : ScopedFragment(), KodeinAware {
                 DateFormat.format("h:mm a", ZonedDateTime.ofInstant(Instant.ofEpochSecond(featureEvents[0].end), ZoneId.systemDefault()).toCalendar())
         feature_card_1.explore_event_date.text = dateText
         feature_card_1.explore_event_title.text = featureEvents[0].name
-
+        explore_list_yours.setOnClickListener {
+            val intent = Intent(context!!, NewEventActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

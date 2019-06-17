@@ -21,6 +21,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/explore_main_event1_placeholder"
+                android:tint="@color/black_50"
                 tools:ignore="ContentDescription"/>
 
         <TextView

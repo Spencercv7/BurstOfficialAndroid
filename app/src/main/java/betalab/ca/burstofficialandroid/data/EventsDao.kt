@@ -12,8 +12,8 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun upsert(weatherEntry: EventEntry)
 
-    @Query("select * from events order by start")
-    fun getEvents(): LiveData<List<EventEntry>>
+    @Query("select * from events WHERE `end` > :currentTime order by start")
+    fun getEvents(currentTime: Long = System.currentTimeMillis()/1000): LiveData<List<EventEntry>>
     @Query("select * from events where eventId = :eventId LIMIT 1")
     fun getEventById(eventId: String): EventEntry
     @Query("select * from events where eventId IN (:eventId)")

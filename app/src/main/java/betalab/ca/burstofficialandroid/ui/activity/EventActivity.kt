@@ -124,11 +124,11 @@ class EventActivity : ScopedActivity(), KodeinAware {
         if (result.attendees.contains(FirebaseAuth.getInstance().currentUser!!.email))
             event_register_button.text = getString(R.string.attending_event_string)
         attending_event_count.text = result.attendees.size.toString()
-        if (result.coverImage != null)
+        if (!result.coverImage.isNullOrBlank())
             runOnUiThread {
                 GlideApp.with(this@EventActivity).load(result.coverImage).into(top_bar_image)
             }
-        if(result.mainImage != null){
+        if(!result.mainImage.isNullOrBlank()){
             runOnUiThread {
                 event_photo.visibility = ImageView.VISIBLE
                 main_image_container.visibility = ImageView.VISIBLE
