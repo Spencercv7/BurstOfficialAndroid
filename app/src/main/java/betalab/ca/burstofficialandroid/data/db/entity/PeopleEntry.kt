@@ -5,6 +5,7 @@ import android.nfc.Tag
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 @Entity(tableName = "people")
@@ -30,7 +31,7 @@ data class PeopleEntry(
     val schedule: String,
     @SerializedName("school")
     val school: String
-) {
+): Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

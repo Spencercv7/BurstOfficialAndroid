@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import betalab.ca.burstofficialandroid.R
 import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
+import betalab.ca.burstofficialandroid.data.db.entity.PeopleEntry
+import betalab.ca.burstofficialandroid.internal.glide.GlideApp
 import betalab.ca.burstofficialandroid.model.ScheduleCardData
 import betalab.ca.burstofficialandroid.ui.adapter.ExploreAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.HomeScheduleAdapter
@@ -14,6 +16,7 @@ import betalab.ca.burstofficialandroid.ui.viewmodels.EventViewModel
 import betalab.ca.burstofficialandroid.ui.viewmodels.EventsViewModelFactory
 import betalab.ca.burstofficialandroid.ui.fragment.OnClickAdapterExplore
 import betalab.ca.burstofficialandroid.ui.util.NavigationUtils
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -29,6 +32,11 @@ class ProfileActivity : ScopedActivity(), KodeinAware, OnClickAdapterExplore {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        val profile: PeopleEntry = intent.getSerializableExtra("person") as PeopleEntry
+        GlideApp.with(this).load(profile.avatar).into(profile_picture)
+        profile_name.text = profile.name
+        profile_school.text = profile.program + " @"+profile.school
+        follow_button.setOnClickListener { if((it as MaterialButton).text == "FOLLOW") "FOLLOWING" else "FOLLOW"}
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(EventViewModel::class.java)
         bindUI()
         val dataSetSchedule = listOf(

@@ -25,6 +25,7 @@ import betalab.ca.burstofficialandroid.internal.glide.GlideApp
 import betalab.ca.burstofficialandroid.ui.adapter.ImageCardAdapter
 import betalab.ca.burstofficialandroid.ui.adapter.SimilarCardAdapter
 import betalab.ca.burstofficialandroid.ui.util.ConversionUtils
+import betalab.ca.burstofficialandroid.ui.util.NavigationUtils
 import betalab.ca.burstofficialandroid.ui.view.CircularImageView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_event_page.*
@@ -71,6 +72,9 @@ class EventActivity : ScopedActivity(), KodeinAware {
                     else
                         GlideApp.with(this@EventActivity).load(get(i).avatar).centerCrop().into(imageViewToAdd)
                     imageViewToAdd.layout(ConversionUtils.dpToPixels(this@EventActivity, -4), 0, 0, 0)
+                    imageViewToAdd.setOnClickListener {
+                        NavigationUtils.sendToProfile(this@EventActivity, users[i].toEntry())
+                    }
                     attending_event_container.addView(imageViewToAdd)
                 }
                 if (size >= 10)

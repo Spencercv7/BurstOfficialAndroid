@@ -70,7 +70,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     private val burstApiService: BurstApiService by instance()
     private val EXTERNAL_PERMISSION_READ = 1
     private val EXTERNAL_PERMISSION_WRITE = 2
-    private lateinit var auth: FirebaseAuth
     private val onDownloadComplete = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             Toast.makeText(context, "file downloaded" + intent?.extras.toString(), Toast.LENGTH_SHORT).show()
@@ -99,11 +98,6 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
         registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         setScreen(SCREEN.LANDING)
 
-        password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO)
-                setScreen(SCREEN.SCHOOL)
-            true
-        }
         instantiateListeners()
         profile_pic_chooser.setOnClickListener {
             // start picker to get image for cropping and then use the image in cropping activity
@@ -137,14 +131,8 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
 
         }
 
-        expandableListView.setOnChildClickListener { _, _, groupPosition, childPosition, _ ->
-            Toast.makeText(
-                applicationContext,
-                expandableListTitle[groupPosition]
-                        + " -> "
-                        + expandableListDetail[expandableListTitle[groupPosition]]!![childPosition],
-                Toast.LENGTH_SHORT
-            ).show()
+        expandableListView.setOnChildClickListener { parent, view, groupPosition, childPosition, _ ->
+            view.isSelected = !view.isSelected
             true
         }
     }
@@ -181,8 +169,15 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
 
         //Login screen
         login_login_button.setOnClickListener {
-            setScreen(SCREEN.SCHOOL)
-        }  //open main activity
+            attemptFirebaseSignIn(email_edit_text.editText!!.text.toString(), password_edit_text.editText!!.text.toString())
+        }
+        //The enter button pressed
+        password_edit_text.editText?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO)
+                attemptFirebaseSignIn(email_edit_text.editText!!.text.toString(), password_edit_text.editText!!.text.toString())
+            true
+        }
+
         back_button_login.setOnClickListener { setScreen(SCREEN.LANDING) } //back to landing
 
         //activity_school_an screen
@@ -304,7 +299,7 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
 
 
     private fun createFirebaseUser() {
-        auth.createUserWithEmailAndPassword(
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(
             email_register.editText?.text.toString(),
             password_register.editText?.text.toString()
         )
@@ -325,7 +320,7 @@ class LoginActivity : AppCompatActivity(), KodeinAware {
     }
 
     private fun attemptFirebaseSignIn(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information

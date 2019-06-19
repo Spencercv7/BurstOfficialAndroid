@@ -102,6 +102,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
             android:divider="@android:color/darker_gray"
+            android:choiceMode="singleChoice"
             android:dividerHeight="0.5dp" />
 
     <com.google.android.material.button.MaterialButton

@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import betalab.ca.burstofficialandroid.data.db.entity.EventEntry
 import betalab.ca.burstofficialandroid.data.db.entity.PeopleEntry
+import betalab.ca.burstofficialandroid.data.network.response.PeopleResponse
 
 @Dao
 interface PeopleDao {

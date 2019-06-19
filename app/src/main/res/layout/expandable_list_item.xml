@@ -8,5 +8,6 @@
             android:layout_height="wrap_content"
             android:paddingStart="?android:attr/expandableListPreferredChildPaddingLeft"
             android:paddingTop="10dp"
+            android:background="@drawable/expandable_list_item"
             android:paddingBottom="10dp" tools:ignore="RtlSymmetry"/>
 </LinearLayout>
